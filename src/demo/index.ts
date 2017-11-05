@@ -2,11 +2,14 @@
 
 /** Import project dependencies */
 import express from 'express';
-import html from '../';
+import ntml from '../';
 
 /** Setting up */
 const PORT = 4343;
 const app = express();
+const html = ntml({
+  cacheName: 'main',
+});
 
 app.get('/', async (_, res) => {
   // const waitUntil = (after) => () => new Promise(yay => setTimeout(() => yay('haha'), after));

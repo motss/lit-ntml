@@ -1,18 +1,37 @@
 // @ts-check
 
-export async function ntml(strings: TemplateStringsArray, ...exps: (Function|Promise<string>|string)[]) {
-  try {
-    // console.log(strings, exps);
+export declare interface Ntml {
+  cacheName?: string;
+}
 
-    const tasks: Promise<string>[] = exps.map(n => n instanceof Function ? n() : n);
-    const d = await Promise.all(tasks);
+const lru = new Map();
 
-    // console.log('#', exps, d);
+export function ntml({
+  cacheName /** @type {string} */,
+}: Ntml) {
+  return async (strings: TemplateStringsArray, ...exps: (Function|Promise<string>|string)[]) => {
+    try {
+      const hasCacheName = typeof cacheName === 'string' && cacheName.length > 0;
 
-    return strings.map((n, idx) => `${n}${d[idx] || ''}`).join('').trim();
-  } catch (e) {
-    throw e;
-  }
+      if (hasCacheName && lru.get(cacheName)) {
+        return lru.get(cacheName);
+      }
+
+      const tasks: Promise<string>[] = exps.map(n => n instanceof Function ? n() : n);
+      const d = await Promise.all(tasks);
+      const rendered = strings.map((n, idx) => `${n}${d[idx] || ''}`).join('').trim();
+
+      if (hasCacheName) {
+        lru.set(cacheName, rendered);
+      }
+
+      console.log('#', rendered);
+
+      return rendered;
+    } catch (e) {
+      throw e;
+    }
+  };
 }
 
 export default ntml;
