@@ -17,6 +17,22 @@ app.get('/', async (_, res) => {
     // const waitUntil = (after) => () => new Promise(yay => setTimeout(() => yay('haha'), after));
     const header = text => () => new Promise(yay => setTimeout(() => yay(`<div class="header">${text}</div>`), 3e3));
     const content = text => async () => `<div class="content">${text}</div>`;
+    const moreContent = await ntml({
+      cacheName: 'more',
+      minify: true,
+    })`
+      <div>More content!</div>
+      <ul>
+        <li>Test list content</li>
+        <li>Test list content</li>
+        <li>Test list content</li>
+        <li>Test list content</li>
+        <li>Test list content</li>
+        <li>Test list content</li>
+        <li>Test list content</li>
+        <li>Test list content</li>
+      </ul>
+    `;
 
     const rendered = await html`
       <html lang="en">
@@ -43,6 +59,7 @@ app.get('/', async (_, res) => {
 
           <main>
             <div>Hello, world! ${header('Hello, world!')} ${content('lorem ipsum')}</div>
+            <div>${moreContent}</div>
           </main>
         </body>
       </html>

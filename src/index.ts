@@ -1,5 +1,8 @@
 // @ts-check
 
+/** Import project dependencies */
+import htmlMinifier from 'html-minifier';
+
 export declare interface Ntml {
   cacheName?: string;
   cacheExpiry?: number;
@@ -7,7 +10,12 @@ export declare interface Ntml {
   minify?: boolean;
 }
 
+/** Setting up */
 const lru = new Map();
+const minifyHtml = hyratedString => htmlMinifier.minify(hyratedString, {
+  collapseWhitespace: true,
+  removeComments: true,
+});
 
 export function ntml({
   cacheName /** @type {string} */,
@@ -27,12 +35,15 @@ export function ntml({
 
       const tasks: Promise<string>[] = exps.map(n => n instanceof Function ? n() : n);
       const d = await Promise.all(tasks);
-      const rendered = strings.map((n, idx) => `${n}${d[idx] || ''}`).join('').trim();
+      const preRendered = strings.map((n, idx) => `${n}${d[idx] || ''}`).join('').trim();
+      const rendered = minify ? minifyHtml(preRendered) : preRendered;
 
       if (hasCacheName) {
         if (lru.size >= cacheMaxSize) lru.clear();
         lru.set(cacheName, { useUntil: +new Date() + cacheExpiry, data: rendered });
       }
+
+      console.log('#', lru.entries());
 
       return rendered;
     } catch (e) {

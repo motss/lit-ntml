@@ -1,15 +1,16 @@
 {
   "name": "lit-ntml",
   "version": "0.0.0",
+  "private": true,
   "description": "Inspired by lit-html but for Node.js",
   "keywords": [
+    "html",
     "lit-ntml",
     "npm",
     "ntml",
-    "html",
-    "templating",
+    "tagged-template-literals",
     "template",
-    "tagged-template-literals"
+    "templating"
   ],
   "homepage": "https://github.com/motss/lit-ntml",
   "license": "MIT",
@@ -20,17 +21,22 @@
     "url": "git@github.com:motss/lit-ntml.git"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production gulp build",
-    "gulp": "gulp",
+    "build": "npm run ts && cross-env NODE_ENV=production gulp build && rm -rf gulpfile.js",
     "check": "npm run lint && npm run nsp",
+    "debug": "node --inspect --expose-gc --max-old-space-size=8192 -r @std/esm dist/demo",
+    "gulp": "npm run ts && gulp",
     "lint": "eslint ./src",
     "nsp": "nsp check",
-    "debug": "node --inspect --expose-gc --max-old-space-size=8192 -r @std/esm dist/demo"
+    "ts": "tsc gulpfile.ts"
   },
   "dependencies": {
-    "@std/esm": "^0.13.0"
+    "@std/esm": "^0.13.0",
+    "html-minifier": "^3.5.6"
   },
   "devDependencies": {
+    "@types/express": "^4.0.39",
+    "@types/html-minifier": "^1.1.30",
+    "@types/node": "^8.0.47",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-function-bind": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -54,7 +60,6 @@
     "node": ">= 6.9.1",
     "npm": ">= 3.10.8"
   },
-  "private": true,
   "@std/esm": {
     "esm": "all",
     "cjs": true,

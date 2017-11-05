@@ -25,7 +25,8 @@
 - [x] `cacheName: 'main'` to cache rendered content with the name `main`
 - [x] `cacheExpiry: 10e3` to set cache expiry time
 - [x] `cacheMaxSize: 1000` to set cache max size
-- [ ] `minify: true` to minify rendered HTML
+- [x] `minify: true` to minify rendered HTML
+- [ ] `cacheStore` to cache rendered content somewhere else instead of in-memory caching
 
 ## Pre-requisite
 
