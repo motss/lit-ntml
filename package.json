@@ -17,7 +17,7 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:motss/lit-ntml.git"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp build",

@@ -2,7 +2,7 @@
 
 > Inspired by [lit-html][lit-html-url] but for Node.js.
 
-Lightweight and modern templating for SSR in Node.js, inspired by [lit-html][lit-html-url].
+Lightweight and modern templating for SSR in [Node.js][node-js-url], inspired by [lit-html][lit-html-url].
 
 ## Features
 
@@ -55,4 +55,8 @@ console.log('#', rendered); /** <html lang="en>...</html> */
 
 ## License
 
-[MIT License](https://motss.mit-license.org) © Rong Sen Ng
+[MIT License][mit-license-url] © Rong Sen Ng
+
+[mit-license-url]: https://motss.mit-license.org
+[node-js-url]: https://nodejs.org
+[lit-html-url]: https://github.com/PolymerLabs/lit-html

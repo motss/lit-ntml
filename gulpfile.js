@@ -15,6 +15,7 @@ const BABELRC = {
       {
         targets: {
           node: 'current',
+          // node: '6.9',
         },
         spec: true,
         modules: false,
