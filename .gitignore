@@ -1,0 +1,17 @@
+.DS_Store
+.esm-cache
+*.env
+.build/
+.nyc_output
+.tmp/
+.vscode
+npm-debug.log*
+yarn-error.log*
+build/
+coverage/
+dist/
+dist/**/__mocks__/
+dist/**/__tests__/
+logs/**/[^.]*
+node_modules/
+out/

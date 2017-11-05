@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "zumata"
+  ],
+  "plugins": [
+  ],
+  "root": true,
+  "rules": {
+    "camelcase": [
+      "error",
+      { "properties": "never" }
+    ],
+    "no-bitwise": [
+      "error",
+      { "allow": ["^"] }
+    ],
+    "no-console": [
+      "error",
+      { "allow": [ "info", "log", "error", "warn" ] }
+    ]
+  }
+}

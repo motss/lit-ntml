@@ -1,0 +1,64 @@
+{
+  "name": "lit-ntml",
+  "version": "0.0.0",
+  "description": "Inspired by lit-html but for Node.js",
+  "keywords": [
+    "lit-ntml",
+    "npm",
+    "ntml",
+    "html",
+    "templating",
+    "template",
+    "tagged-template-literals"
+  ],
+  "homepage": "https://github.com/motss/lit-ntml",
+  "license": "MIT",
+  "author": "Rong Sen Ng <wes.ngrongsen@gmail.com>",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production gulp build",
+    "gulp": "gulp",
+    "check": "npm run lint && npm run nsp",
+    "lint": "eslint ./src",
+    "nsp": "nsp check",
+    "debug": "node --inspect --expose-gc --max-old-space-size=8192 -r @std/esm dist/demo"
+  },
+  "dependencies": {
+    "@std/esm": "^0.13.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-function-bind": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-minify": "^0.2.0",
+    "cross-env": "^5.1.1",
+    "del": "^3.0.0",
+    "eslint": "^4.4.1",
+    "eslint-config-zumata": "^0.6.0",
+    "express": "^4.16.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-sequence": "^0.4.6",
+    "gulp-typescript": "^3.2.3",
+    "nsp": "^2.7.0",
+    "typescript": "^2.6.1",
+    "typescript-lit-html-plugin": "^0.0.2"
+  },
+  "engines": {
+    "node": ">= 6.9.1",
+    "npm": ">= 3.10.8"
+  },
+  "private": true,
+  "@std/esm": {
+    "esm": "all",
+    "cjs": true,
+    "await": true,
+    "gz": true
+  }
+}
