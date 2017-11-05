@@ -1,5 +1,7 @@
 # lit-ntml
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/motss/lit-ntml.svg)](https://greenkeeper.io/)
+
 > Inspired by [lit-html][lit-html-url] but for Node.js.
 
 Lightweight and modern templating for SSR in Node.js, inspired by [lit-html][lit-html-url].
