@@ -23,7 +23,9 @@
 
 - [x] `await` all Promise-based tasks
 - [x] `cacheName: 'main'` to cache rendered content with the name `main`
-- [ ] `cacheExpiry: 10e3` to set cache expiry time
+- [x] `cacheExpiry: 10e3` to set cache expiry time
+- [x] `cacheMaxSize: 1000` to set cache max size
+- [ ] `minify: true` to minify rendered HTML
 
 ## Pre-requisite
 
