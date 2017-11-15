@@ -21,12 +21,10 @@
 
 ## Features
 
-- [x] `await` all Promise-based tasks
-- [x] `cacheName: 'main'` to cache rendered content with the name `main`
-- [x] `cacheExpiry: 10e3` to set cache expiry time
-- [x] `cacheMaxSize: 1000` to set cache max size
+- [x] `await` all tasks including Promises
+- [x] `cacheStore: new QuickLru()` to use a custom [ES6 Map][es6-map-url] compliant cache instance
+- [x] `cacheExpiry: 10e3` to set TTL of a cached item. Defaults to 1 year of TTL.
 - [x] `minify: true` to minify rendered HTML
-- [ ] `cacheStore` to cache rendered content somewhere else instead of in-memory caching
 
 ## Pre-requisite
 
@@ -87,6 +85,7 @@ console.log('#', rendered); /** <html lang="en>...</html> */
 [node-js-url]: https://nodejs.org
 [lit-html-url]: https://github.com/PolymerLabs/lit-html
 [npm-url]: https://www.npmjs.com
+[es6-map-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 
 [travis-badge]: https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square
 [version-badge]: https://img.shields.io/npm/v/lit-ntml.svg?style=flat-square

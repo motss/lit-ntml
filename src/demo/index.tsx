@@ -3,13 +3,15 @@
 /** Import project dependencies */
 import express from 'express';
 import ntml from '../';
+import QuickLru from 'quick-lru';
 
 /** Setting up */
 const PORT = 4343;
 const app = express();
+const lru = new QuickLru({ maxSize: 1000 });
 const html = ntml({
+  cacheStore: lru,
   cacheName: 'main',
-  cacheExpiry: 10e3,
 });
 
 app.get('/', async (_, res) => {
@@ -18,6 +20,7 @@ app.get('/', async (_, res) => {
     const header = text => () => new Promise(yay => setTimeout(() => yay(`<div class="header">${text}</div>`), 3e3));
     const content = text => async () => `<div class="content">${text}</div>`;
     const moreContent = await ntml({
+      cacheStore: lru,
       cacheName: 'more',
       minify: true,
     })`
@@ -33,6 +36,7 @@ app.get('/', async (_, res) => {
         <li>Test list content</li>
       </ul>
     `;
+    const someLoremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 
     const rendered = await html`
       <html lang="en">
@@ -60,6 +64,7 @@ app.get('/', async (_, res) => {
           <main>
             <div>Hello, world! ${header('Hello, world!')} ${content('lorem ipsum')}</div>
             <div>${moreContent}</div>
+            <div>${someLoremIpsum}</div>
           </main>
         </body>
       </html>

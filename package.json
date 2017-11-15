@@ -53,6 +53,7 @@
     "gulp-sequence": "^0.4.6",
     "gulp-typescript": "^3.2.3",
     "nsp": "^2.7.0",
+    "quick-lru": "^1.1.0",
     "typescript": "^2.6.1",
     "typescript-lit-html-plugin": "^0.0.2"
   },
