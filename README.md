@@ -33,16 +33,17 @@
 
 ## How to use
 
-The following is a simple code snippet:
+### Await all tasks (Promises, Functions, strings, etc)
 
 ```ts
-/* Import the package */
+/** Import project dependencies */
 import ntml from 'lit-ntml';
 
 /** Setting up */
-const html = ntml(); // Set ntml({ cacheName: 'main' }) to cache the rendered content.
+const html = ntml();
 const header = text => () => new Promise(yay => setTimeout(() => yay(`<div class="header">${text}</div>`), 3e3));
 const content = text => async () => `<div class="content">${text}</div>`;
+const someLoremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 
 const rendered = await html`
   <html lang="en">
@@ -69,12 +70,106 @@ const rendered = await html`
 
       <main>
         <div>Hello, world! ${header('Hello, world!')} ${content('lorem ipsum')}</div>
+        <div>${someLoremIpsum}</div>
       </main>
     </body>
   </html>
 `;
 
 console.log('#', rendered); /** <html lang="en>...</html> */
+```
+
+### Use custom cache store + unique cache name to cache rendered HTML
+
+```ts
+/** Import project dependencies */
+import ntml from 'lit-ntml';
+import QuickLru from 'quick-lru';
+
+/** Setting up */
+const cacheStore = new QuickLru({ maxSize: 1000 }); // A cache instance must be ES6 Map compliant.
+// const simpleCache = new Map(); // Simple cache using ES6 Map.
+const html = ntml({
+  cacheStore, // cacheStore: simpleCache,
+  cacheName: 'main', // Gives the rendered HTML a unique name
+  cacheExpiry: 10e3, // Set TTL of the rendered HTML. Defaults to 1 year.
+});
+
+const cacheAfterRendered = await html`
+  <html lang="en">
+    <body>
+      <style>
+        body {
+          padding: 0;
+          margin: 0;
+          font-size: 16px;
+          font-family: 'sans-serif';
+          box-sizing: border-box;
+        }
+
+        .header {
+          background: #0070fb;
+          color: #fff;
+        }
+
+        .content {
+          background: #f5f5f5;
+          color: #000;
+        }
+      </style>
+
+      <main>
+        <div>Hello, world!</div>
+        <div>This content will be cached!</div>
+      </main>
+    </body>
+  </html>
+`;
+
+console.log('#', cacheAfterRendered); /** <html lang="en">...</html> */
+```
+
+### Minify rendered HTML
+
+```ts
+/** Import project dependencies */
+import ntml from 'lit-ntml';
+
+/** Setting up */
+const html = ntml({ minifyHtml: true });
+
+const minifyAfterRendered = await html`
+  <html lang="en">
+    <body>
+      <style>
+        body {
+          padding: 0;
+          margin: 0;
+          font-size: 16px;
+          font-family: 'sans-serif';
+          box-sizing: border-box;
+        }
+
+        .header {
+          background: #0070fb;
+          color: #fff;
+        }
+
+        .content {
+          background: #f5f5f5;
+          color: #000;
+        }
+      </style>
+
+      <main>
+        <div>Hello, world!</div>
+        <div>This content will be minified!</div>
+      </main>
+    </body>
+  </html>
+`;
+
+console.log('#', minifyAfterRendered); /** <html lang="en"><body><style>...</style><main>...</main></body></html> */
 ```
 
 ## License
