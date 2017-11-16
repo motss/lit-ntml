@@ -13,7 +13,7 @@ function toMs(timestamp: [number, number]) {
 }
 
 test('lit-ntml', async (t) => {
-  console.log('#', os.cpus());
+  console.log('#', os.cpus().length, os.cpus()[0]);
 
   t.pass();
 });
