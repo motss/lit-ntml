@@ -1,5 +1,7 @@
 <div align="center" style="text-align: center;">
   <h1 style="border-bottom: none;">lit-ntml</h1>
+  
+> Inspired by [lit-html][lit-html-url] but for Node.js.
 
   <p>Inspired by <a href="https://github.com/PolymerLabs/lit-html" target="_blank" rel="noopener">lit-html</a> but for Node.js.</p>
 </div>
@@ -13,6 +15,7 @@
 [![MIT License][mit-license-badge]][mit-license-url]
 [![Dependency Status][daviddm-badge]][daviddm-url]
 [![NSP Status][nsp-badge]][nsp-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/motss/lit-ntml.svg)](https://greenkeeper.io/)
 
 [![Code of Conduct][coc-badge]][coc-url]
 
