@@ -1,8 +1,11 @@
-const gulp = require('gulp');
-const ts = require('gulp-typescript');
-const babel = require('gulp-babel');
-const sq = require('gulp-sequence');
-const del = require('del');
+// @ts-check
+
+/** Import project dependencies */
+import * as gulp from 'gulp';
+import * as ts from 'gulp-typescript';
+import * as babel from 'gulp-babel';
+import * as sq from 'gulp-sequence';
+import * as del from 'del';
 
 const isProd = process.env.NODE_ENV === 'production';
 const SRC = 'src';
@@ -15,6 +18,7 @@ const BABELRC = {
       {
         targets: {
           node: 'current',
+          // node: '6.9',
         },
         spec: true,
         modules: false,
@@ -48,6 +52,7 @@ const BABELRC = {
 gulp.task('ts', () =>
   gulp.src([
     `${SRC}/**/*.ts`,
+    `${SRC}/**/*.tsx`,
   ])
     .pipe(ts.createProject('./tsconfig.json')())
     .pipe(gulp.dest(TMP)));
@@ -66,6 +71,7 @@ gulp.task('clean', () => del([
 
 gulp.task('clear', () => del([
   TMP,
+  './gulpfile.js',
 ]));
 
 gulp.task('copy', () => gulp.src([
@@ -77,6 +83,7 @@ gulp.task('copy', () => gulp.src([
 gulp.task('watch', () => {
   gulp.watch([
     `${SRC}/**/*.ts`,
+    `${SRC}/**/*.tsx`,
   ], ['build']);
 });
 

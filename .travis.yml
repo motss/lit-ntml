@@ -1,0 +1,8 @@
+language: node_js
+dist: trusty
+node_js:
+  - v8
+  - v9
+script:
+  - npm run build
+  - npm run test

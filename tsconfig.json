@@ -5,6 +5,7 @@
     "allowUnreachableCode": false,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
+    "removeComments": true,
     "traceResolution": true,
     "newLine": "LF",
     "experimentalDecorators": true,
@@ -36,7 +37,7 @@
   },
   "include": [
     "src/**/*",
-    "types/jsx.d.ts"
+    "types/*.d.ts"
   ],
   "exclude": [
     "node_modules"
