@@ -25,8 +25,8 @@ export function ntml({
   cacheName /** @type {string} */,
   cacheExpiry /** @type {number} */ = 12 * 30 * 24 * 3600,
   minify /** @type {boolean} */ = false,
-}: Ntml) {
-  return async (strings: TemplateStringsArray, ...exps: (Function|Promise<string>|string)[]) => {
+}: Ntml = {}) {
+  return async (strings: TemplateStringsArray, ...exps: (Function|Promise<any>|string)[]) => {
     try {
       const hasCacheStore = !!(typeof cacheStore !== 'undefined'
         && cacheStore.has

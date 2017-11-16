@@ -22,11 +22,12 @@
   "scripts": {
     "build": "npm run ts && cross-env NODE_ENV=production gulp build && rm -rf gulpfile.js",
     "check": "npm run lint && npm run nsp",
-    "debug": "node --inspect --expose-gc --max-old-space-size=8192 -r @std/esm dist/demo",
+    "debug": "ts-node --inspect --expose-gc --max-old-space-size=8192 -r @std/esm dist/demo",
     "gulp": "npm run ts && gulp",
     "lint": "eslint ./src",
     "nsp": "nsp check",
-    "ts": "tsc gulpfile.ts"
+    "ts": "tsc gulpfile.ts",
+    "test": "ava dist/test"
   },
   "dependencies": {
     "@std/esm": "^0.13.0",
@@ -36,6 +37,7 @@
     "@types/express": "^4.0.39",
     "@types/html-minifier": "^1.1.30",
     "@types/node": "^8.0.47",
+    "ava": "^0.23.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-function-bind": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -53,6 +55,7 @@
     "gulp-typescript": "^3.2.3",
     "nsp": "^2.7.0",
     "quick-lru": "^1.1.0",
+    "ts-node": "^3.3.0",
     "typescript": "^2.6.1",
     "typescript-lit-html-plugin": "^0.0.2"
   },
@@ -65,5 +68,11 @@
     "cjs": true,
     "await": true,
     "gz": true
+  },
+  "ava": {
+    "require": [
+      "ts-node/register",
+      "@std/esm"
+    ]
   }
 }
