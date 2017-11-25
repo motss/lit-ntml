@@ -176,10 +176,10 @@ console.log('#', minifyAfterRendered); /** <html lang="en"><body><style>...</sty
 
 ## Non-TypeScript users
 
-For non-TypeScript users, here the snippet:
+For non-TypeScript users, here's the snippet:
 
 ```js
-const { ntml } = require('../../dist');
+const { ntml } = require('ntml');
 
 (async () => {
   const html = ntml();
