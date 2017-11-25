@@ -1,7 +1,7 @@
 // @ts-check
 
 /** Import project dependencies */
-import htmlMinifier from 'html-minifier';
+import * as htmlMinifier from 'html-minifier';
 
 export declare interface cacheStorMap {
   useUntil: number;
@@ -41,7 +41,7 @@ export function ntml({
       if (hasCacheStore && hasCacheName && cacheStore.has(cacheName)) {
         const cached = cacheStore.get(cacheName);
         if (cached.useUntil >= +new Date()) return cached.data;
-        else cacheStore.delete(cacheName);
+        cacheStore.delete(cacheName);
       }
 
       const tasks: Promise<string>[] = exps.map(async n => n instanceof Function ? n() : n);

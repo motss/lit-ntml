@@ -1,22 +1,14 @@
 // @ts-check
 
 /** Import project dependencies */
-import os from 'os';
-import test from 'ava';
+import { test } from 'ava';
 
 /** Import other module */
 import ntml from '../';
-import { setTimeout } from 'timers';
 
 function toMs(timestamp: [number, number]) {
   return (timestamp[0] * 1e3) + (timestamp[1] * 1e-6);
 }
-
-test('lit-ntml', async (t) => {
-  console.log('#', os.cpus().length, os.cpus()[0]);
-
-  t.pass();
-});
 
 test('render simple Hello, World', async (t) => {
   try {

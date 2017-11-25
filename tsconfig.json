@@ -6,7 +6,7 @@
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "removeComments": true,
-    "traceResolution": true,
+    "traceResolution": false,
     "newLine": "LF",
     "experimentalDecorators": true,
     "lib": [
@@ -15,7 +15,7 @@
       "dom"
     ],
     "moduleResolution": "node",
-    "module": "esnext",
+    "module": "commonjs",
     "plugins": [
       {
         "name": "typescript-lit-html-plugin",
@@ -40,6 +40,7 @@
     "types/*.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/demo"
   ]
 }

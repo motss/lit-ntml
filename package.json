@@ -22,18 +22,19 @@
   "scripts": {
     "build": "npm run ts && cross-env NODE_ENV=production gulp build && rm -rf gulpfile.js",
     "check": "npm run lint && npm run nsp",
-    "debug": "ts-node --inspect --expose-gc --max-old-space-size=8192 -r @std/esm dist/demo",
+    "debug": "node --inspect --expose-gc --max-old-space-size=8192 -r @std/esm dist/demo",
     "gulp": "npm run ts && gulp",
-    "lint": "eslint ./src",
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "lint:fix": "tslint -p . -c tslint.json --fix",
     "nsp": "nsp check",
-    "ts": "tsc gulpfile.ts",
-    "test": "ava dist/test"
+    "test": "ava dist/test",
+    "ts": "tsc gulpfile.ts"
   },
   "dependencies": {
     "html-minifier": "^3.5.6"
   },
   "devDependencies": {
-    "@std/esm": "^0.15.0",
+    "@std/esm": "^0.17.1",
     "@types/express": "^4.0.39",
     "@types/html-minifier": "^1.1.30",
     "@types/node": "^8.0.47",
@@ -46,32 +47,25 @@
     "babel-preset-minify": "^0.2.0",
     "cross-env": "^5.1.1",
     "del": "^3.0.0",
-    "eslint": "^4.4.1",
-    "eslint-config-zumata": "^0.6.0",
     "express": "^4.16.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-sequence": "^0.4.6",
     "gulp-typescript": "^3.2.3",
-    "nsp": "^2.7.0",
+    "nsp": "^3.1.0",
     "quick-lru": "^1.1.0",
-    "ts-node": "^3.3.0",
-    "typescript": "^2.6.1",
-    "typescript-lit-html-plugin": "^0.0.2"
+    "tslint": "^5.8.0",
+    "tslint-config-airbnb": "^5.4.2",
+    "tslint-config-prettier": "^1.6.0",
+    "typescript": "^2.6.1"
   },
   "engines": {
     "node": ">= 6.9.1",
     "npm": ">= 3.10.8"
   },
-  "@std/esm": {
-    "esm": "all",
-    "cjs": true,
-    "await": true,
-    "gz": true
-  },
+  "@std/esm": "cjs",
   "ava": {
     "require": [
-      "ts-node/register",
       "@std/esm"
     ]
   }

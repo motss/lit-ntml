@@ -26,6 +26,7 @@
 - [x] `cacheStore: new QuickLru()` to use a custom [ES6 Map][es6-map-url] compliant cache instance
 - [x] `cacheExpiry: 10e3` to set TTL of a cached item. Defaults to 1 year of TTL.
 - [x] `minify: true` to minify rendered HTML
+- [x] Compatible for ES Modules (`import ntml from 'ntml'`) and CommonJS (`const { ntml } = require('ntml');`)
 
 ## Pre-requisite
 
@@ -171,6 +172,25 @@ const minifyAfterRendered = await html`
 `;
 
 console.log('#', minifyAfterRendered); /** <html lang="en"><body><style>...</style><main>...</main></body></html> */
+```
+
+## Non-TypeScript users
+
+For non-TypeScript users, here the snippet:
+
+```js
+const { ntml } = require('../../dist');
+
+(async () => {
+  const html = ntml();
+
+  const rendered = await html`<div>haha</div>`;
+
+  console.log('#', rendered);
+  /**
+   * <div>haha</div>
+   */
+})();
 ```
 
 ## License
