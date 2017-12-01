@@ -138,7 +138,9 @@ console.log('#', cacheAfterRendered); /** <html lang="en">...</html> */
 import ntml from 'lit-ntml';
 
 /** Setting up */
-const html = ntml({ minifyHtml: true });
+const html = ntml({
+  minify: true,
+});
 
 const minifyAfterRendered = await html`
   <html lang="en">
