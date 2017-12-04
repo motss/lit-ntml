@@ -1,6 +1,6 @@
 {
   "name": "lit-ntml",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Inspired by lit-html but for Node.js",
   "keywords": [
     "html",
@@ -27,6 +27,7 @@
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "lint:fix": "tslint -p . -c tslint.json --fix",
     "nsp": "nsp check",
+    "prepublishOnly": "npm run check && npm run build",
     "test": "ava dist/test",
     "ts": "tsc gulpfile.ts"
   },
