@@ -6,17 +6,15 @@
 
 <hr />
 
-
 [![Build Status][travis-badge]][travis-url]
 [![Version][version-badge]][version-url]
 [![Downloads][downloads-badge]][downloads-url]
 [![MIT License][mit-license-badge]][mit-license-url]
 [![Dependency Status][daviddm-badge]][daviddm-url]
 [![NSP Status][nsp-badge]][nsp-url]
-[![Greenkeeper badge][greenkeeper-badge]][greenkeeper-url]
+<!-- [![Greenkeeper badge][greenkeeper-badge]][greenkeeper-url] -->
 
 [![Code of Conduct][coc-badge]][coc-url]
-
 
 > Lightweight and modern templating for SSR in [Node.js][node-js-url], inspired by [lit-html][lit-html-url].
 
