@@ -13,7 +13,6 @@ const TMP = '.tmp';
 const DIST = '.';
 const IGNORE_DIR = [
   `${SRC}/demo`,
-  `${SRC}/test`,
 ];
 const BABELRC = {
   presets: [
@@ -51,11 +50,6 @@ const BABELRC = {
     ]
     : [],
 };
-
-console.log('#', [
-  `${SRC}/**/*.ts*`,
-  ...IGNORE_DIR.map(n => `!${n}/**/*.ts*`, ),
-]);
 
 gulp.task('ts', () =>
   gulp.src([

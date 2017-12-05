@@ -13,8 +13,8 @@
   ],
   "homepage": "https://github.com/motss/lit-ntml",
   "license": "MIT",
-  "author": "Rong Sen Ng <wes.ngrongsen@gmail.com>",
-  "main": "dist/index.js",
+  "author": "Rong Sen Ng <wes.ngrongsen@gmail.com> (https://github.com/motss)",
+  "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:motss/lit-ntml.git"
@@ -28,7 +28,7 @@
     "lint:fix": "tslint -p . -c tslint.json --fix",
     "nsp": "nsp check",
     "prepublishOnly": "npm run check && npm run build",
-    "test": "ava dist/test",
+    "test": "ava ./test",
     "ts": "tsc gulpfile.ts"
   },
   "dependencies": {
