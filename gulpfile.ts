@@ -10,7 +10,11 @@ import * as del from 'del';
 const isProd = process.env.NODE_ENV === 'production';
 const SRC = 'src';
 const TMP = '.tmp';
-const DIST = 'dist';
+const DIST = '.';
+const IGNORE_DIR = [
+  `${SRC}/demo`,
+  `${SRC}/test`,
+];
 const BABELRC = {
   presets: [
     [
@@ -18,11 +22,9 @@ const BABELRC = {
       {
         targets: {
           node: 'current',
-          // node: '6.9',
         },
         spec: true,
         modules: 'commonjs',
-        // modules: false,
         useBuiltIns: true,
       },
     ],
@@ -50,10 +52,15 @@ const BABELRC = {
     : [],
 };
 
+console.log('#', [
+  `${SRC}/**/*.ts*`,
+  ...IGNORE_DIR.map(n => `!${n}/**/*.ts*`, ),
+]);
+
 gulp.task('ts', () =>
   gulp.src([
-    `${SRC}/**/*.ts`,
-    `${SRC}/**/*.tsx`,
+    `${SRC}/**/*.ts*`,
+    ...IGNORE_DIR.map(n => `!${n}/**/*.ts*`, ),
   ])
     .pipe(ts.createProject('./tsconfig.json')())
     .pipe(gulp.dest(TMP)));
@@ -67,7 +74,9 @@ gulp.task('babel', () =>
 
 gulp.task('clean', () => del([
   TMP,
-  DIST,
+  '*.js',
+  '*.jsx',
+  '*.d.ts*',
 ]));
 
 gulp.task('clear', () => del([

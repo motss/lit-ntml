@@ -3,7 +3,6 @@
     "allowUnusedLabels": true,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
-    "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "removeComments": true,
     "traceResolution": false,
@@ -16,24 +15,15 @@
     ],
     "moduleResolution": "node",
     "module": "commonjs",
-    "plugins": [
-      {
-        "name": "typescript-lit-html-plugin",
-        "tags": [
-          "html",
-          "ntml",
-          "template"
-        ],
-        "format": { "enabled": true }
-      }
-    ],
     "target": "esnext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "rootDir": "src",
-    "outDir": "dist"
+    "rootDir": ".",
+    "outDir": ".",
+    "declaration": true,
+    "declarationDir": "."
   },
   "include": [
     "src/**/*",
