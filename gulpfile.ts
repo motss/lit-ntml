@@ -71,6 +71,7 @@ gulp.task('clean', () => del([
   '*.js',
   '*.jsx',
   '*.d.ts*',
+  'test/',
 ]));
 
 gulp.task('clear', () => del([
