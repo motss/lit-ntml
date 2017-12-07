@@ -21,8 +21,10 @@
   },
   "scripts": {
     "build": "npm run ts && cross-env NODE_ENV=production gulp build && rm -rf gulpfile.js",
+    "build:debug": "npm run ts && gulp build && rm -rf gulpfile.js",
     "check": "npm run lint && npm run nsp",
     "debug": "node --inspect --expose-gc --max-old-space-size=8192 -r @std/esm dist/demo",
+    "demo": "node -r @std/esm demo/",
     "gulp": "npm run ts && gulp",
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "lint:fix": "tslint -p . -c tslint.json --fix",
@@ -32,13 +34,16 @@
     "ts": "tsc gulpfile.ts"
   },
   "dependencies": {
-    "html-minifier": "^3.5.6"
+    "html-minifier": "^3.5.6",
+    "parse5": "^3.0.3",
+    "pretty": "^2.0.0"
   },
   "devDependencies": {
     "@std/esm": "^0.17.1",
     "@types/express": "^4.0.39",
     "@types/html-minifier": "^1.1.30",
     "@types/node": "^8.0.47",
+    "@types/parse5": "^3.0.0",
     "ava": "^0.23.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-function-bind": "^6.22.0",

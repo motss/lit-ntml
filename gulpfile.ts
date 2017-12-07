@@ -54,7 +54,7 @@ const BABELRC = {
 gulp.task('ts', () =>
   gulp.src([
     `${SRC}/**/*.ts*`,
-    ...IGNORE_DIR.map(n => `!${n}/**/*.ts*`, ),
+    ...IGNORE_DIR.map(n => `${isProd ? '!' : ''}${n}/**/*.ts*`),
   ])
     .pipe(ts.createProject('./tsconfig.json')())
     .pipe(gulp.dest(TMP)));
@@ -72,6 +72,7 @@ gulp.task('clean', () => del([
   '*.jsx',
   '*.d.ts*',
   'test/',
+  'demo/',
 ]));
 
 gulp.task('clear', () => del([

@@ -13,12 +13,21 @@ function toMs(timestamp: [number, number]) {
 test('render simple Hello, World', async (t) => {
   try {
     const html = ntml();
-    const rendered = await html`<div>Hello, World!</div>`;
+    const rendered = await html`<!doctype html><div>Hello, World!</div>`;
 
     t.true(typeof rendered === 'string');
-    t.is(rendered, '<div>Hello, World!</div>');
+    t.is(
+      rendered,
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div>Hello, World!</div>
+  </body>
+</html>`
+    );
   } catch (e) {
-    t.fail();
+    t.fail(e);
   }
 });
 
@@ -37,14 +46,25 @@ test('render html with async + sync tasks', async (t) => {
     `;
 
     t.true(typeof rendered === 'string');
-    t.is(rendered, `
-    <section><div>Sync Task Func</div></section>
+    t.is(
+      rendered,
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <section>
+      <div>Sync Task Func</div>
+    </section>
     <section>Sync Task</section>
-    <section><div>Async Task Func</div></section>
+    <section>
+      <div>Async Task Func</div>
+    </section>
     <section>Hello, World!</section>
-    `.trim());
+  </body>
+</html>`
+    );
   } catch (e) {
-    t.fail();
+    t.fail(e);
   }
 });
 
@@ -68,11 +88,29 @@ test('cached rendered html with ES6 Map cache store + a unique cached name', asy
 
     t.true(typeof rendered === 'string');
     t.true(toMs(renderEnds) >= delay);
-    t.is(rendered, '<div>Hello, delay world!</div>');
+    t.is(
+      rendered,
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div>Hello, delay world!</div>
+  </body>
+</html>`
+    );
     t.true(toMs(renderWithCacheEnds) < 10);
-    t.is(renderedWithCache, '<div>Hello, delay world!</div>');
+    t.is(
+      renderedWithCache,
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div>Hello, delay world!</div>
+  </body>
+</html>`
+    );
   } catch (e) {
-    t.fail();
+    t.fail(e);
   }
 });
 
@@ -101,11 +139,29 @@ test('cached renderd html with custom TTL', async (t) => {
 
     t.true(typeof rendered === 'string');
     t.true(toMs(renderEnds) >= delay);
-    t.is(rendered, '<div>Hello, delay world!</div>');
+    t.is(
+      rendered,
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div>Hello, delay world!</div>
+  </body>
+</html>`
+    );
     t.true(toMs(renderWithCustomTTLEnds) >= ttl + delay);
-    t.is(renderedWithCustomTTL, '<div>Hello, delay world!</div>');
+    t.is(
+      renderedWithCustomTTL,
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div>Hello, delay world!</div>
+  </body>
+</html>`
+    );
   } catch (e) {
-    t.fail();
+    t.fail(e);
   }
 });
 
@@ -126,8 +182,100 @@ test('render minified html', async (t) => {
     `;
 
     t.true(typeof rendered === 'string');
-    t.is(rendered, '<div><h1>Hello, World!</h1><ul><li>One</li><li>Two</li><li>Three</li></ul></div>');
+    t.is(
+      rendered,
+      '<!DOCTYPE html><html><head></head><body><div><h1>Hello, World!</h1><ul><li>One</li><li>Two</li><li>Three</li></ul></div></body></html>'
+    );
   } catch (e) {
-    t.fail();
+    t.fail(e);
+  }
+});
+
+test('render with noParse', async (t) => {
+  try {
+    const html = ntml({
+      noParse: false,
+    });
+
+    const rendered = await html`
+      <style>
+        div {
+          font-size: 2em;
+          color: blue;
+        }
+      </style>
+      <div>Hello, World!</div>
+    `;
+
+    t.is(
+      rendered,
+`<style>
+  div {
+    font-size: 2em;
+    color: blue;
+  }
+</style>
+<div>Hello, World!</div>`
+    );
+  } catch (e) {
+    t.fail(e);
+  }
+});
+
+test('render with noParse but minify html', async (t) => {
+  try {
+    const html = ntml({
+      noParse: false,
+      minify: true,
+    });
+
+    const rendered = await html`
+      <style>
+        div {
+          font-size: 2em;
+          color: blue;
+        }
+      </style>
+      <div>Hello, World!</div>
+    `;
+
+    t.is(
+      rendered,
+      '<style>div{font-size:2em;color:#00f}</style><div>Hello, World!</div>'
+    );
+  } catch (e) {
+    t.fail(e);
+  }
+});
+
+test('render with no prettify and no minify HTML', async (t) => {
+  try {
+    const html = ntml({
+      prettify: false,
+      minify: false,
+    });
+
+    const rendered = await html`
+      <style>
+        div {
+          font-size: 2em;
+          color: blue;
+        }
+      </style>
+      <div>Hello, World!</div>
+    `;
+
+    t.is(
+      rendered,
+`<!DOCTYPE html><html><head><style>
+        div {
+          font-size: 2em;
+          color: blue;
+        }
+      </style>
+      </head><body><div>Hello, World!</div></body></html>`,
+    );
+  } catch (e) {
+    t.fail(e);
   }
 });
