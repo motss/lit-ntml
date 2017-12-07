@@ -12,7 +12,6 @@
 [![MIT License][mit-license-badge]][mit-license-url]
 [![Dependency Status][daviddm-badge]][daviddm-url]
 [![NSP Status][nsp-badge]][nsp-url]
-<!-- [![Greenkeeper badge][greenkeeper-badge]][greenkeeper-url] -->
 
 [![Code of Conduct][coc-badge]][coc-url]
 
@@ -25,6 +24,8 @@
 - [x] `cacheExpiry: 10e3` to set TTL of a cached item. Defaults to 1 year of TTL.
 - [x] `minify: true` to minify rendered HTML
 - [x] Compatible for ES Modules (`import ntml from 'ntml'`) and CommonJS (`const { ntml } = require('ntml');`)
+- [x] Uses [parse5][parse5-url] to parse HTML by default
+- [x] Uses [pretty][pretty-url] to prettify HTML by default
 
 ## Pre-requisite
 
@@ -202,6 +203,8 @@ const { ntml } = require('ntml');
 [lit-html-url]: https://github.com/PolymerLabs/lit-html
 [npm-url]: https://www.npmjs.com
 [es6-map-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+[parse5-url]: https://www.npmjs.com/package/parse5
+[pretty-url]: https://www.npmjs.com/package/pretty
 
 [travis-badge]: https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square
 [version-badge]: https://img.shields.io/npm/v/lit-ntml.svg?style=flat-square
@@ -210,7 +213,6 @@ const { ntml } = require('ntml');
 [nsp-badge]: https://nodesecurity.io/orgs/motss/projects/92a9a3b3-c0c8-4172-917d-f1c7e0d5ef9f/badge
 [daviddm-badge]: https://img.shields.io/david/expressjs/express.svg?style=flat-square
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[greenkeeper-badge]: https://badges.greenkeeper.io/motss/lit-ntml.svg
 
 [travis-url]: https://travis-ci.org/motss/lit-ntml
 [version-url]: https://www.npmjs.com/package/lit-ntml
@@ -219,4 +221,3 @@ const { ntml } = require('ntml');
 [daviddm-url]: https://david-dm.org/motss/lit-ntml
 [nsp-url]: https://nodesecurity.io/orgs/motss/projects/02c9094c-5d6f-4be4-b22b-8bced7a4997c
 [coc-url]: https://github.com/motss/lit-ntml/blob/master/CODE_OF_CONDUCT.md
-[greenkeeper-url]: https://greenkeeper.io/

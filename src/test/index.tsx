@@ -194,7 +194,7 @@ test('render minified html', async (t) => {
 test('render with noParse', async (t) => {
   try {
     const html = ntml({
-      noParse: false,
+      parseHtml: false,
     });
 
     const rendered = await html`
@@ -225,7 +225,7 @@ test('render with noParse', async (t) => {
 test('render with noParse but minify html', async (t) => {
   try {
     const html = ntml({
-      noParse: false,
+      parseHtml: false,
       minify: true,
     });
 
