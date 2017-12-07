@@ -1,9 +1,10 @@
 // @ts-check
 
 /** Import project dependencies */
-import express from 'express';
+import * as express from 'express';
+import * as QuickLru from 'quick-lru';
+import * as parse5 from 'parse5';
 import ntml from '../';
-import QuickLru from 'quick-lru';
 
 /** Setting up */
 const PORT = 4343;
@@ -75,6 +76,30 @@ app.get('/', async (_, res) => {
     return res.send(rendered || { data: { message: 'haha' }});
   } catch (e) {
     console.error('Failure -', e);
+  }
+});
+app.get('/short', async (_, res, next) => {
+  try {
+    const listMe = await html`
+      <ul>${[1,2,3].map(n => `<li>${n}</li>`).join('')}</ul>
+    `;
+    const rendered = await html`
+      <!doctype html>
+      <style>
+        body {
+          font-size: 3em;
+          color: blue;
+        }
+      </style>
+
+      <div>Hello, world!</div>
+      ${listMe}
+    `;
+    const d = parse5.serialize(parse5.parse(rendered));
+
+    return res.send(d);
+  } catch (e) {
+    return next(e);
   }
 });
 

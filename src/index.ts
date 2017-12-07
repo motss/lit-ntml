@@ -1,8 +1,5 @@
 // @ts-check
 
-/** Import project dependencies */
-import * as htmlMinifier from 'html-minifier';
-
 export declare interface cacheStorMap {
   useUntil: number;
   data: string;
@@ -12,19 +9,47 @@ export declare interface Ntml {
   cacheName?: string;
   cacheExpiry?: number;
   minify?: boolean;
+  parseHtml?: boolean;
+  prettify?: boolean;
 }
 
-/** Setting up */
-const minifyHtml = hyratedString => htmlMinifier.minify(hyratedString, {
-  collapseWhitespace: true,
-  removeComments: true,
-});
+/** Import project dependencies */
+import * as htmlMinifier from 'html-minifier';
+import * as parse5 from 'parse5';
+import * as pretty from 'pretty';
+
+export async function parseHtml(content: string) {
+  try {
+    return parse5.serialize(parse5.parse(`<!doctype html>${content || ''}`));
+  } catch (e) {
+    throw e;
+  }
+}
+
+export async function minifyHtml(content: string, minify: boolean, shouldParseHtml: boolean) {
+  try {
+    const d = shouldParseHtml ? await parseHtml(content) : content;
+
+    return typeof minify === 'boolean' && minify
+      ? htmlMinifier.minify(d,{
+        minifyCSS: true,
+        minifyJS: true,
+        collapseWhitespace: true,
+        removeComments: true,
+      })
+      : d;
+  } catch (e) {
+    throw e;
+  }
+};
 
 export function ntml({
   cacheStore /** @type {Object} */,
   cacheName /** @type {string} */,
   cacheExpiry /** @type {number} */ = 12 * 30 * 24 * 3600,
   minify /** @type {boolean} */ = false,
+  parseHtml /** @type {boolean} */ = true,
+  prettify /** @type {boolean} */ = true,
 }: Ntml = {}) {
   return async (strings: TemplateStringsArray, ...exps: (Function|Promise<any>|string)[]) => {
     try {
@@ -33,6 +58,7 @@ export function ntml({
         && cacheStore.set
         && cacheStore.delete);
       const hasCacheName = typeof cacheName === 'string' && cacheName.length > 0;
+      const shouldParseHtml = typeof parseHtml === 'boolean' && parseHtml;
 
       if (<any>hasCacheName ^ <any>hasCacheStore) {
         throw new Error(`cacheStore MUST be defined when cacheName is defined, and vice versa`);
@@ -44,10 +70,20 @@ export function ntml({
         cacheStore.delete(cacheName);
       }
 
-      const tasks: Promise<string>[] = exps.map(async n => n instanceof Function ? n() : n);
-      const d = await Promise.all(tasks);
-      const preRendered = strings.map((n, idx) => `${n}${d[idx] || ''}`).join('').trim();
-      const rendered = minify ? minifyHtml(preRendered) : preRendered;
+      const tasks: Promise<string>[] = exps.map(async n =>
+        n instanceof Function
+          ? n()
+          : n);
+      const resolvedTasks = await Promise.all(tasks);
+      const preRendered = strings.map((n, idx) =>
+        `${n}${resolvedTasks[idx] || ''}`)
+          .join('')
+          .trim();
+      const rendered = await minifyHtml(preRendered, minify, shouldParseHtml);
+      const d = typeof prettify === 'boolean' && prettify
+        && typeof minify === 'boolean' && !minify
+          ? pretty(rendered, { ocd: true })
+          : rendered;
 
       if (hasCacheStore && hasCacheName) {
         const ttl = +new Date() + cacheExpiry;
@@ -56,10 +92,10 @@ export function ntml({
           throw new Error(`Invalid TTL value (${cacheExpiry})! Must be a number`);
         }
 
-        cacheStore.set(cacheName, { useUntil: ttl, data: rendered });
+        cacheStore.set(cacheName, { useUntil: ttl, data: d });
       }
 
-      return rendered;
+      return d;
     } catch (e) {
       throw e;
     }
