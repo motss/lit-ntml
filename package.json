@@ -1,12 +1,15 @@
 {
   "name": "lit-ntml",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "Inspired by lit-html but for Node.js",
   "keywords": [
     "html",
     "lit-ntml",
+    "minify",
     "npm",
     "ntml",
+    "parse-html",
+    "prettify",
     "tagged-template-literals",
     "template",
     "templating"
