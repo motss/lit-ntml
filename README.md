@@ -20,21 +20,41 @@
 ## Features
 
 - [x] `await` all tasks including Promises
-- [x] `cacheStore: new QuickLru()` to use a custom [ES6 Map][es6-map-url] compliant cache instance
+- [x] `cacheStore: new QuickLru()` to use a custom [ES6 Map][map-mdn-url] compliant cache instance
 - [x] `cacheExpiry: 10e3` to set TTL of a cached item. Defaults to 1 year of TTL.
 - [x] `minify: true` to minify rendered HTML
 - [x] Compatible for ES Modules (`import ntml from 'ntml'`) and CommonJS (`const { ntml } = require('ntml');`)
 - [x] Uses [parse5][parse5-url] to parse HTML by default
 - [x] Uses [pretty][pretty-url] to prettify HTML by default
+- [x] Support HTML syntax highlighting + autocompletion with [vscode-lit-html][vscode-lit-html-url] in JavaScript's template string.
 
 ## Pre-requisite
 
 - [Node.js][node-js-url] >= 8.9.0
-- [NPM][npm-url] >= 5.5.1 ([NPM][npm-url] comes [Node.js][node-js-url] so there is no need to install separately.)
+- [NPM][npm-url] >= 5.5.1 ([NPM][npm-url] comes with [Node.js][node-js-url] so there is no need to install separately.)
+
+## ntml(options)
+
+- options <[Object][object-mdn-url]> Optional configuration for the templating.
+  - `cacheStore` <[Map][map-mdn-url]> Custom ES6 Map compliant cache instance to cache rendered HTML.
+  - `cacheExpiry` <[number][number-mdn-url]> How long the rendered HTML should be cached for. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
+  - `minify` <[boolean][boolean-mdn-url]> If true, minify rendered HTML. Defaults to `false`.
+  - `parseHtml` <[boolean][boolean-mdn-url]> If true, parse the HTML with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
+  - `prettify` <[boolean][boolean-mdn-url]> If true, the rendered HTML will be prettify. Defaults to `true`.
 
 ## How to use
 
-### Await all tasks (Promises, Functions, strings, etc)
+### Enable syntax highlighting when writing HTML with template literal
+
+#### Visual Studio Code
+
+1. Install [vscode-lit-html][vscode-lit-html-url] extension.
+1. If the extension does not provide that syntax highlighting and autocompletion, try writing your templates in `.jsx` file (or `.tsx` file if you're [TypeScript][typescript-url] user) . That should work.
+
+
+### Code examples
+
+#### Await all tasks (Promises, Functions, strings, etc)
 
 ```ts
 /** Import project dependencies */
@@ -80,7 +100,7 @@ const rendered = await html`
 console.log('#', rendered); /** <html lang="en>...</html> */
 ```
 
-### Use custom cache store + unique cache name to cache rendered HTML
+#### Use custom cache store + unique cache name to cache rendered HTML
 
 ```ts
 /** Import project dependencies */
@@ -130,7 +150,7 @@ const cacheAfterRendered = await html`
 console.log('#', cacheAfterRendered); /** <html lang="en">...</html> */
 ```
 
-### Minify rendered HTML
+#### Minify rendered HTML
 
 ```ts
 /** Import project dependencies */
@@ -175,7 +195,7 @@ const minifyAfterRendered = await html`
 console.log('#', minifyAfterRendered); /** <html lang="en"><body><style>...</style><main>...</main></body></html> */
 ```
 
-## Non-TypeScript users
+#### Non-TypeScript users
 
 For non-TypeScript users, here's the snippet:
 
@@ -194,6 +214,75 @@ const { ntml } = require('ntml');
 })();
 ```
 
+## Caveat
+
+Writing CSS styles outside of [HTMLStyleElement][html-style-element-mdn-url] can lead to unexpected parsing behavior, such as:
+
+### CSS styles outside of &lt;style&gt;
+
+```js
+import ntml from 'lit-ntml';
+
+const html = ntml();
+const style = () => html`
+  body {}
+
+  div {}
+`;
+
+const main = () => html`
+  <style>${style()}</style>
+`;
+
+/**
+ * <!DOCTYPE>
+ * <html> 
+ *   <head>
+ *     <style>
+ *       <!DOCTYPE html>
+ *       <html>
+ *         <head>
+ *           <style>
+ *             body {}
+ *
+ *             div {}
+ *           </style>
+ *         </head>
+ *       </html>
+ *     </style>
+ *   </head>
+ * </html>
+ * 
+ */
+
+```
+
+It's clearly that the `style` tag element has been wrapped inside another `html` tag element. This is an unexpected behavior. However, it kind of makes sense as from the above scenario each of the new content is rendered separately with `lit-ntml` and the `lit-ntml` has no knowledge about what will be rendered next and before. To avoid such behavior, do one of the following:
+
+1. Avoid using `lit-ntml` when rendering any HTML element
+
+    ```js
+    const style = () => `
+    body {}
+    main{}
+    `;
+
+    const main = () => html`
+      <style>${style}</style>
+    `;
+    ```
+
+1. Wrap with any valid HTML element
+
+    ```js
+    const style = () => html`
+    <style>
+      body {}
+
+      main {}
+    </style>`;
+    ```
+
 ## License
 
 [MIT License][mit-license-url] © Rong Sen Ng
@@ -202,9 +291,15 @@ const { ntml } = require('ntml');
 [node-js-url]: https://nodejs.org
 [lit-html-url]: https://github.com/PolymerLabs/lit-html
 [npm-url]: https://www.npmjs.com
-[es6-map-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 [parse5-url]: https://www.npmjs.com/package/parse5
 [pretty-url]: https://www.npmjs.com/package/pretty
+[vscode-lit-html-url]: https://github.com/mjbvz/vscode-lit-html
+[typescript-url]: https://github.com/Microsoft/TypeScript
+[map-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+[object-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+[number-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+[boolean-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[html-style-element-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLStyleElement
 
 [travis-badge]: https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square
 [version-badge]: https://img.shields.io/npm/v/lit-ntml.svg?style=flat-square

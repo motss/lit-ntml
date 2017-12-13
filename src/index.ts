@@ -44,7 +44,7 @@ export async function minifyHtml(content: string, minify: boolean, shouldParseHt
 };
 
 export function ntml({
-  cacheStore /** @type {Object} */,
+  cacheStore /** @type {Map} */,
   cacheName /** @type {string} */,
   cacheExpiry /** @type {number} */ = 12 * 30 * 24 * 3600,
   minify /** @type {boolean} */ = false,
