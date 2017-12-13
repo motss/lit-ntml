@@ -37,6 +37,7 @@
 
 - options <[Object][object-mdn-url]> Optional configuration for the templating.
   - `cacheStore` <[Map][map-mdn-url]> Custom ES6 Map compliant cache instance to cache rendered HTML.
+  - `cacheName` <[string][string-mdn-url]> Name of the rendered HTML that needs to be cached. **_Use a unique name for each rendered HTML to avoid cache conflict._**
   - `cacheExpiry` <[number][number-mdn-url]> How long the rendered HTML should be cached for. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
   - `minify` <[boolean][boolean-mdn-url]> If true, minify rendered HTML. Defaults to `false`.
   - `parseHtml` <[boolean][boolean-mdn-url]> If true, parse the HTML with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
@@ -296,6 +297,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [vscode-lit-html-url]: https://github.com/mjbvz/vscode-lit-html
 [typescript-url]: https://github.com/Microsoft/TypeScript
 [map-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+[string-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
 [object-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 [number-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
 [boolean-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
