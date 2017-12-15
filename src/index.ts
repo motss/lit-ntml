@@ -37,7 +37,7 @@ export async function minifyHtml(content: string, minify: boolean, shouldParseHt
         collapseWhitespace: true,
         removeComments: true,
       })
-      : d;
+      : pretty(d, { ocd: true });
   } catch (e) {
     throw e;
   }
@@ -48,8 +48,7 @@ export function ntml({
   cacheName /** @type {string} */,
   cacheExpiry /** @type {number} */ = 12 * 30 * 24 * 3600,
   minify /** @type {boolean} */ = false,
-  parseHtml /** @type {boolean} */ = true,
-  prettify /** @type {boolean} */ = true,
+  parseHtml /** @type {boolean} */ = true
 }: Ntml = {}) {
   return async (strings: TemplateStringsArray, ...exps: (Function|Promise<any>|string)[]) => {
     try {
@@ -76,14 +75,8 @@ export function ntml({
           : n);
       const resolvedTasks = await Promise.all(tasks);
       const preRendered = strings.map((n, idx) =>
-        `${n}${resolvedTasks[idx] || ''}`)
-          .join('')
-          .trim();
+        `${n}${resolvedTasks[idx] || ''}`).join('').trim();
       const rendered = await minifyHtml(preRendered, minify, shouldParseHtml);
-      const d = typeof prettify === 'boolean' && prettify
-        && typeof minify === 'boolean' && !minify
-          ? pretty(rendered, { ocd: true })
-          : rendered;
 
       if (hasCacheStore && hasCacheName) {
         const ttl = +new Date() + cacheExpiry;
@@ -92,10 +85,10 @@ export function ntml({
           throw new Error(`Invalid TTL value (${cacheExpiry})! Must be a number`);
         }
 
-        cacheStore.set(cacheName, { useUntil: ttl, data: d });
+        cacheStore.set(cacheName, { useUntil: ttl, data: rendered });
       }
 
-      return d;
+      return rendered;
     } catch (e) {
       throw e;
     }
