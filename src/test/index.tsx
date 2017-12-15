@@ -248,10 +248,9 @@ test('render with noParse but minify html', async (t) => {
   }
 });
 
-test('render with no prettify and no minify HTML', async (t) => {
+test('render without HTML minification', async (t) => {
   try {
     const html = ntml({
-      prettify: false,
       minify: false,
     });
 
@@ -267,13 +266,20 @@ test('render with no prettify and no minify HTML', async (t) => {
 
     t.is(
       rendered,
-`<!DOCTYPE html><html><head><style>
-        div {
-          font-size: 2em;
-          color: blue;
-        }
-      </style>
-      </head><body><div>Hello, World!</div></body></html>`,
+`<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      div {
+        font-size: 2em;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div>Hello, World!</div>
+  </body>
+</html>`,
     );
   } catch (e) {
     t.fail(e);
