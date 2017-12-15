@@ -1,6 +1,6 @@
 {
   "name": "lit-ntml",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Inspired by lit-html but for Node.js",
   "keywords": [
     "html",
@@ -37,17 +37,17 @@
     "ts": "tsc gulpfile.ts"
   },
   "dependencies": {
-    "html-minifier": "^3.5.6",
+    "html-minifier": "^3.5.7",
     "parse5": "^3.0.3",
     "pretty": "^2.0.0"
   },
   "devDependencies": {
-    "@std/esm": "^0.17.1",
+    "@std/esm": "^0.18.0",
     "@types/express": "^4.0.39",
     "@types/html-minifier": "^1.1.30",
-    "@types/node": "^8.0.47",
+    "@types/node": "^8.5.1",
     "@types/parse5": "^3.0.0",
-    "ava": "^0.23.0",
+    "ava": "^0.24.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-function-bind": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -66,7 +66,7 @@
     "tslint": "^5.8.0",
     "tslint-config-airbnb": "^5.4.2",
     "tslint-config-prettier": "^1.6.0",
-    "typescript": "^2.6.1"
+    "typescript": "^2.6.2"
   },
   "engines": {
     "node": ">= 8.9.0",
