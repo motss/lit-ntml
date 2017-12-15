@@ -41,7 +41,6 @@
   - `cacheExpiry` <[number][number-mdn-url]> How long the rendered HTML should be cached for. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
   - `minify` <[boolean][boolean-mdn-url]> If true, minify rendered HTML. Defaults to `false`.
   - `parseHtml` <[boolean][boolean-mdn-url]> If true, parse the HTML with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
-  - `prettify` <[boolean][boolean-mdn-url]> If true, the rendered HTML will be prettify. Defaults to `true`.
 
 ## How to use
 
