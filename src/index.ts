@@ -31,7 +31,7 @@ export async function minifyHtml(content: string, minify: boolean, shouldParseHt
     const d = shouldParseHtml ? await parseHtml(content) : content;
 
     return typeof minify === 'boolean' && minify
-      ? htmlMinifier.minify(d,{
+      ? htmlMinifier.minify(d, {
         minifyCSS: true,
         minifyJS: true,
         collapseWhitespace: true,
@@ -50,7 +50,7 @@ export function ntml({
   minify /** @type {boolean} */ = false,
   parseHtml /** @type {boolean} */ = true
 }: Ntml = {}) {
-  return async (strings: TemplateStringsArray, ...exps: (Function|Promise<any>|string)[]) => {
+  return async (strings: TemplateStringsArray, ...exps: (Function | Promise<any> | string)[]) => {
     try {
       const hasCacheStore = !!(typeof cacheStore !== 'undefined'
         && cacheStore.has
