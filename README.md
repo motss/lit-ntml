@@ -41,6 +41,7 @@
   - `cacheExpiry` <[number][number-mdn-url]> How long the rendered HTML should be cached for. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
   - `minify` <[boolean][boolean-mdn-url]> If true, minify rendered HTML. Defaults to `false`.
   - `parseHtml` <[boolean][boolean-mdn-url]> If true, parse the HTML with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
+- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML.
 
 ## How to use
 
@@ -259,7 +260,7 @@ const main = () => html`
 
 It's clearly that the `style` tag element has been wrapped inside another `html` tag element. This is an unexpected behavior. However, it kind of makes sense as from the above scenario each of the new content is rendered separately with `lit-ntml` and the `lit-ntml` has no knowledge about what will be rendered next and before. To avoid such behavior, do one of the following:
 
-1. Avoid using `lit-ntml` when rendering any HTML element
+1. Avoid using `lit-ntml` to render the content of a HTML element
 
     ```js
     const style = () => `
@@ -301,6 +302,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [number-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
 [boolean-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 [html-style-element-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLStyleElement
+[promise-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 [travis-badge]: https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square
 [version-badge]: https://img.shields.io/npm/v/lit-ntml.svg?style=flat-square
