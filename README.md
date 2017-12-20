@@ -17,6 +17,25 @@
 
 > Lightweight and modern templating for SSR in [Node.js][node-js-url], inspired by [lit-html][lit-html-url].
 
+## Table of contents
+
+- [Features](#features)
+- [Pre-requisite](#pre-requisite)
+- [How to use](#how-to-use)
+  - [Install](#install)
+  - [Enable syntax highlighting when writing HTML with template literal](#enable-syntax-highlighting-when-writing-html-with-template-literal)
+    - [Visual Studio Code](#visual-studio-code)
+  - [Code examples](#code-examples)
+    - [Await all tasks (Promises, Functions, strings, etc)](#await-all-tasks-promises-functions-strings-etc)
+    - [Use custom cache store + unique cache name to cache rendered HTML](#use-custom-cache-store-unique-cache-name-to-cache-rendered-html)
+    - [Minify rendered HTML](#minify-rendered-html)
+    - [Non-TypeScript users](#non-typescript-users)
+- [API Reference](#api-reference)
+  - [ntml(options)](#ntmloptions)
+- [Caveat](#caveat)
+  - [CSS styles outside of &lt;style&gt;](#css-styles-outside-of-ltstylegt)
+- [License](#license)
+
 ## Features
 
 - [x] `await` all tasks including Promises
@@ -33,17 +52,14 @@
 - [Node.js][node-js-url] >= 8.9.0
 - [NPM][npm-url] >= 5.5.1 ([NPM][npm-url] comes with [Node.js][node-js-url] so there is no need to install separately.)
 
-## ntml(options)
-
-- options <[Object][object-mdn-url]> Optional configuration for the templating.
-  - `cacheStore` <[Map][map-mdn-url]> Custom ES6 Map compliant cache instance to cache rendered HTML.
-  - `cacheName` <[string][string-mdn-url]> Name of the rendered HTML that needs to be cached. **_Use a unique name for each rendered HTML to avoid cache conflict._**
-  - `cacheExpiry` <[number][number-mdn-url]> How long the rendered HTML should be cached for. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
-  - `minify` <[boolean][boolean-mdn-url]> If true, minify rendered HTML. Defaults to `false`.
-  - `parseHtml` <[boolean][boolean-mdn-url]> If true, parse the HTML with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
-- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML.
-
 ## How to use
+
+### Install
+
+```sh
+# Install via NPM
+npm install lit-ntml
+```
 
 ### Enable syntax highlighting when writing HTML with template literal
 
@@ -215,6 +231,18 @@ const { ntml } = require('ntml');
 })();
 ```
 
+## API Reference
+
+### ntml(options)
+
+- options <[Object][object-mdn-url]> Optional configuration for the templating.
+  - `cacheStore` <[Map][map-mdn-url]> Custom ES6 Map compliant cache instance to cache rendered HTML.
+  - `cacheName` <[string][string-mdn-url]> Name of the rendered HTML that needs to be cached. **_Use a unique name for each rendered HTML to avoid cache conflict._**
+  - `cacheExpiry` <[number][number-mdn-url]> How long the rendered HTML should be cached for. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
+  - `minify` <[boolean][boolean-mdn-url]> If true, minify rendered HTML. Defaults to `false`.
+  - `parseHtml` <[boolean][boolean-mdn-url]> If true, parse the HTML with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
+- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML.
+
 ## Caveat
 
 Writing CSS styles outside of [HTMLStyleElement][html-style-element-mdn-url] can lead to unexpected parsing behavior, such as:
@@ -286,9 +314,8 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 
 ## License
 
-[MIT License][mit-license-url] © Rong Sen Ng
+[MIT License](https://motss.mit-license.org) © Rong Sen Ng
 
-[mit-license-url]: https://motss.mit-license.org
 [node-js-url]: https://nodejs.org
 [lit-html-url]: https://github.com/PolymerLabs/lit-html
 [npm-url]: https://www.npmjs.com

@@ -12,9 +12,7 @@ npm-debug.log*
 yarn-error.log*
 
 # folders
-dist*/
 node_modules/
-test*/
 
 # .js files
 gulpfile*.js
