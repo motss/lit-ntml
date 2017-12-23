@@ -34,7 +34,7 @@
     "nsp": "nsp check",
     "prepublishOnly": "npm run check && npm run build",
     "test": "ava ./test",
-    "ts": "tsc gulpfile.ts"
+    "ts": "tsc --target esnext --lib esnext --module commonjs gulpfile.ts"
   },
   "dependencies": {
     "html-minifier": "^3.5.7",
@@ -60,12 +60,14 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-sequence": "^0.4.6",
+    "gulp-tslint": "^8.1.2",
     "gulp-typescript": "^3.2.3",
     "nsp": "^3.1.0",
     "quick-lru": "^1.1.0",
     "tslint": "^5.8.0",
     "tslint-config-airbnb": "^5.4.2",
-    "tslint-config-prettier": "^1.6.0",
+    "tslint-consistent-codestyle": "^1.11.0",
+    "tslint-immutable": "^4.4.0",
     "typescript": "^2.6.2"
   },
   "engines": {

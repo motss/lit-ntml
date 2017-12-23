@@ -1,16 +1,15 @@
 // @ts-check
 
-export declare interface cacheStorMap {
+export declare interface CacheStoreMap {
   useUntil: number;
   data: string;
 }
 export declare interface Ntml {
-  cacheStore?: Map<string, cacheStorMap>;
+  cacheStore?: Map<string, CacheStoreMap>;
   cacheName?: string;
   cacheExpiry?: number;
   minify?: boolean;
   parseHtml?: boolean;
-  prettify?: boolean;
 }
 
 /** Import project dependencies */
@@ -18,7 +17,9 @@ import * as htmlMinifier from 'html-minifier';
 import * as parse5 from 'parse5';
 import * as pretty from 'pretty';
 
-export async function parseHtml(content: string) {
+export async function parseThisHtml(
+  content: string
+) {
   try {
     return parse5.serialize(parse5.parse(`<!doctype html>${content || ''}`));
   } catch (e) {
@@ -26,9 +27,13 @@ export async function parseHtml(content: string) {
   }
 }
 
-export async function minifyHtml(content: string, minify: boolean, shouldParseHtml: boolean) {
+export async function minifyHtml(
+  content: string,
+  minify: boolean,
+  shouldParseHtml: boolean
+) {
   try {
-    const d = shouldParseHtml ? await parseHtml(content) : content;
+    const d = shouldParseHtml ? await parseThisHtml(content) : content;
 
     return typeof minify === 'boolean' && minify
       ? htmlMinifier.minify(d, {
@@ -41,16 +46,16 @@ export async function minifyHtml(content: string, minify: boolean, shouldParseHt
   } catch (e) {
     throw e;
   }
-};
+}
 
 export function ntml({
   cacheStore /** @type {Map} */,
   cacheName /** @type {string} */,
   cacheExpiry /** @type {number} */ = 12 * 30 * 24 * 3600,
   minify /** @type {boolean} */ = false,
-  parseHtml /** @type {boolean} */ = true
+  parseHtml /** @type {boolean} */ = true,
 }: Ntml = {}) {
-  return async (strings: TemplateStringsArray, ...exps: (Function | Promise<any> | string)[]) => {
+  return async (strings: TemplateStringsArray, ...exps: any[]): Promise<string> => {
     try {
       const hasCacheStore = !!(typeof cacheStore !== 'undefined'
         && cacheStore.has
@@ -59,13 +64,17 @@ export function ntml({
       const hasCacheName = typeof cacheName === 'string' && cacheName.length > 0;
       const shouldParseHtml = typeof parseHtml === 'boolean' && parseHtml;
 
-      if (<any>hasCacheName ^ <any>hasCacheStore) {
+      /** NOTE: XOR, both must be either false or true */
+      if (hasCacheName !== hasCacheStore) {
         throw new Error(`cacheStore MUST be defined when cacheName is defined, and vice versa`);
       }
 
       if (hasCacheStore && hasCacheName && cacheStore.has(cacheName)) {
         const cached = cacheStore.get(cacheName);
-        if (cached.useUntil >= +new Date()) return cached.data;
+        if (cached.useUntil >= +new Date()) {
+          return cached.data;
+        }
+
         cacheStore.delete(cacheName);
       }
 

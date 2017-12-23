@@ -2,8 +2,8 @@
 
 /** Import project dependencies */
 import * as express from 'express';
-import * as QuickLru from 'quick-lru';
 import * as parse5 from 'parse5';
+import * as QuickLru from 'quick-lru';
 import ntml from '../';
 
 /** Setting up */
@@ -18,7 +18,8 @@ const html = ntml({
 app.get('/', async (_, res) => {
   try {
     // const waitUntil = (after) => () => new Promise(yay => setTimeout(() => yay('haha'), after));
-    const header = text => () => new Promise(yay => setTimeout(() => yay(`<div class="header">${text}</div>`), 3e3));
+    const header = text => () =>
+      new Promise(yay => setTimeout(() => yay(`<div class="header">${text}</div>`), 3e3));
     const content = text => async () => `<div class="content">${text}</div>`;
     const moreContent = await ntml({
       cacheStore: lru,
@@ -66,6 +67,17 @@ app.get('/', async (_, res) => {
             <div>Hello, world! ${header('Hello, world!')} ${content('lorem ipsum')}</div>
             <div>${moreContent}</div>
             <div>${someLoremIpsum}</div>
+
+            <ul>${
+              [1,2,3,4].map(n => `<li>${n}</li>`).join('')
+            }</ul>
+
+            <div>${await Promise.resolve(1)}</div>
+            <div>${1}</div>
+            <div>${await someLoremIpsum}</div>
+            <div>${
+              [...Array(10)].map((n, idx) => idx)
+            }</div>
           </main>
         </body>
       </html>
@@ -73,7 +85,9 @@ app.get('/', async (_, res) => {
 
     console.log('#', rendered);
 
-    return res.send(rendered || { data: { message: 'haha' }});
+    return res.send(rendered || {
+      data: { message: 'haha' },
+    });
   } catch (e) {
     console.error('Failure -', e);
   }

@@ -1,11 +1,13 @@
 // @ts-check
 
 /** Import project dependencies */
+import * as del from 'del';
 import * as gulp from 'gulp';
-import * as ts from 'gulp-typescript';
 import * as babel from 'gulp-babel';
 import * as sq from 'gulp-sequence';
-import * as del from 'del';
+import lint from 'gulp-tslint';
+import * as ts from 'gulp-typescript';
+import * as tslint from 'tslint';
 
 const isProd = process.env.NODE_ENV === 'production';
 const SRC = 'src';
@@ -51,6 +53,18 @@ const BABELRC = {
     : [],
 };
 
+gulp.task('lint', () =>
+  gulp.src([
+    `${SRC}/**/*.ts`,
+    `${SRC}/**/*.tsx`,
+  ])
+    .pipe(lint({
+      configuration: './tslint.json',
+      formatter: 'stylish',
+      program: tslint.Linter.createProgram('./tsconfig.json'),
+    }))
+    .pipe(lint.report()));
+
 gulp.task('ts', () =>
   gulp.src([
     `${SRC}/**/*.ts*`,
@@ -94,6 +108,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('build', ['clean'], cb => sq(...[
+  'lint',
   'ts',
   ['babel', 'copy'],
   'clear',

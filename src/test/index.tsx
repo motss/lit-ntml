@@ -76,7 +76,8 @@ test('cached rendered html with ES6 Map cache store + a unique cached name', asy
       cacheName: 'test',
     });
     const delay = 3e3;
-    const delayTask = async () => new Promise(yay => setTimeout(() => yay('Hello, delay world!'), delay));
+    const delayTask = async () =>
+      new Promise(yay => setTimeout(() => yay('Hello, delay world!'), delay));
     const renderStarts = process.hrtime();
     const rendered = await html`<div>${delayTask}</div>`;
     const renderEnds = process.hrtime(renderStarts);
@@ -124,7 +125,8 @@ test('cached renderd html with custom TTL', async (t) => {
       cacheExpiry: ttl,
     });
     const delay = 3e3;
-    const delayTask = async () => new Promise(yay => setTimeout(() => yay('Hello, delay world!'), delay));
+    const delayTask = async () =>
+      new Promise(yay => setTimeout(() => yay('Hello, delay world!'), delay));
     const renderHtml = () => html`<div>${delayTask}</div>`;
     const renderStarts = process.hrtime();
     const rendered = await renderHtml();
@@ -169,7 +171,7 @@ test('render minified html', async (t) => {
   try {
     const html = ntml({
       minify: true,
-    })
+    });
     const rendered = await html`
     <div>
       <h1>Hello, World!</h1>
@@ -184,6 +186,7 @@ test('render minified html', async (t) => {
     t.true(typeof rendered === 'string');
     t.is(
       rendered,
+      // tslint:disable-next-line:max-line-length
       '<!DOCTYPE html><html><head></head><body><div><h1>Hello, World!</h1><ul><li>One</li><li>Two</li><li>Three</li></ul></div></body></html>'
     );
   } catch (e) {
@@ -279,7 +282,7 @@ test('render without HTML minification', async (t) => {
   <body>
     <div>Hello, World!</div>
   </body>
-</html>`,
+</html>`
     );
   } catch (e) {
     t.fail(e);
