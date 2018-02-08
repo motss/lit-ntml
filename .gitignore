@@ -1,11 +1,11 @@
 # dot files
+.build/
 .DS_Store
 .esm-cache
-*.env
-.build/
 .nyc_output
 .tmp/
 .vscode
+*.env
 
 # debug
 npm-debug.log*
@@ -17,7 +17,7 @@ demo*/
 node_modules/
 
 # .js files
-gulpfile*.js
+*.d.ts*
 *.js
 *.jsx
-*.d.ts*
+gulpfile*.js

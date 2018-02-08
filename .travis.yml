@@ -4,5 +4,6 @@ node_js:
   - v8
   - v9
 script:
+  - npm run check
   - npm run build
   - npm run test

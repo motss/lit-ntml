@@ -1,11 +1,11 @@
 # dot files
+.build/
 .DS_Store
 .esm-cache
-*.env
-.build/
 .nyc_output
 .tmp/
 .vscode
+*.env
 
 # debug
 npm-debug.log*

@@ -11,7 +11,7 @@
     "import-name": false,
     "interface-name": [true, "never-prefix"],
     "no-console": false,
-    "no-debugger": false,
+    "no-debugger": true,
     "no-duplicate-imports": false,
     "no-object-literal-type-assertion": false,
     "object-literal-sort-keys": false,
