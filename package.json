@@ -37,6 +37,8 @@
     "ts": "tsc --target esnext --lib esnext,esnext.asynciterable --module commonjs gulpfile.ts"
   },
   "dependencies": {
+    "html-minifier": "^3.5.8",
+    "parse5": "^4.0.0",
     "pretty": "^2.0.0"
   },
   "devDependencies": {

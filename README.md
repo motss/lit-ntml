@@ -336,7 +336,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [downloads-badge]: https://img.shields.io/npm/dm/lit-ntml.svg?style=flat-square
 [mit-license-badge]: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
 [nsp-badge]: https://nodesecurity.io/orgs/motss/projects/92a9a3b3-c0c8-4172-917d-f1c7e0d5ef9f/badge
-[daviddm-badge]: https://img.shields.io/david/expressjs/express.svg?style=flat-square
+[daviddm-badge]: https://img.shields.io/david/motss/lit-ntml.svg?style=flat-square
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
 
 [travis-url]: https://travis-ci.org/motss/lit-ntml
