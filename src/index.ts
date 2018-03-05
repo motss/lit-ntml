@@ -13,9 +13,9 @@ export declare interface Ntml {
 }
 
 /** Import project dependencies */
-import * as htmlMinifier from 'html-minifier';
-import * as parse5 from 'parse5';
-import * as pretty from 'pretty';
+import htmlMinifier from 'html-minifier';
+import parse5 from 'parse5';
+import pretty from 'pretty';
 
 export async function parseThisHtml(
   content: string

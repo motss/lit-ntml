@@ -9,12 +9,14 @@ import lint from 'gulp-tslint';
 import * as ts from 'gulp-typescript';
 import * as tslint from 'tslint';
 
+/** Setting up */
 const isProd = process.env.NODE_ENV === 'production';
 const SRC = 'src';
 const TMP = '.tmp';
 const DIST = '.';
 const IGNORE_DIR = [
   `${SRC}/demo`,
+  `${SRC}/test*`,
 ];
 const BABELRC = {
   presets: [
@@ -54,8 +56,7 @@ const BABELRC = {
 
 gulp.task('lint', () =>
   gulp.src([
-    `${SRC}/**/*.ts`,
-    `${SRC}/**/*.tsx`,
+    `${SRC}/**/*.ts*`,
   ])
     .pipe(lint({
       configuration: `./tslint${
@@ -103,8 +104,7 @@ gulp.task('copy', () => gulp.src([
 
 gulp.task('watch', () => {
   gulp.watch([
-    `${SRC}/**/*.ts`,
-    `${SRC}/**/*.tsx`,
+    `${SRC}/**/*.ts*`,
   ], ['build']);
 });
 

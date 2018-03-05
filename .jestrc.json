@@ -1,0 +1,63 @@
+{
+  "globals": {
+    "ts-jest": {
+      "babelConfig": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "node": "current"
+              },
+              "spec": true,
+              "modules": "commonjs",
+              "useBuiltIns": true
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "transform-object-rest-spread",
+            {
+              "useBuiltIns": true
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "testEnvironment": "node",
+  "collectCoverage": true,
+  "coverageDirectory": "./coverage",
+  "coverageThreshold": {
+    "global": {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    }
+  },
+  "collectCoverageFrom": [
+    "!**/node_modules/**",
+    "!**/src/demo/**/*.{ts|tsx}",
+    "!**/src/test*/**/*.{ts|tsx}",
+    "**/src/**/*.{ts|tsx}"
+  ],
+  "verbose": true,
+  "bail": true,
+  "roots": [
+    "<rootDir>/src/"
+  ],
+  "transform": {
+    "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+  },
+  "testMatch": [
+    "**/src/test*/**/*.spec.(ts|tsx)"
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "json"
+  ]
+}
