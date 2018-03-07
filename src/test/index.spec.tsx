@@ -66,99 +66,85 @@ describe('lit-ntml', () => {
     }
   });
 
-//   test('cached rendered html with ES6 Map cache store + a unique cached name', async () => {
-//     try {
-//       const lru = new Map();
-//       const html = ntml({
-//         cacheStore: lru,
-//         cacheName: 'test',
-//       });
-//       const delay = 3e3;
-//       const delayTask = async () =>
-//         new Promise(yay => setTimeout(() => yay('Hello, delay world!'), delay));
-//       const renderStarts = process.hrtime();
-//       const rendered = await html`<div>${delayTask}</div>`;
-//       const renderEnds = process.hrtime(renderStarts);
-//       const renderWithCacheStarts = process.hrtime();
-//       const renderedWithCache = await html`<div>${delayTask}</div>`;
-//       const renderWithCacheEnds = process.hrtime(renderWithCacheStarts);
+  test('cached rendered html with ES6 Map cache store + a unique cached name', async () => {
+    try {
+      const lru = new Map();
+      const html = ntml({
+        cacheStore: lru,
+        cacheName: 'test',
+      });
+      const mockFn = jest.fn((input = '') => `Hello, ${input == null ? '' : `${input} `}World!`);
+      const delayTask = async () => new Promise(yay => setTimeout(() => yay(mockFn('delay')), 999e3));
+      const expectedRendered =
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div>Hello, delay World!</div>
+  </body>
+</html>`;
+      const rendered = html`<div>${delayTask}</div>`;
+      const renderedWithCache = html`<div>${delayTask}</div>`;
+      
+      expect(mockFn).not.toHaveBeenCalledWith('delay');
 
-//       console.debug('#', toMs(renderEnds), toMs(renderWithCacheEnds));
+      jest.advanceTimersByTime(999e3);
 
-//       expect(typeof rendered).toEqual('string');
-//       expect(rendered).toEqual(
-// `<!DOCTYPE html>
-// <html>
-//   <head></head>
-//   <body>
-//     <div>Hello, delay world!</div>
-//   </body>
-// </html>`
-//       );
-//       expect(toMs(renderWithCacheEnds)).toBeLessThan(10);
-//       expect(renderedWithCache).toEqual(
-// `<!DOCTYPE html>
-// <html>
-//   <head></head>
-//   <body>
-//     <div>Hello, delay world!</div>
-//   </body>
-// </html>`
-//       );
-//     } catch (e) {
-//       throw e;
-//     }
-//   });
+      expect(mockFn).toHaveBeenCalledWith('delay');
+      expect(mockFn).toHaveBeenCalledTimes(2);
+      expect(await rendered).toEqual(expectedRendered);
+      expect(await renderedWithCache).toEqual(expectedRendered);
+      expect(lru.has('test')).toBe(true);
+      expect(lru.get('test')).toEqual({
+        data: expectedRendered,
+        useUntil: expect.any(Number),
+      });
+    } catch (e) {
+      throw e;
+    }
+  });
 
-//   test('cached rendered html with custom TTL', async () => {
-//     try {
-//       const lru = new Map();
-//       const ttl = 10e3;
-//       const html = ntml({
-//         cacheStore: lru,
-//         cacheName: 'test',
-//         cacheExpiry: ttl,
-//       });
-//       const delay = 3e3;
-//       const delayTask = async () =>
-//         new Promise(yay => setTimeout(() => yay('Hello, delay world!'), delay));
-//       const renderHtml = () => html`<div>${delayTask}</div>`;
-//       const renderStarts = process.hrtime();
-//       const rendered = await renderHtml();
-//       const renderEnds = process.hrtime(renderStarts);
-//       const renderWithCustomTTLStarts = process.hrtime();
-//       const renderedWithCustomTTL = await new Promise(yay =>
-//         setTimeout(async () =>
-//           yay(await renderHtml()), ttl + delay));
-//       const renderWithCustomTTLEnds = process.hrtime(renderWithCustomTTLStarts);
+  test('cached rendered html with custom TTL', async () => {
+    try {
+      const lru = new Map();
+      const ttl = 10e3;
+      const html = ntml({
+        cacheStore: lru,
+        cacheName: 'test',
+        cacheExpiry: ttl,
+      });
+      const mockFn = jest.fn((input = '') => `Hello, ${input == null ? '' : `${input} `}World!`);
+      const expectedRendered =
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div>Hello, delay World!</div>
+  </body>
+</html>`;
+      const delayTask = async () => new Promise(yay => setTimeout(() => yay(mockFn('delay')), 999e3));
+      const renderedWithCustomTTL = html`<div>${delayTask}</div>`;
+      
+      
+      expect(mockFn).not.toHaveBeenCalledWith('delay');
+      
+      jest.advanceTimersByTime(999e3);
+      
+      expect(mockFn).toHaveBeenCalledWith('delay');
 
-//       console.debug('#', toMs(renderEnds), toMs(renderWithCustomTTLEnds));
+      const beforeRenderTimestamp = +new Date();
 
-//       expect(typeof rendered).toEqual('string');
-//       expect(toMs(renderEnds)).toBeGreaterThan(delay);
-//       expect(rendered).toEqual(
-// `<!DOCTYPE html>
-// <html>
-//   <head></head>
-//   <body>
-//     <div>Hello, delay world!</div>
-//   </body>
-// </html>`
-//       );
-//       expect(toMs(renderWithCustomTTLEnds)).toBeGreaterThan(ttl + delay);
-//       expect(renderedWithCustomTTL).toEqual(
-// `<!DOCTYPE html>
-// <html>
-//   <head></head>
-//   <body>
-//     <div>Hello, delay world!</div>
-//   </body>
-// </html>`
-//       );
-//     } catch (e) {
-//       throw e;
-//     }
-//   });
+      expect(await renderedWithCustomTTL).toEqual(expectedRendered);
+      expect(lru.has('test')).toBe(true);
+      expect(lru.get('test')).toEqual({
+        data: expectedRendered,
+        useUntil: expect.any(Number),
+      });
+      expect((beforeRenderTimestamp + ttl) - lru.get('test').useUntil).toBeLessThanOrEqual(0);
+    } catch (e) {
+      throw e;
+    }
+  });
 
   test('render minified html', async () => {
     try {
@@ -273,6 +259,87 @@ describe('lit-ntml', () => {
   </body>
 </html>`
       );
+    } catch (e) {
+      throw e;
+    }
+  });
+
+  test('Param opts[cacheExpiry] is not a number', async () => {
+    try {
+      const errorMap = new Map();
+      const html = ntml({
+        cacheStore: errorMap,
+        cacheExpiry: NaN,
+        cacheName: 'test',
+      });
+
+      await html`<div>cacheExpiry is not a number</div>`;
+    } catch (e) {
+      expect(e instanceof TypeError).toBe(true);
+      expect(e.message).toEqual('Param opts[cacheExpiry] is not a number');
+    }
+  });
+
+  test('Param opts[cacheStore] MUST be defined when opts[cacheName] is defined', async () => {
+    try {
+      const html = ntml({
+        cacheName: 'test',
+      });
+
+      await html`<div>Invalid cacheStore</div>`;
+    } catch (e) {
+      expect(e instanceof Error).toBe(true);
+      expect(e.message).toEqual('Param opts[cacheStore] MUST be defined when opts[cacheName] is defined');
+    }
+  });
+
+  test('opts[cacheExpiry] timed out', async () => {
+    try {
+      jest.useRealTimers();
+
+      const timedOutMap = new Map();
+      const mockFn = jest.fn(() => 'delete');
+      timedOutMap.delete = mockFn;
+      
+      const html = ntml({
+        cacheExpiry: 2e3,
+        cacheName: 'test',
+        cacheStore: timedOutMap,
+      });
+
+      expect(mockFn).not.toHaveBeenCalled();
+
+      await html`<div></div>`;
+      await new Promise(yay => setTimeout(() => yay(), 3e3));
+      await html`<div></div>`;
+
+      expect(mockFn).toHaveBeenCalledTimes(1);
+    } catch (e) {
+      throw e;
+    }
+  });
+
+  test('serving cached rendered content', async () => {
+    try {
+      const cacheMap = new Map();
+      const html = ntml({
+        cacheStore: cacheMap,
+        cacheName: 'test',
+      });
+
+      await html`<div></div>`;
+      const cachedRendered = await html`<div></div>`;
+
+      expect(cachedRendered)
+        .toEqual(
+`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div></div>
+  </body>
+</html>`
+        );
     } catch (e) {
       throw e;
     }

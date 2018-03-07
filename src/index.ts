@@ -20,11 +20,7 @@ import pretty from 'pretty';
 export async function parseThisHtml(
   content: string
 ) {
-  try {
-    return parse5.serialize(parse5.parse(`<!doctype html>${content || ''}`));
-  } catch (e) {
-    throw e;
-  }
+  return parse5.serialize(parse5.parse(`<!doctype html>${content}`));
 }
 
 export async function minifyHtml(
@@ -32,20 +28,16 @@ export async function minifyHtml(
   minify: boolean,
   shouldParseHtml: boolean
 ) {
-  try {
-    const d = shouldParseHtml ? await parseThisHtml(content) : content;
+  const d = shouldParseHtml ? await parseThisHtml(content) : content;
 
-    return typeof minify === 'boolean' && minify
-      ? htmlMinifier.minify(d, {
-        minifyCSS: true,
-        minifyJS: true,
-        collapseWhitespace: true,
-        removeComments: true,
-      })
-      : pretty(d, { ocd: true });
-  } catch (e) {
-    throw e;
-  }
+  return typeof minify === 'boolean' && minify
+    ? htmlMinifier.minify(d, {
+      minifyCSS: true,
+      minifyJS: true,
+      collapseWhitespace: true,
+      removeComments: true,
+    })
+    : pretty(d, { ocd: true });
 }
 
 export function ntml({
@@ -66,11 +58,12 @@ export function ntml({
 
       /** NOTE: XOR, both must be either false or true */
       if (hasCacheName !== hasCacheStore) {
-        throw new Error(`cacheStore MUST be defined when cacheName is defined, and vice versa`);
+        throw new Error(`Param opts[cacheStore] MUST be defined when opts[cacheName] is defined`);
       }
 
       if (hasCacheStore && hasCacheName && cacheStore.has(cacheName)) {
         const cached = cacheStore.get(cacheName);
+
         if (cached.useUntil >= +new Date()) {
           return cached.data;
         }
@@ -83,15 +76,18 @@ export function ntml({
           ? n()
           : n);
       const resolvedTasks = await Promise.all(tasks);
-      const preRendered = strings.map((n, idx) =>
-        `${n}${resolvedTasks[idx] || ''}`).join('').trim();
+      /** FIXME: To avoid creating holey arrays */
+      const preRendered = strings
+        .map((n, i) => `${n}${resolvedTasks[i] || ''}`)
+        .join('')
+        .trim();
       const rendered = await minifyHtml(preRendered, minify, shouldParseHtml);
 
       if (hasCacheStore && hasCacheName) {
         const ttl = +new Date() + cacheExpiry;
 
-        if (Number.isNaN(ttl)) {
-          throw new Error(`Invalid TTL value (${cacheExpiry})! Must be a number`);
+        if (Number.isNaN(+ttl)) {
+          throw new TypeError('Param opts[cacheExpiry] is not a number');
         }
 
         cacheStore.set(cacheName, { useUntil: ttl, data: rendered });
