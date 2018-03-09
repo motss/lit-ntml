@@ -74,7 +74,8 @@ describe('lit-ntml', () => {
         cacheName: 'test',
       });
       const mockFn = jest.fn((input = '') => `Hello, ${input == null ? '' : `${input} `}World!`);
-      const delayTask = async () => new Promise(yay => setTimeout(() => yay(mockFn('delay')), 999e3));
+      const delayTask = async () =>
+        new Promise(yay => setTimeout(() => yay(mockFn('delay')), 999e3));
       const expectedRendered =
 `<!DOCTYPE html>
 <html>
@@ -85,7 +86,7 @@ describe('lit-ntml', () => {
 </html>`;
       const rendered = html`<div>${delayTask}</div>`;
       const renderedWithCache = html`<div>${delayTask}</div>`;
-      
+
       expect(mockFn).not.toHaveBeenCalledWith('delay');
 
       jest.advanceTimersByTime(999e3);
@@ -122,14 +123,14 @@ describe('lit-ntml', () => {
     <div>Hello, delay World!</div>
   </body>
 </html>`;
-      const delayTask = async () => new Promise(yay => setTimeout(() => yay(mockFn('delay')), 999e3));
+      const delayTask = async () =>
+        new Promise(yay => setTimeout(() => yay(mockFn('delay')), 999e3));
       const renderedWithCustomTTL = html`<div>${delayTask}</div>`;
-      
-      
+
       expect(mockFn).not.toHaveBeenCalledWith('delay');
-      
+
       jest.advanceTimersByTime(999e3);
-      
+
       expect(mockFn).toHaveBeenCalledWith('delay');
 
       const beforeRenderTimestamp = +new Date();
@@ -289,7 +290,8 @@ describe('lit-ntml', () => {
       await html`<div>Invalid cacheStore</div>`;
     } catch (e) {
       expect(e instanceof Error).toBe(true);
-      expect(e.message).toEqual('Param opts[cacheStore] MUST be defined when opts[cacheName] is defined');
+      expect(e.message)
+        .toEqual('Param opts[cacheStore] MUST be defined when opts[cacheName] is defined');
     }
   });
 
@@ -300,7 +302,7 @@ describe('lit-ntml', () => {
       const timedOutMap = new Map();
       const mockFn = jest.fn(() => 'delete');
       timedOutMap.delete = mockFn;
-      
+
       const html = ntml({
         cacheExpiry: 2e3,
         cacheName: 'test',

@@ -81,7 +81,7 @@ export function ntml({
       const resolvedTasks = await Promise.all(tasks);
       const resolvedTasksLen = resolvedTasks.length;
       const preRendered = strings
-        .reduce((p, n, i) =>`${p}${n}${i >= resolvedTasksLen ? '' : resolvedTasks[i]}`, '')
+        .reduce((p, n, i) => `${p}${n}${i >= resolvedTasksLen ? '' : resolvedTasks[i]}`, '')
         .trim();
       const rendered = await minifyHtml(preRendered, minify, shouldParseHtml);
 
