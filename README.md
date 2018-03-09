@@ -13,6 +13,9 @@
 [![Dependency Status][daviddm-badge]][daviddm-url]
 [![NSP Status][nsp-badge]][nsp-url]
 
+[![codecov][codecov-badge]][codecov-url]
+[![Coverage Status][coveralls-badge]][coveralls-url]
+
 [![Code of Conduct][coc-badge]][coc-url]
 
 > Lightweight and modern templating for SSR in [Node.js][node-js-url], inspired by [lit-html][lit-html-url].
@@ -335,9 +338,12 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [version-badge]: https://img.shields.io/npm/v/lit-ntml.svg?style=flat-square
 [downloads-badge]: https://img.shields.io/npm/dm/lit-ntml.svg?style=flat-square
 [mit-license-badge]: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
-[nsp-badge]: https://nodesecurity.io/orgs/motss/projects/92a9a3b3-c0c8-4172-917d-f1c7e0d5ef9f/badge
+[nsp-badge]: https://nodesecurity.io/orgs/motss/projects/02c9094c-5d6f-4be4-b22b-8bced7a4997c/badge
 [daviddm-badge]: https://img.shields.io/david/motss/lit-ntml.svg?style=flat-square
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
+
+[codecov-badge]: https://codecov.io/gh/motss/lit-ntml/branch/master/graph/badge.svg
+[coveralls-badge]: https://coveralls.io/repos/github/motss/lit-ntml/badge.svg?branch=master
 
 [travis-url]: https://travis-ci.org/motss/lit-ntml
 [version-url]: https://www.npmjs.com/package/lit-ntml
@@ -346,3 +352,6 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [daviddm-url]: https://david-dm.org/motss/lit-ntml
 [nsp-url]: https://nodesecurity.io/orgs/motss/projects/02c9094c-5d6f-4be4-b22b-8bced7a4997c
 [coc-url]: https://github.com/motss/lit-ntml/blob/master/CODE_OF_CONDUCT.md
+
+[codecov-url]: https://codecov.io/gh/motss/lit-ntml
+[coveralls-url]: https://coveralls.io/github/motss/lit-ntml?branch=master
