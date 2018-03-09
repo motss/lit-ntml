@@ -49,10 +49,13 @@ export function ntml({
 }: Ntml = {}) {
   return async (strings: TemplateStringsArray, ...exps: any[]): Promise<string> => {
     try {
-      const hasCacheStore = !!(typeof cacheStore !== 'undefined'
-        && cacheStore.has
-        && cacheStore.set
-        && cacheStore.delete);
+      const hasCacheStore = !!(
+        cacheStore != null
+          && cacheStore.has
+          && cacheStore.get
+          && cacheStore.set
+          && cacheStore.delete
+      );
       const hasCacheName = typeof cacheName === 'string' && cacheName.length > 0;
       const shouldParseHtml = typeof parseHtml === 'boolean' && parseHtml;
 
@@ -76,10 +79,9 @@ export function ntml({
           ? n()
           : n);
       const resolvedTasks = await Promise.all(tasks);
-      /** FIXME: To avoid creating holey arrays */
+      const resolvedTasksLen = resolvedTasks.length;
       const preRendered = strings
-        .map((n, i) => `${n}${resolvedTasks[i] || ''}`)
-        .join('')
+        .reduce((p, n, i) =>`${p}${n}${i >= resolvedTasksLen ? '' : resolvedTasks[i]}`, '')
         .trim();
       const rendered = await minifyHtml(preRendered, minify, shouldParseHtml);
 

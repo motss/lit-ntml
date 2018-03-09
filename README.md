@@ -58,7 +58,7 @@
 
 ```sh
 # Install via NPM
-npm install lit-ntml
+$ npm install lit-ntml
 ```
 
 ### Enable syntax highlighting when writing HTML with template literal
