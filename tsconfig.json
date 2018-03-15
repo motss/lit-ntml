@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "allowUnusedLabels": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "allowUnreachableCode": false,
     "forceConsistentCasingInFileNames": true,
     "removeComments": true,
     "traceResolution": false,
     "newLine": "LF",
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "lib": [
       "esnext",
       "esnext.asynciterable",

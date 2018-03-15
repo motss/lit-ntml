@@ -13,7 +13,7 @@ export declare interface Ntml {
 }
 
 /** Import project dependencies */
-import htmlMinifier from 'html-minifier';
+import * as htmlMinifier from 'html-minifier';
 import parse5 from 'parse5';
 import pretty from 'pretty';
 

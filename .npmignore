@@ -16,3 +16,6 @@ node_modules/
 
 # .js files
 gulpfile*.js
+
+# Do not ignore
+!**/json.d.ts
