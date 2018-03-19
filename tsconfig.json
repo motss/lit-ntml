@@ -1,24 +1,22 @@
 {
   "compilerOptions": {
-    "allowUnusedLabels": true,
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
+    "allowUnusedLabels": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
+    "newLine": "LF",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "removeComments": true,
     "traceResolution": false,
-    "newLine": "LF",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "lib": [
-      "esnext",
-      "esnext.asynciterable",
-      "dom"
-    ],
+
+    "lib": ["dom", "dom.iterable", "esnext", "esnext.array", "esnext.asynciterable"],
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "esnext",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "jsx": "react",
     "jsxFactory": "h",
     "rootDir": ".",
@@ -26,11 +24,6 @@
     "declaration": true,
     "declarationDir": "."
   },
-  "include": [
-    "src/**/*",
-    "types/*.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

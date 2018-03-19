@@ -3,10 +3,6 @@
 /** Import other module */
 import ntml from '../';
 
-function toMs(timestamp: [number, number]) {
-  return (timestamp[0] * 1e3) + (timestamp[1] * 1e-6);
-}
-
 jest.useFakeTimers();
 
 describe('lit-ntml', () => {
