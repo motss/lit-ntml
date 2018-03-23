@@ -1,7 +1,7 @@
 // @ts-check
 
 /** Import other modules */
-const { ntml } = require('../..');
+import ntml from '../../';
 
 /** Setting up */
 const html = ntml({
@@ -23,4 +23,4 @@ const tidyHtml = ntml({
   } catch (e) {
     console.error('^ Error', e);
   }
-})()
+})();
