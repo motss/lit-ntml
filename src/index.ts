@@ -10,6 +10,7 @@ export declare interface Ntml {
   cacheExpiry?: number;
   minify?: boolean;
   parseHtml?: boolean;
+  parseHtmlFragment?: boolean;
 }
 
 /** Import project dependencies */
@@ -23,12 +24,24 @@ export async function parseThisHtml(
   return parse5.serialize(parse5.parse(`<!doctype html>${content}`));
 }
 
+export async function parseFragmentHtml(
+  content: string
+) {
+  return parse5.serialize(parse5.parseFragment(content));
+}
+
 export async function minifyHtml(
   content: string,
   minify: boolean,
-  shouldParseHtml: boolean
+  shouldParseHtml: boolean,
+  shouldParseHtmlFragment: boolean
 ) {
-  const d = shouldParseHtml ? await parseThisHtml(content) : content;
+  const d = shouldParseHtml
+    ? (shouldParseHtmlFragment
+      ? await parseFragmentHtml(content)
+      : await parseThisHtml(content)
+    )
+    : content;
 
   return typeof minify === 'boolean' && minify
     ? htmlMinifier.minify(d, {
@@ -46,6 +59,7 @@ export function ntml({
   cacheExpiry /** @type {number} */ = 12 * 30 * 24 * 3600,
   minify /** @type {boolean} */ = false,
   parseHtml /** @type {boolean} */ = true,
+  parseHtmlFragment /** @type {boolean} */ = false,
 }: Ntml = {}) {
   return async (strings: TemplateStringsArray, ...exps: any[]): Promise<string> => {
     try {
@@ -58,6 +72,7 @@ export function ntml({
       );
       const hasCacheName = typeof cacheName === 'string' && cacheName.length > 0;
       const shouldParseHtml = typeof parseHtml === 'boolean' && parseHtml;
+      const shouldParseHtmlFragment = typeof parseHtmlFragment === 'boolean' && parseHtmlFragment;
 
       /** NOTE: XOR, both must be either false or true */
       if (hasCacheName !== hasCacheStore) {
@@ -83,7 +98,12 @@ export function ntml({
       const preRendered = strings
         .reduce((p, n, i) => `${p}${n}${i >= resolvedTasksLen ? '' : resolvedTasks[i]}`, '')
         .trim();
-      const rendered = await minifyHtml(preRendered, minify, shouldParseHtml);
+      const rendered = await minifyHtml(
+        preRendered,
+        minify,
+        shouldParseHtml,
+        shouldParseHtmlFragment
+      );
 
       if (hasCacheStore && hasCacheName) {
         const ttl = +new Date() + cacheExpiry;

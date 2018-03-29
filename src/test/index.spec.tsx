@@ -261,6 +261,37 @@ describe('lit-ntml', () => {
     }
   });
 
+  test('render as fragment without HTML minification', async () => {
+    try {
+      const html = ntml({
+        minify: false,
+        parseHtmlFragment: true,
+      });
+
+      const rendered = await html`
+        <style>
+          div {
+            font-size: 2em;
+            color: blue;
+          }
+        </style>
+        <div>Hello, World!
+      `;
+
+      expect(rendered).toEqual(
+`<style>
+  div {
+    font-size: 2em;
+    color: blue;
+  }
+</style>
+<div>Hello, World!</div>`
+      );
+    } catch (e) {
+      throw e;
+    }
+  });
+
   test('Param opts[cacheExpiry] is not a number', async () => {
     try {
       const errorMap = new Map();

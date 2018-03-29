@@ -242,6 +242,7 @@ const { ntml } = require('ntml');
   - `cacheExpiry` <[number][number-mdn-url]> How long the rendered HTML should be cached for. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
   - `minify` <[boolean][boolean-mdn-url]> If true, minify rendered HTML. Defaults to `false`.
   - `parseHtml` <[boolean][boolean-mdn-url]> If true, parse the HTML with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
+  - `parseHtmlFragment` <[boolean][boolean-mdn-url]> If true, parse the HTML as fragment, i.e. don't wrap the result in `<html><body>` tags. Defaults to `false`.
 - returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML.
 
 ## Caveat
@@ -299,6 +300,20 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
     const main = () => html`<style>${style}</style>`;
     ```
 
+1. Parse style as fragment
+
+    ```js
+    const { ntml } = require('lit-ntml');
+    const fhtml = ntml({
+      parseHtmlFragment: true,
+    });
+    const style = () => fhtml`
+    body {}
+    main {}
+    `;
+    const main = () => html`<style>${style}</style>`;
+    ```
+
 1. Wrap with any valid HTML element
 
     ```js
@@ -308,20 +323,6 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 
       main {}
     </style>`;
-    ```
-
-1. Simply disable [parse5][parse5-url]
-
-    ```js
-    const { ntml } = require('lit-ntml');
-    const html = ntml({
-      parseHtml: false,
-    });
-    const style = () => html`
-    body {}
-    main {}
-    `;
-    const main = () => html`<style>${style}</style>`;
     ```
 
 ## License
