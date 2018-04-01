@@ -1,24 +1,11 @@
-# dot files
-.build/
-.DS_Store
-.esm-cache
-.nyc_output
-.tmp/
-.vscode
-*.env
+# Ignore everything
+.git/
+**/*.*
 
-# debug
-npm-debug.log*
-yarn-error.log*
-
-# folders
-./test*/
-coverage*/
-demo*/
-node_modules/
-
-# .js files
-gulpfile*.js
-
-# Do not ignore
+# Except these
 !**/json.d.ts
+!/*.d.ts
+!/*.js
+
+# But but these
+gulpfile.js

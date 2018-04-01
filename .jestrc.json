@@ -3,25 +3,15 @@
     "ts-jest": {
       "babelConfig": {
         "presets": [
-          [
-            "env",
-            {
-              "targets": {
-                "node": "current"
-              },
-              "spec": true,
-              "modules": "commonjs",
-              "useBuiltIns": true
-            }
-          ]
+          ["env", {
+            "targets": { "node": "current" },
+            "spec": true,
+            "modules": false,
+            "useBuiltIns": true
+          }]
         ],
         "plugins": [
-          [
-            "transform-object-rest-spread",
-            {
-              "useBuiltIns": true
-            }
-          ]
+          ["transform-object-rest-spread", { "useBuiltIns": true }]
         ]
       }
     }
