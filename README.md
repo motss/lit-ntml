@@ -18,6 +18,9 @@
 [![codecov][codecov-badge]][codecov-url]
 [![Coverage Status][coveralls-badge]][coveralls-url]
 
+[![codebeat badge][codebeat-badge]][codebeat-url]
+[![Codacy Badge][codacy-badge]][codacy-url]
+
 > Lightweight and modern templating for SSR in [Node.js][nodejs-url], inspired by [lit-html][lit-html-url].
 
 ## Table of contents
@@ -347,6 +350,9 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [codecov-badge]: https://codecov.io/gh/motss/lit-ntml/branch/master/graph/badge.svg
 [coveralls-badge]: https://coveralls.io/repos/github/motss/lit-ntml/badge.svg?branch=master
 
+[codebeat-badge]: https://codebeat.co/badges/46b91b60-804d-4909-a647-1784ae283f19
+[codacy-badge]: https://api.codacy.com/project/badge/Grade/bb0c739bc5144a8b80197f3fa3bb2273
+
 [version-url]: https://www.npmjs.com/package/lit-ntml
 [downloads-url]: http://www.npmtrends.com/lit-ntml
 [mit-license-url]: https://github.com/motss/lit-ntml/blob/master/LICENSE
@@ -358,3 +364,6 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [nsp-url]: https://nodesecurity.io/orgs/motss/projects/02c9094c-5d6f-4be4-b22b-8bced7a4997c
 [codecov-url]: https://codecov.io/gh/motss/lit-ntml
 [coveralls-url]: https://coveralls.io/github/motss/lit-ntml?branch=master
+
+[codebeat-url]: https://codebeat.co/projects/github-com-motss-lit-ntml-master
+[codacy-url]: https://www.codacy.com/app/motss/lit-ntml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml&amp;utm_campaign=Badge_Grade
