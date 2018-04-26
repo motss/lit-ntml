@@ -18,9 +18,14 @@ import parse5 from 'parse5';
 import pretty from 'pretty';
 
 export async function parseThisHtml(
-  content: string
+  content: string,
+  shouldParseHtml?: boolean
 ) {
-  return parse5.serialize(parse5.parse(`<!doctype html>${content}`));
+  return parse5.serialize(
+    shouldParseHtml
+      ? parse5.parse(`<!doctype html>${content}`)
+      : parse5.parseFragment(content)
+  );
 }
 
 export async function minifyHtml(
@@ -28,7 +33,7 @@ export async function minifyHtml(
   minify: boolean,
   shouldParseHtml: boolean
 ) {
-  const d = shouldParseHtml ? await parseThisHtml(content) : content;
+  const d = await parseThisHtml(content, shouldParseHtml);
 
   return typeof minify === 'boolean' && minify
     ? htmlMinifier.minify(d, {

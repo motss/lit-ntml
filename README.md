@@ -12,12 +12,13 @@
 [![Code of Conduct][coc-badge]][coc-url]
 
 [![Build Status][travis-badge]][travis-url]
+[![CircleCI][circleci-badge]][circleci-url]
 [![Dependency Status][daviddm-badge]][daviddm-url]
 [![NSP Status][nsp-badge]][nsp-url]
 [![codecov][codecov-badge]][codecov-url]
 [![Coverage Status][coveralls-badge]][coveralls-url]
 
-> Lightweight and modern templating for SSR in [Node.js][node-js-url], inspired by [lit-html][lit-html-url].
+> Lightweight and modern templating for SSR in [Node.js][nodejs-url], inspired by [lit-html][lit-html-url].
 
 ## Table of contents
 
@@ -29,30 +30,31 @@
     - [Visual Studio Code](#visual-studio-code)
   - [Code examples](#code-examples)
     - [Await all tasks (Promises, Functions, strings, etc)](#await-all-tasks-promises-functions-strings-etc)
-    - [Use custom cache store + unique cache name to cache rendered HTML](#use-custom-cache-store-unique-cache-name-to-cache-rendered-html)
-    - [Minify rendered HTML](#minify-rendered-html)
+    - [Use custom cache store + unique cache name to cache rendered HTML string](#use-custom-cache-store-unique-cache-name-to-cache-rendered-html-string)
+    - [Minify rendered HTML string](#minify-rendered-html-string)
     - [Non-TypeScript users](#non-typescript-users)
 - [API Reference](#api-reference)
-  - [ntml(options)](#ntmloptions)
+  - [ntml([options])](#ntmloptions)
 - [Caveat](#caveat)
   - [CSS styles outside of &lt;style&gt;](#css-styles-outside-of-ltstylegt)
 - [License](#license)
 
 ## Features
 
-- [x] `await` all tasks including Promises
-- [x] `cacheStore: new QuickLru()` to use a custom [ES6 Map][map-mdn-url] compliant cache instance
+- [x] `await` all tasks including Promises.
+- [x] `cacheStore: new QuickLru()` to use a custom [ES6 Map][map-mdn-url] compliant cache instance.
 - [x] `cacheExpiry: 10e3` to set TTL of a cached item. Defaults to 1 year of TTL.
-- [x] `minify: true` to minify rendered HTML
-- [x] Compatible for ES Modules (`import ntml from 'ntml'`) and CommonJS (`const { ntml } = require('ntml');`)
-- [x] Uses [parse5][parse5-url] to parse HTML by default
-- [x] Uses [pretty][pretty-url] to prettify HTML by default
+- [x] `minify: true` to minify rendered HTML string.
+- [x] `parseHtml: true` to parse content as HTML5 string. If false, content will be parsed as HTML fragment string.
+- [x] Compatible for ES Modules (`import ntml from 'ntml'`) and CommonJS (`const { ntml } = require('ntml');`).
+- [x] Uses [parse5][parse5-url] to parse HTML string by default.
+- [x] Uses [pretty][pretty-url] to prettify HTML string by default.
 - [x] Support HTML syntax highlighting + autocompletion with [vscode-lit-html][vscode-lit-html-url] in JavaScript's template string.
 
 ## Pre-requisite
 
-- [Node.js][node-js-url] >= 8.9.0
-- [NPM][npm-url] >= 5.5.1 ([NPM][npm-url] comes with [Node.js][node-js-url] so there is no need to install separately.)
+- [Node.js][nodejs-url] >= 8.9.0
+- [NPM][npm-url] >= 5.5.1 ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
 
 ## How to use
 
@@ -118,7 +120,7 @@ const rendered = await html`
 console.log('#', rendered); /** <html lang="en>...</html> */
 ```
 
-#### Use custom cache store + unique cache name to cache rendered HTML
+#### Use custom cache store + unique cache name to cache rendered HTML string
 
 ```ts
 /** Import project dependencies */
@@ -130,8 +132,8 @@ const cacheStore = new QuickLru({ maxSize: 1000 }); // A cache instance must be 
 // const simpleCache = new Map(); // Simple cache using ES6 Map.
 const html = ntml({
   cacheStore, // cacheStore: simpleCache,
-  cacheName: 'main', // Gives the rendered HTML a unique name
-  cacheExpiry: 10e3, // Set TTL of the rendered HTML. Defaults to 1 year.
+  cacheName: 'main', // Gives the rendered HTML string a unique name
+  cacheExpiry: 10e3, // Set TTL of the rendered HTML string. Defaults to 1 year.
 });
 
 const cacheAfterRendered = await html`
@@ -168,7 +170,7 @@ const cacheAfterRendered = await html`
 console.log('#', cacheAfterRendered); /** <html lang="en">...</html> */
 ```
 
-#### Minify rendered HTML
+#### Minify rendered HTML string
 
 ```ts
 /** Import project dependencies */
@@ -234,15 +236,15 @@ const { ntml } = require('ntml');
 
 ## API Reference
 
-### ntml(options)
+### ntml([options])
 
-- `options` <[Object][object-mdn-url]> Optional configuration for the templating.
-  - `cacheStore` <[Map][map-mdn-url]> Custom ES6 Map compliant cache instance to cache rendered HTML.
-  - `cacheName` <[string][string-mdn-url]> Name of the rendered HTML that needs to be cached. **_Use a unique name for each rendered HTML to avoid cache conflict._**
-  - `cacheExpiry` <[number][number-mdn-url]> How long the rendered HTML should be cached for. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
-  - `minify` <[boolean][boolean-mdn-url]> If true, minify rendered HTML. Defaults to `false`.
-  - `parseHtml` <[boolean][boolean-mdn-url]> If true, parse the HTML with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
-- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML.
+- `options` <[?Object][object-mdn-url]> Optional configuration for the templating.
+  - `cacheStore` <[Map][map-mdn-url]> Optional custom ES6 Map compliant cache instance to cache rendered HTML string.
+  - `cacheName` <[string][string-mdn-url]> Optional name of the rendered HTML string that needs to be cached. **_Use a unique name for each rendered HTML string to avoid cache conflict._**
+  - `cacheExpiry` <[number][number-mdn-url]> Optional cache expiry date of rendered HTML string. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
+  - `minify` <[boolean][boolean-mdn-url]> Optional minification flag. If true, minify rendered HTML string. Defaults to `false`.
+  - `parseHtml` <[boolean][boolean-mdn-url]> Optional flag to parse content as HTML string or HTML fragment string with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
+- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML string.
 
 ## Caveat
 
@@ -289,17 +291,7 @@ const main = () => html`
 
 It's clearly that the `style` tag element has been wrapped inside another `html` tag element. This is an unexpected behavior. However, it kind of makes sense as from the above scenario each of the new content is rendered separately with `lit-ntml` and the `lit-ntml` has no knowledge about what will be rendered next and before. To avoid such behavior, do one of the following:
 
-1. Avoid using `lit-ntml` to render the content of a HTML element
-
-    ```js
-    const style = () => `
-    body {}
-    main {}
-    `;
-    const main = () => html`<style>${style}</style>`;
-    ```
-
-1. Wrap with any valid HTML element
+1. Wrap with any valid HTML element tag
 
     ```js
     const style = () => html`
@@ -310,7 +302,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
     </style>`;
     ```
 
-1. Simply disable [parse5][parse5-url]
+1. Simply set `parseHtml` flag to `false`
 
     ```js
     const { ntml } = require('lit-ntml');
@@ -328,7 +320,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 
 [MIT License](https://motss.mit-license.org) © Rong Sen Ng
 
-[node-js-url]: https://nodejs.org
+[nodejs-url]: https://nodejs.org
 [lit-html-url]: https://github.com/PolymerLabs/lit-html
 [npm-url]: https://www.npmjs.com
 [parse5-url]: https://www.npmjs.com/package/parse5
@@ -349,6 +341,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
 
 [travis-badge]: https://img.shields.io/travis/motss/lit-ntml.svg?style=flat-square
+[circleci-badge]: https://circleci.com/gh/motss/lit-ntml/tree/master.svg?style=svg
 [daviddm-badge]: https://img.shields.io/david/motss/lit-ntml.svg?style=flat-square
 [nsp-badge]: https://nodesecurity.io/orgs/motss/projects/02c9094c-5d6f-4be4-b22b-8bced7a4997c/badge
 [codecov-badge]: https://codecov.io/gh/motss/lit-ntml/branch/master/graph/badge.svg
@@ -360,6 +353,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [coc-url]: https://github.com/motss/lit-ntml/blob/master/CODE_OF_CONDUCT.md
 
 [travis-url]: https://travis-ci.org/motss/lit-ntml
+[circleci-url]: https://circleci.com/gh/motss/lit-ntml/tree/master
 [daviddm-url]: https://david-dm.org/motss/lit-ntml
 [nsp-url]: https://nodesecurity.io/orgs/motss/projects/02c9094c-5d6f-4be4-b22b-8bced7a4997c
 [codecov-url]: https://codecov.io/gh/motss/lit-ntml
