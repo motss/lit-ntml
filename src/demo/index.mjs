@@ -1,7 +1,7 @@
 // @ts-check
 
 /** Import other modules */
-import ntml from '..';
+import { ntml } from '..';
 
 /** Setting up */
 const html = ntml({
@@ -24,12 +24,11 @@ async function nestedRender(title) {
 
 async function main() {
   const greetings = async () => 'Hello, World!';
-  // const minified = await html`<div>${greetings}</div>`;
-  // const rendered = await tidyHtml`<div>${greetings}</div>`;
-  const nestedRendered = await nestedRender(greetings);
+  const minified = await html`<div>${greetings}</div>`;
+  const rendered = await tidyHtml`<div>${greetings}</div>`;
+  const nestedRendered = await nestedRender('Hello, World!');
 
-  // console.log('# %s\n\n%s', minified, rendered, nestedRendered);
-  console.log('#', nestedRendered);
+  console.log('# %s\n\n%s', minified, rendered, nestedRendered);
 }
 
 main()

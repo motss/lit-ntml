@@ -25,8 +25,8 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp",
     "check": "npm run lint && npm run nsp",
-    "demo": "node src/demo/",
-    "gulp": "gulp",
+    "demo": "node --inspect-brk demo/",
+    "gulp": "gulp --gulpfile=gulpfile.js",
     "lint": "cross-env NODE_ENV=production gulp lint",
     "nsp": "nsp check",
     "prepublishOnly": "npm run check && npm run build",
