@@ -15,7 +15,6 @@ jobs:
   node-base: &node-base
     docker:
       - image: node
-    working_directory: {{ .Environment.CIRCLE_WORKING_DIRECTORY }}
     steps:
       - run:
           name: Versions

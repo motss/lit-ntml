@@ -33,16 +33,13 @@
     "test": "jest --config ./.jestrc.json"
   },
   "dependencies": {
-    "html-minifier": "^3.5.10",
+    "html-minifier": "^3.5.15",
     "parse5": "^4.0.0",
     "pretty": "^2.0.0"
   },
   "devDependencies": {
-    "@messageflow/build": "0.0.8",
     "@messageflow/tslint-config": "0.0.3",
     "@types/html-minifier": "^3.5.1",
-    "@types/jest": "^22.1.4",
-    "@types/node": "^9.4.6",
     "@types/parse5": "^3.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
@@ -51,9 +48,7 @@
     "gulp": "^4.0.0",
     "jest": "^22.4.2",
     "nsp": "^3.2.1",
-    "ts-jest": "^22.4.1",
-    "tslint": "^5.9.1",
-    "typescript": "^2.7.2"
+    "tslint": "^5.9.1"
   },
   "engines": {
     "node": ">= 8.9.0",
