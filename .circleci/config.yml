@@ -55,5 +55,5 @@ jobs:
   node-v10:
     <<: *node-base
     docker:
-      - image: node:10
+      - image: node:10.0
 
