@@ -27,8 +27,11 @@ jobs:
             - v{{ .Environment.CIRCLE_BUILD_NUM }}-npm-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_JOB }}
             - v{{ .Environment.CIRCLE_BUILD_NUM }}-npm-cache-master-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_JOB }}
       - run:
+          name: Install latest NPM
+          command: npm i -g npm
+      - run:
           name: Install dependencies
-          command: npm install
+          command: npm ci
       - run:
           name: Build
           command: npm run build

@@ -13,7 +13,7 @@
     "removeComments": true,
     "traceResolution": false,
 
-    "lib": ["dom", "dom.iterable", "esnext", "esnext.array", "esnext.asynciterable"],
+    "lib": ["esnext", "esnext.array", "esnext.asynciterable"],
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "esnext",

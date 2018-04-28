@@ -5,18 +5,13 @@ import ntml from '..';
 
 /** Setting up */
 const html = ntml({
-  parseHtml: true,
-  minify: true,
-});
-const tidyHtml = ntml({
-  parseHtml: true,
   minify: false,
 });
 
 async function nestedRender(title) {
   return html`<div>
     ${
-      title == null ? '' : `<h1>${html`${title}`}</h1>`
+      title == null ? '' : html`<h1>${html`${title}`}</h1>`
     }
     <p>Haha</div>
   </div>`;
@@ -24,11 +19,8 @@ async function nestedRender(title) {
 
 async function main() {
   const greetings = async () => 'Hello, World!';
-  // const minified = await html`<div>${greetings}</div>`;
-  // const rendered = await tidyHtml`<div>${greetings}</div>`;
   const nestedRendered = await nestedRender(greetings);
 
-  // console.log('# %s\n\n%s', minified, rendered, nestedRendered);
   console.log('#', nestedRendered);
 }
 

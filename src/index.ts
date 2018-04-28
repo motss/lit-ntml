@@ -1,109 +1,115 @@
 // @ts-check
 
-export declare interface CacheStoreMap {
-  useUntil: number;
-  data: string;
-}
-export declare interface Ntml {
-  cacheStore?: Map<string, CacheStoreMap>;
-  cacheName?: string;
-  cacheExpiry?: number;
+export declare interface NtmlOpts {
   minify?: boolean;
-  parseHtml?: boolean;
+
+  options?: {
+    minify?: htmlMinifier.Options;
+    parse?: 'html'|'fragment'|boolean;
+  };
 }
 
 /** Import project dependencies */
 import htmlMinifier from 'html-minifier';
 import parse5 from 'parse5';
-import pretty from 'pretty';
 
-export async function parseThisHtml(
+export const DEFAULT_MINIFY_OPTIONS: htmlMinifier.Options = {
+  collapseBooleanAttributes: true,
+  collapseInlineTagWhitespace: true,
+  collapseWhitespace: true,
+  minifyCSS: true,
+  minifyJS: true,
+  processConditionalComments: true,
+  quoteCharacter: '"',
+  removeComments: true,
+  removeOptionalTags: true,
+  removeRedundantAttributes: true,
+  removeScriptTypeAttributes: true,
+  removeStyleLinkTypeAttributes: true,
+  sortAttributes: true,
+  sortClassName: true,
+  trimCustomFragments: true,
+};
+
+async function parseParserOptions(
+  parserOptions: NtmlOpts['options']['parse']
+): Promise<boolean> {
+  switch (true) {
+    case (typeof parserOptions === 'string'): {
+      return /^(html|fragment)$/i.test(parserOptions as string);
+    }
+    case (typeof parserOptions === 'boolean'): {
+      return parserOptions as boolean;
+    }
+    default: {
+      throw new Error(
+        `Invalid parse options (${
+          parserOptions
+        }). Only allows ['html', 'fragment', true, false]`
+      );
+    }
+  }
+}
+
+export async function parser(
   content: string,
-  shouldParseHtml?: boolean
-) {
+  parserOptions: NtmlOpts['options']['parse']
+): Promise<string> {
+  const parseAs = await parseParserOptions(parserOptions);
+
   return parse5.serialize(
-    shouldParseHtml
+    parseAs
       ? parse5.parse(`<!doctype html>${content}`)
       : parse5.parseFragment(content)
   );
 }
 
-export async function minifyHtml(
+export async function minifier(
   content: string,
-  minify: boolean,
-  shouldParseHtml: boolean
+  minifierOptions: htmlMinifier.Options
 ) {
-  const d = await parseThisHtml(content, shouldParseHtml);
-
-  return typeof minify === 'boolean' && minify
-    ? htmlMinifier.minify(d, {
-      minifyCSS: true,
-      minifyJS: true,
-      collapseWhitespace: true,
-      removeComments: true,
-    })
-    : pretty(d, { ocd: true });
+  return htmlMinifier.minify(
+    content,
+    minifierOptions == null
+      ? DEFAULT_MINIFY_OPTIONS
+      : minifierOptions
+  );
 }
 
 export function ntml({
-  cacheStore /** @type {Map} */,
-  cacheName /** @type {string} */,
-  cacheExpiry /** @type {number} */ = 12 * 30 * 24 * 3600,
-  minify /** @type {boolean} */ = false,
-  parseHtml /** @type {boolean} */ = true,
-}: Ntml = {}) {
-  return async (strings: TemplateStringsArray, ...exps: any[]): Promise<string> => {
-    try {
-      const hasCacheStore = !!(
-        cacheStore != null
-          && cacheStore.has
-          && cacheStore.get
-          && cacheStore.set
-          && cacheStore.delete
-      );
-      const hasCacheName = typeof cacheName === 'string' && cacheName.length > 0;
-      const shouldParseHtml = typeof parseHtml === 'boolean' && parseHtml;
-
-      /** NOTE: XOR, both must be either false or true */
-      if (hasCacheName !== hasCacheStore) {
-        throw new Error(`Param opts[cacheStore] MUST be defined when opts[cacheName] is defined`);
-      }
-
-      if (hasCacheStore && hasCacheName && cacheStore.has(cacheName)) {
-        const cached = cacheStore.get(cacheName);
-
-        if (cached.useUntil >= +new Date()) {
-          return cached.data;
-        }
-
-        cacheStore.delete(cacheName);
-      }
-
-      const tasks: Promise<string>[] = exps.map(async n =>
-        n instanceof Function
+  minify,
+  options = {} as NtmlOpts['options'],
+}: NtmlOpts) {
+  return async function html(
+    strings: TemplateStringsArray,
+    ...exps
+  ) {
+    const asyncTasks = exps.map(
+      async n =>
+        typeof n === 'function' || n instanceof Function
           ? n()
-          : n);
-      const resolvedTasks = await Promise.all(tasks);
-      const resolvedTasksLen = resolvedTasks.length;
-      const preRendered = strings
-        .reduce((p, n, i) => `${p}${n}${i >= resolvedTasksLen ? '' : resolvedTasks[i]}`, '')
-        .trim();
-      const rendered = await minifyHtml(preRendered, minify, shouldParseHtml);
+          : n
+    );
+    const doneTasks = await Promise.all(asyncTasks);
+    const doneTasksLen = doneTasks.length;
+    const allDone = await Promise.all(
+      strings.map(
+        async (n, i) =>
+          i >= doneTasksLen
+            ? n
+            : `${n}${doneTasks[i]}`
+      )
+    );
+    const parsed = await parser(
+      allDone.join(''),
+      options.parse == null
+        ? 'fragment'
+        : options.parse
+    );
 
-      if (hasCacheStore && hasCacheName) {
-        const ttl = +new Date() + cacheExpiry;
-
-        if (Number.isNaN(+ttl)) {
-          throw new TypeError('Param opts[cacheExpiry] is not a number');
-        }
-
-        cacheStore.set(cacheName, { useUntil: ttl, data: rendered });
-      }
-
-      return rendered;
-    } catch (e) {
-      throw e;
-    }
+    return minify == null
+      ? parsed
+      : minifier(parsed, options.minify);
   };
 }
 
