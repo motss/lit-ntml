@@ -288,12 +288,14 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
     </style>`;
     ```
 
-1. Simply set `parseHtml` flag to `false`
+1. Make sure `options[parse]` is set to `false` or `fragment`
 
     ```js
     const { ntml } = require('lit-ntml');
     const html = ntml({
-      parseHtml: false,
+      options: {
+        parse: 'fragment', // or parse: false,
+      },
     });
     const style = () => html`
     body {}
