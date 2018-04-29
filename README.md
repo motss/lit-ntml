@@ -33,9 +33,10 @@
   - [Enable syntax highlighting when writing HTML with template literal](#enable-syntax-highlighting-when-writing-html-with-template-literal)
     - [Visual Studio Code](#visual-studio-code)
   - [Code examples](#code-examples)
-    - [Await all tasks (Promises, Functions, strings, etc)](#await-all-tasks-promises-functions-strings-etc)
-    - [Minify rendered HTML string](#minify-rendered-html-string)
-    - [Native ES Modules or TypeScript](#native-es-modules-or-typescript)
+    - [ES Modules or TypeScript](#es-modules-or-typescript)
+      - [Await all tasks (Promises, Functions, strings, etc)](#await-all-tasks-promises-functions-strings-etc)
+      - [Minify rendered HTML string](#minify-rendered-html-string)
+    - [Node.js](#nodejs)
 - [API Reference](#api-reference)
   - [DEFAULT_MINIFY_OPTIONS](#default_minify_options)
   - [NtmlOpts](#ntmlopts)
@@ -79,7 +80,9 @@ $ npm install lit-ntml
 
 ### Code examples
 
-#### Await all tasks (Promises, Functions, strings, etc)
+#### ES Modules or TypeScript
+
+##### Await all tasks (Promises, Functions, strings, etc)
 
 ```ts
 /** Import project dependencies */
@@ -125,7 +128,7 @@ const rendered = await html`
 console.log('#', rendered); /** <html lang="en>...</html> */
 ```
 
-#### Minify rendered HTML string
+##### Minify rendered HTML string
 
 ```ts
 /** Import project dependencies */
@@ -171,9 +174,7 @@ const minifyAfterRendered = await html`
 console.log('#', minifyAfterRendered); /** <html lang="en"><body><style>...</style><main>...</main></body></html> */
 ```
 
-#### Native ES Modules or TypeScript
-
-For non-TypeScript users, here's the snippet:
+#### Node.js
 
 ```js
 const { ntml } = require('ntml');
