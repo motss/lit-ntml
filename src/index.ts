@@ -6,12 +6,16 @@ export declare interface NtmlOpts {
   options?: {
     minify?: htmlMinifier.Options;
     parse?: 'html'|'fragment'|boolean;
+    pretty?: {
+      ocd: boolean;
+    };
   };
 }
 
 /** Import project dependencies */
 import htmlMinifier from 'html-minifier';
 import parse5 from 'parse5';
+import pretty from 'pretty';
 
 export const DEFAULT_MINIFY_OPTIONS: htmlMinifier.Options = {
   collapseBooleanAttributes: true,
@@ -54,7 +58,7 @@ async function parseParserOptions(
   }
 }
 
-export async function parser(
+async function parser(
   content: string,
   parserOptions: NonNullable<NtmlOpts['options']>['parse']
 ): Promise<string> {
@@ -67,7 +71,7 @@ export async function parser(
   );
 }
 
-export async function minifier(
+async function minifier(
   content: string,
   minifierOptions?: htmlMinifier.Options
 ) {
@@ -111,7 +115,12 @@ export function ntml({
     );
 
     return minify == null
-      ? parsed
+      ? pretty(
+        parsed,
+        options.pretty == null
+          ? { ocd: true }
+          : options.pretty
+      )
       : minifier(parsed, options.minify);
   };
 }
