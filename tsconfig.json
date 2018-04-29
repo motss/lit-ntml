@@ -11,6 +11,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": true,
+    "strictNullChecks": true,
     "traceResolution": false,
 
     "lib": ["esnext", "esnext.array", "esnext.asynciterable"],

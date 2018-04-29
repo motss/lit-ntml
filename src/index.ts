@@ -32,14 +32,17 @@ export const DEFAULT_MINIFY_OPTIONS: htmlMinifier.Options = {
 };
 
 async function parseParserOptions(
-  parserOptions: NtmlOpts['options']['parse']
-): Promise<boolean> {
+  parserOptions: NonNullable<NtmlOpts['options']>['parse']
+): Promise<'html'|'fragment'> {
+  const isParserString = typeof parserOptions === 'string';
+
   switch (true) {
-    case (typeof parserOptions === 'string'): {
-      return /^(html|fragment)$/i.test(parserOptions as string);
-    }
+    case (isParserString && /^html$/i.test(parserOptions as string)): return 'html';
+    case (isParserString && /^fragment$/i.test(parserOptions as string)): return 'fragment';
     case (typeof parserOptions === 'boolean'): {
-      return parserOptions as boolean;
+      return parserOptions
+        ? 'html'
+        : 'fragment';
     }
     default: {
       throw new Error(
@@ -53,12 +56,12 @@ async function parseParserOptions(
 
 export async function parser(
   content: string,
-  parserOptions: NtmlOpts['options']['parse']
+  parserOptions: NonNullable<NtmlOpts['options']>['parse']
 ): Promise<string> {
   const parseAs = await parseParserOptions(parserOptions);
 
   return parse5.serialize(
-    parseAs
+    parseAs === 'html'
       ? parse5.parse(`<!doctype html>${content}`)
       : parse5.parseFragment(content)
   );
@@ -66,7 +69,7 @@ export async function parser(
 
 export async function minifier(
   content: string,
-  minifierOptions: htmlMinifier.Options
+  minifierOptions?: htmlMinifier.Options
 ) {
   return htmlMinifier.minify(
     content,
@@ -78,8 +81,8 @@ export async function minifier(
 
 export function ntml({
   minify,
-  options = {} as NtmlOpts['options'],
-}: NtmlOpts) {
+  options = {} as NonNullable<NtmlOpts['options']>,
+}: NtmlOpts = {} as NonNullable<NtmlOpts>) {
   return async function html(
     strings: TemplateStringsArray,
     ...exps
