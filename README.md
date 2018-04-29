@@ -25,6 +25,7 @@
 
 ## Table of contents
 
+- [Table of contents](#table-of-contents)
 - [Features](#features)
 - [Pre-requisite](#pre-requisite)
 - [How to use](#how-to-use)
@@ -33,10 +34,11 @@
     - [Visual Studio Code](#visual-studio-code)
   - [Code examples](#code-examples)
     - [Await all tasks (Promises, Functions, strings, etc)](#await-all-tasks-promises-functions-strings-etc)
-    - [Use custom cache store + unique cache name to cache rendered HTML string](#use-custom-cache-store-unique-cache-name-to-cache-rendered-html-string)
     - [Minify rendered HTML string](#minify-rendered-html-string)
-    - [Non-TypeScript users](#non-typescript-users)
+    - [Native ES Modules or TypeScript](#native-es-modules-or-typescript)
 - [API Reference](#api-reference)
+  - [DEFAULT_MINIFY_OPTIONS](#default_minify_options)
+  - [NtmlOpts](#ntmlopts)
   - [ntml([options])](#ntmloptions)
 - [Caveat](#caveat)
   - [CSS styles outside of &lt;style&gt;](#css-styles-outside-of-ltstylegt)
@@ -44,12 +46,12 @@
 
 ## Features
 
-- [x] `await` all tasks including Promises.
-- [x] `cacheStore: new QuickLru()` to use a custom [ES6 Map][map-mdn-url] compliant cache instance.
-- [x] `cacheExpiry: 10e3` to set TTL of a cached item. Defaults to 1 year of TTL.
+- [x] `await` all tasks including Functions, Promises, and whatnot.
 - [x] `minify: true` to minify rendered HTML string.
-- [x] `parseHtml: true` to parse content as HTML5 string. If false, content will be parsed as HTML fragment string.
+- [x] `parse: 'html'|'fragment'|true|false` to parse content as HTML fragment string (default) or HTML string.
+- [x] `pretty: { ocd: boolean }` to prettify content with `ocd` set to `true` (default) or `false`.
 - [x] Compatible for ES Modules (`import ntml from 'ntml'`) and CommonJS (`const { ntml } = require('ntml');`).
+- [x] Uses [htmlMinifier][htmlminifier-url] to minify HTML string.
 - [x] Uses [parse5][parse5-url] to parse HTML string by default.
 - [x] Uses [pretty][pretty-url] to prettify HTML string by default.
 - [x] Support HTML syntax highlighting + autocompletion with [vscode-lit-html][vscode-lit-html-url] in JavaScript's template string.
@@ -123,56 +125,6 @@ const rendered = await html`
 console.log('#', rendered); /** <html lang="en>...</html> */
 ```
 
-#### Use custom cache store + unique cache name to cache rendered HTML string
-
-```ts
-/** Import project dependencies */
-import ntml from 'lit-ntml';
-import QuickLru from 'quick-lru';
-
-/** Setting up */
-const cacheStore = new QuickLru({ maxSize: 1000 }); // A cache instance must be ES6 Map compliant.
-// const simpleCache = new Map(); // Simple cache using ES6 Map.
-const html = ntml({
-  cacheStore, // cacheStore: simpleCache,
-  cacheName: 'main', // Gives the rendered HTML string a unique name
-  cacheExpiry: 10e3, // Set TTL of the rendered HTML string. Defaults to 1 year.
-});
-
-const cacheAfterRendered = await html`
-  <html lang="en">
-    <body>
-      <style>
-        body {
-          padding: 0;
-          margin: 0;
-          font-size: 16px;
-          font-family: 'sans-serif';
-          box-sizing: border-box;
-        }
-
-        .header {
-          background: #0070fb;
-          color: #fff;
-        }
-
-        .content {
-          background: #f5f5f5;
-          color: #000;
-        }
-      </style>
-
-      <main>
-        <div>Hello, world!</div>
-        <div>This content will be cached!</div>
-      </main>
-    </body>
-  </html>
-`;
-
-console.log('#', cacheAfterRendered); /** <html lang="en">...</html> */
-```
-
 #### Minify rendered HTML string
 
 ```ts
@@ -182,6 +134,7 @@ import ntml from 'lit-ntml';
 /** Setting up */
 const html = ntml({
   minify: true,
+  // options: { minify: {...} }, // Optional htmlMinifier.Options
 });
 
 const minifyAfterRendered = await html`
@@ -218,7 +171,7 @@ const minifyAfterRendered = await html`
 console.log('#', minifyAfterRendered); /** <html lang="en"><body><style>...</style><main>...</main></body></html> */
 ```
 
-#### Non-TypeScript users
+#### Native ES Modules or TypeScript
 
 For non-TypeScript users, here's the snippet:
 
@@ -239,14 +192,43 @@ const { ntml } = require('ntml');
 
 ## API Reference
 
+### DEFAULT_MINIFY_OPTIONS
+
+```js
+{
+  collapseBooleanAttributes: true,
+  collapseInlineTagWhitespace: true,
+  collapseWhitespace: true,
+  minifyCSS: true,
+  minifyJS: true,
+  processConditionalComments: true,
+  quoteCharacter: '"',
+  removeComments: true,
+  removeOptionalTags: true,
+  removeRedundantAttributes: true,
+  removeScriptTypeAttributes: true,
+  removeStyleLinkTypeAttributes: true,
+  sortAttributes: true,
+  sortClassName: true,
+  trimCustomFragments: true,
+}
+```
+
+### NtmlOpts
+
+- `minify` <[?boolean][boolean-mdn-url]> Optional minification flag. If true, minify rendered HTML string. Defaults to `false`.
+- `options` <[?Object][object-mdn-url]> Optional settings.
+  - `minify`: <[?Object][object-mdn-url]> Optional [htmlMinifer flags][htmlminifier-flags-url]. Defaults to [default_minify_options][default-minify-options-url].
+  - `parse`: <[?string][string-mdn-url]|[?boolean][boolean-mdn-url]> Optional parser flag. Defaults to `fragment`. Available options:
+  - `html` or `true` Parse content as HTML string.
+  - `fragment` or `false` Parse content as HTML fragment string.
+  - `pretty` <[?Object][object-mdn-url]> Optional [pretty flag][pretty-flag-url]. Defaults to `{ ocd: true }`.
+
+___
+
 ### ntml([options])
 
-- `options` <[?Object][object-mdn-url]> Optional configuration for the templating.
-  - `cacheStore` <[Map][map-mdn-url]> Optional custom ES6 Map compliant cache instance to cache rendered HTML string.
-  - `cacheName` <[string][string-mdn-url]> Optional name of the rendered HTML string that needs to be cached. **_Use a unique name for each rendered HTML string to avoid cache conflict._**
-  - `cacheExpiry` <[number][number-mdn-url]> Optional cache expiry date of rendered HTML string. Defaults to **1 year** (`12 * 30 * 24 * 3600`).
-  - `minify` <[boolean][boolean-mdn-url]> Optional minification flag. If true, minify rendered HTML string. Defaults to `false`.
-  - `parseHtml` <[boolean][boolean-mdn-url]> Optional flag to parse content as HTML string or HTML fragment string with [parse5][parse5-url], a HTML compliant parser for Node.js. Defaults to `true`.
+- `options` <[?NtmlOpts][ntmlopts-url]> Optional configuration for the templating.
 - returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML string.
 
 ## Caveat
@@ -330,6 +312,13 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [pretty-url]: https://www.npmjs.com/package/pretty
 [vscode-lit-html-url]: https://github.com/mjbvz/vscode-lit-html
 [typescript-url]: https://github.com/Microsoft/TypeScript
+[htmlminifier-url]: https://github.com/kangax/html-minifier
+[htmlminifier-flags-url]: https://github.com/kangax/html-minifier#options-quick-reference
+[pretty-flag-url]: https://github.com/jonschlinkert/pretty#ocd
+
+[ntmlopts-url]: #ntmlopts
+[default-minify-options-url]: #default_minify_options
+
 [map-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 [string-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
 [object-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
