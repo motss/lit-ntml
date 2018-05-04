@@ -329,6 +329,30 @@ describe('lit-ntml', () => {
       }
     });
 
+    test('PromiseList', async () => {
+      try {
+        const html = ntml();
+        const d = await html`<h1>Hello, World!</h1><ul>${
+          ['John Doe', 'Michael CEO', 'Vict Fisherman', 'Cash Black']
+            .map(n => `<li>${n}</li>`)
+        }</ul>`;
+
+        console.log(d);
+
+        expect(d).toEqual(
+`<h1>Hello, World!</h1>
+<ul>
+  <li>John Doe</li>
+  <li>Michael CEO</li>
+  <li>Vict Fisherman</li>
+  <li>Cash Black</li>
+</ul>`
+        );
+      } catch (e) {
+        throw e;
+      }
+    });
+
   });
 
 });

@@ -92,20 +92,29 @@ export function ntml({
     ...exps
   ) {
     const asyncTasks = exps.map(
-      async n =>
-        typeof n === 'function' || n instanceof Function
-          ? n()
-          : n
+      async n => Promise.all(
+        (Array.isArray(n) ? n : [n])
+          .map(
+            async nn =>
+              typeof nn === 'function' || nn instanceof Function
+                ? nn()
+                : nn
+          )
+      )
     );
     const doneTasks = await Promise.all(asyncTasks);
     const doneTasksLen = doneTasks.length;
     const allDone = await Promise.all(
-      strings.map(
-        async (n, i) =>
-          i >= doneTasksLen
-            ? n
-            : `${n}${doneTasks[i]}`
-      )
+      strings.map(async (n, i) => {
+        const dn = doneTasks[i];
+        const jn = Array.isArray(dn)
+          ? dn.join('')
+          : dn;
+
+        return i >= doneTasksLen
+          ? n
+          : `${n}${jn}`;
+      })
     );
     const parsed = await parser(
       allDone.join(''),

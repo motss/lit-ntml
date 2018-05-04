@@ -28,7 +28,7 @@ jobs:
             - v{{ .Environment.CIRCLE_BUILD_NUM }}-npm-cache-master-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_JOB }}
       - run:
           name: Install latest NPM
-          command: npm i -g npm
+          command: npm i -g npm codecov coveralls
       - run:
           name: Install dependencies
           command: npm ci
@@ -38,6 +38,13 @@ jobs:
       - run:
           name: Test
           command: npm test
+      - run:
+          name: Coverage
+          when: on_success
+          command: |
+            if [ "$CIRCLE_NODE_INDEX" == 0]; then
+              cat ./coverage/lcov.info | coveralls && cat ./coverage/lcov.info | codecov
+            fi
       - save_cache:
           key: v{{ .Environment.CIRCLE_BUILD_NUM }}-npm-lock-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
           paths:

@@ -17,6 +17,11 @@
   "homepage": "https://github.com/motss/lit-ntml",
   "license": "MIT",
   "author": "Rong Sen Ng <wes.ngrongsen@gmail.com> (https://github.com/motss)",
+  "files": [
+    "index.d.ts",
+    "index.js",
+    "index.mjs"
+  ],
   "main": "./index.js",
   "repository": {
     "type": "git",
