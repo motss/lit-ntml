@@ -42,7 +42,7 @@ jobs:
           name: Coverage
           when: on_success
           command: |
-            if [ "$CIRCLE_NODE_INDEX" == 0]; then
+            if [ "$CIRCLE_NODE_INDEX" == 0 ]; then
               cat ./coverage/lcov.info | coveralls && cat ./coverage/lcov.info | codecov
             fi
       - save_cache:
