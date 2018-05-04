@@ -4,12 +4,12 @@ node_js:
   - v8
   - v9
   - v10
-# before_script:
-#   npm install coveralls codecov
+before_script:
+  npm install -g coveralls codecov --quiet
 script:
   - npm run check
   - npm run build
   - npm run test
-# after_success:
-#   - 'cat ./coverage/lcov.info | coveralls'
-#   - 'cat ./coverage/lcov.info | codecov'
+after_success:
+  - 'cat ./coverage/lcov.info | coveralls'
+  - 'cat ./coverage/lcov.info | codecov'
