@@ -25,7 +25,6 @@
 
 ## Table of contents
 
-- [Table of contents](#table-of-contents)
 - [Features](#features)
 - [Pre-requisite](#pre-requisite)
 - [How to use](#how-to-use)
@@ -36,6 +35,7 @@
     - [ES Modules or TypeScript](#es-modules-or-typescript)
       - [Await all tasks (Promises, Functions, strings, etc)](#await-all-tasks-promises-functions-strings-etc)
       - [Minify rendered HTML string](#minify-rendered-html-string)
+      - [Parse PromiseList or List](#parse-promiselist-or-list)
     - [Node.js](#nodejs)
 - [API Reference](#api-reference)
   - [DEFAULT_MINIFY_OPTIONS](#default_minify_options)
@@ -52,6 +52,7 @@
 - [x] `parse: 'html'|'fragment'|true|false` to parse content as HTML fragment string (default) or HTML string.
 - [x] `pretty: { ocd: boolean }` to prettify content with `ocd` set to `true` (default) or `false`.
 - [x] Compatible for ES Modules (`import ntml from 'ntml'`) and CommonJS (`const { ntml } = require('ntml');`).
+- [x] Parses `PromiseList` or `List` by default, without explicit joining. See [demo][parse-promiselist-or-list-url].
 - [x] Uses [htmlMinifier][htmlminifier-url] to minify HTML string.
 - [x] Uses [parse5][parse5-url] to parse HTML string by default.
 - [x] Uses [pretty][pretty-url] to prettify HTML string by default.
@@ -172,6 +173,42 @@ const minifyAfterRendered = await html`
 `;
 
 console.log('#', minifyAfterRendered); /** <html lang="en"><body><style>...</style><main>...</main></body></html> */
+```
+
+##### Parse PromiseList or List
+
+```ts
+/** Import project dependencies */
+import assert from 'assert';
+import ntml from 'lit-ntml';
+
+/** Setting up */
+const html = ntml();
+const nameList = [
+  'John Doe',
+  'Michael CEO',
+  'Cash Black',
+  'Vict Fisherman',
+];
+const expected = `<h1>Hello, World!</h1>
+<ul>
+  <li>John Doe</li>
+  <li>Michael CEO</li>
+  <li>Cash Black</li>
+  <li>Vict Fisherman</li>
+</ul>`;
+
+const listRendered = await html`<h1>Hello, World!</h1>
+<ul>${
+  nameList.map(n => html`<li>${n}</li>`)
+}</ul>`;
+const asyncListRendered = await html`<h1>Hello, World!</h1>
+<ul>${
+  nameList.map(async n => html`<li>${n}</li>`)
+}</ul>`;
+
+assert.strictEqual(listRendered, expected); // OK
+assert.strictEqual(asyncListRendered, expected); // OK
 ```
 
 #### Node.js
@@ -319,6 +356,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [htmlminifier-flags-url]: https://github.com/kangax/html-minifier#options-quick-reference
 [pretty-flag-url]: https://github.com/jonschlinkert/pretty#ocd
 
+[parse-promiselist-or-list-url]: #parse-promiselist-or-list
 [ntmlopts-url]: #ntmlopts
 [default-minify-options-url]: #default_minify_options
 
