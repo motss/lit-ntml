@@ -337,8 +337,6 @@ describe('lit-ntml', () => {
             .map(n => `<li>${n}</li>`)
         }</ul>`;
 
-        console.log(d);
-
         expect(d).toEqual(
 `<h1>Hello, World!</h1>
 <ul>
@@ -348,6 +346,17 @@ describe('lit-ntml', () => {
   <li>Cash Black</li>
 </ul>`
         );
+      } catch (e) {
+        throw e;
+      }
+    });
+
+    test('collapseInlineTagWhitespace=false', async () => {
+      try {
+        const html = ntml();
+        const d = await html`<h1>Hello, <i>World</i>!</h1>`;
+
+        expect(d).toEqual(`<h1>Hello, <i>World</i>!</h1>`);
       } catch (e) {
         throw e;
       }

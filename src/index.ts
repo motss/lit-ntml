@@ -19,7 +19,6 @@ import pretty from 'pretty';
 
 export const DEFAULT_MINIFY_OPTIONS: htmlMinifier.Options = {
   collapseBooleanAttributes: true,
-  collapseInlineTagWhitespace: true,
   collapseWhitespace: true,
   minifyCSS: true,
   minifyJS: true,

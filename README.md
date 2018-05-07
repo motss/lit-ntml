@@ -235,7 +235,6 @@ const { ntml } = require('ntml');
 ```js
 {
   collapseBooleanAttributes: true,
-  collapseInlineTagWhitespace: true,
   collapseWhitespace: true,
   minifyCSS: true,
   minifyJS: true,
