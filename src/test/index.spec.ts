@@ -356,7 +356,10 @@ describe('lit-ntml', () => {
         const html = ntml();
         const d = await html`<h1>Hello, <i>World</i>!</h1>`;
 
-        expect(d).toEqual(`<h1>Hello, <i>World</i>!</h1>`);
+        expect(d).toEqual(
+`<h1>Hello,
+ <i>World</i>!</h1>`
+        );
       } catch (e) {
         throw e;
       }
