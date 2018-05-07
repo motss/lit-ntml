@@ -89,7 +89,7 @@ export function ntml({
   return async function html(
     strings: TemplateStringsArray,
     ...exps
-  ) {
+  ): Promise<string> {
     const asyncTasks = exps.map(
       async n => Promise.all(
         (Array.isArray(n) ? n : [n])
