@@ -358,7 +358,7 @@ describe('lit-ntml', () => {
 
         expect(d).toEqual(
 `<h1>Hello,
- <i>World</i>!</h1>`
+  <i>World</i>!</h1>`
         );
       } catch (e) {
         throw e;
