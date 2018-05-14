@@ -257,8 +257,8 @@ const { ntml } = require('ntml');
 - `options` <[?Object][object-mdn-url]> Optional settings.
   - `minify`: <[?Object][object-mdn-url]> Optional [htmlMinifer flags][htmlminifier-flags-url]. Defaults to [default_minify_options][default-minify-options-url].
   - `parse`: <[?string][string-mdn-url]|[?boolean][boolean-mdn-url]> Optional parser flag. Defaults to `fragment`. Available options:
-  - `html` or `true` Parse content as HTML string.
-  - `fragment` or `false` Parse content as HTML fragment string.
+    - `html` or `true` Parse content as HTML string.
+    - `fragment` or `false` Parse content as HTML fragment string.
   - `pretty` <[?Object][object-mdn-url]> Optional [pretty flag][pretty-flag-url]. Defaults to `{ ocd: true }`.
 
 ___
