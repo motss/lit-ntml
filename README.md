@@ -29,6 +29,7 @@
 
 ## Table of contents
 
+- [Table of contents](#table-of-contents)
 - [Features](#features)
 - [Pre-requisite](#pre-requisite)
 - [How to use](#how-to-use)
@@ -61,6 +62,7 @@
 - [x] Uses [parse5][parse5-url] to parse HTML string by default.
 - [x] Uses [pretty][pretty-url] to prettify HTML string by default.
 - [x] Support HTML syntax highlighting + autocompletion with [vscode-lit-html][vscode-lit-html-url] in JavaScript's template string.
+- [x] Support native ES Module via `.mjs`
 
 ## Pre-requisite
 
@@ -81,7 +83,7 @@ $ npm install lit-ntml
 #### Visual Studio Code
 
 1. Install [vscode-lit-html][vscode-lit-html-url] extension.
-1. If the extension does not provide that syntax highlighting and autocompletion, try writing your templates in `.jsx` file (or `.tsx` file if you're [TypeScript][typescript-url] user) . That should work.
+2. If the extension does not provide that syntax highlighting and autocompletion, try writing your templates in `.jsx` file (or `.tsx` file if you're [TypeScript][typescript-url] user) . That should work.
 
 ### Code examples
 
