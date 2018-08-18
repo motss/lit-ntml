@@ -39,7 +39,7 @@
     "<rootDir>/src/"
   ],
   "transform": {
-    "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    "^.+\\.tsx?$": "ts-jest"
   },
   "testMatch": [
     "**/src/test*/**/*.spec.(ts|tsx)"

@@ -43,16 +43,11 @@ async function parseParserOptions(
     case (isParserString && /^html$/i.test(parserOptions as string)): return 'html';
     case (isParserString && /^fragment$/i.test(parserOptions as string)): return 'fragment';
     case (typeof parserOptions === 'boolean'): {
-      return parserOptions
-        ? 'html'
-        : 'fragment';
+      return parserOptions ? 'html' : 'fragment';
     }
     default: {
       throw new Error(
-        `Invalid parse options (${
-          parserOptions
-        }). Only allows ['html', 'fragment', true, false]`
-      );
+        `Invalid parse options (${parserOptions}). Only allows ['html', 'fragment', true, false]`);
     }
   }
 }
@@ -66,69 +61,38 @@ async function parser(
   return parse5.serialize(
     parseAs === 'html'
       ? parse5.parse(`<!doctype html>${content}`)
-      : parse5.parseFragment(content)
-  );
+      : parse5.parseFragment(content));
 }
 
-async function minifier(
-  content: string,
-  minifierOptions?: htmlMinifier.Options
-) {
+async function minifier(content: string, minifierOptions?: htmlMinifier.Options) {
   return htmlMinifier.minify(
-    content,
-    minifierOptions == null
+    content, minifierOptions == null
       ? DEFAULT_MINIFY_OPTIONS
-      : minifierOptions
-  );
+      : minifierOptions);
 }
 
 export function ntml({
   minify,
   options = {} as NonNullable<NtmlOpts['options']>,
 }: NtmlOpts = {} as NonNullable<NtmlOpts>) {
-  return async function html(
-    strings: TemplateStringsArray,
-    ...exps
-  ): Promise<string> {
-    const asyncTasks = exps.map(
-      async n => Promise.all(
-        (Array.isArray(n) ? n : [n])
-          .map(
-            async nn =>
-              typeof nn === 'function' || nn instanceof Function
-                ? nn()
-                : nn
-          )
-      )
-    );
+  return async function html(strings: TemplateStringsArray, ...exps): Promise<string> {
+    const asyncTasks = exps.map(async n =>
+      Promise.all((Array.isArray(n) ? n : [n])
+        .map(async nn => typeof nn === 'function' || nn instanceof Function ? nn() : nn)));
     const doneTasks = await Promise.all(asyncTasks);
     const doneTasksLen = doneTasks.length;
-    const allDone = await Promise.all(
-      strings.map(async (n, i) => {
-        const dn = doneTasks[i];
-        const jn = Array.isArray(dn)
-          ? dn.join('')
-          : dn;
+    const allDone = await Promise.all(strings.map(async (n, i) => {
+      const dn = doneTasks[i];
+      const jn = Array.isArray(dn) ? dn.join('') : dn;
 
-        return i >= doneTasksLen
-          ? n
-          : `${n}${jn}`;
-      })
-    );
+      return i >= doneTasksLen ? n : `${n}${jn}`;
+    }));
     const parsed = await parser(
       allDone.join(''),
-      options.parse == null
-        ? 'fragment'
-        : options.parse
-    );
+      options.parse == null ? 'fragment' : options.parse);
 
     return minify == null
-      ? pretty(
-        parsed,
-        options.pretty == null
-          ? { ocd: true }
-          : options.pretty
-      )
+      ? pretty(parsed, options.pretty == null ? { ocd: true } : options.pretty)
       : minifier(parsed, options.minify);
   };
 }

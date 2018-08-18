@@ -15,6 +15,10 @@
     "templating"
   ],
   "homepage": "https://github.com/motss/lit-ntml",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:motss/lit-ntml.git"
+  },
   "license": "MIT",
   "author": "Rong Sen Ng <wes.ngrongsen@gmail.com> (https://github.com/motss)",
   "files": [
@@ -23,42 +27,33 @@
     "index.mjs"
   ],
   "main": "./index.js",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:motss/lit-ntml.git"
-  },
   "scripts": {
-    "build": "cross-env NODE_ENV=production gulp",
-    "check": "npm run lint && npm run nsp",
-    "demo": "node demo/",
-    "gulp": "gulp --gulpfile=gulpfile.js",
-    "lint": "cross-env NODE_ENV=production gulp lint",
-    "nsp": "nsp check",
-    "prepublishOnly": "npm run check && npm run build",
+    "build": "npm run build:cjs && npm run build:esm && rm -rf dist/ && echo '[build] Done!'",
+    "build:cjs": "npm run lint && rm -rf dist/ && tsc -p tsconfig.json && mv dist/index.js dist/index.d.ts . && echo '[cjs] Done!'",
+    "build:esm": "npm run lint && rm -rf dist/ && tsc -p tsconfig.esm.json && mv dist/index.js ./index.mjs && echo '[esm] Done!'",
+    "demo": "node demo/index.js",
+    "lint": "tslint --project tsconfig.json --config tslint.prod.json --format stylish 'src/**/*.ts*'",
+    "lint:debug": "tslint --project tsconfig.json --config tslint.json --format stylish 'src/**/*.ts*'",
+    "prepublishOnly": "npm run lint && npm run build",
     "test": "jest --config ./.jestrc.json"
   },
   "dependencies": {
-    "html-minifier": "^3.5.16",
-    "parse5": "^5.0.0",
+    "html-minifier": "^3.5.19",
+    "parse5": "^5.1.0",
     "pretty": "^2.0.0"
   },
   "devDependencies": {
-    "@messageflow/build": "^1.0.0",
     "@messageflow/tslint-config": "^1.0.0",
     "@types/html-minifier": "^3.5.1",
-    "@types/jest": "^22.2.3",
-    "@types/node": "^10.1.2",
-    "@types/parse5": "^3.0.0",
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.7.1",
+    "@types/parse5": "^5.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "cross-env": "^5.1.6",
-    "del": "^3.0.0",
-    "gulp": "^4.0.0",
-    "jest": "^23.0.0",
-    "nsp": "^3.2.1",
-    "ts-jest": "^22.4.6",
-    "tslint": "^5.10.0",
-    "typescript": "^2.8.3"
+    "jest": "^23.5.0",
+    "ts-jest": "^23.1.3",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1"
   },
   "engines": {
     "node": ">= 8.9.0",
