@@ -33,9 +33,6 @@ jobs:
           name: Install dependencies
           command: npm ci
       - run:
-          name: Build
-          command: npm run build
-      - run:
           name: Test
           command: npm test
       - save_cache:
@@ -58,5 +55,5 @@ jobs:
   node-v10:
     <<: *node-base
     docker:
-      - image: node:10.0
+      - image: node:10
 

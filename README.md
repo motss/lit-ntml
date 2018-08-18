@@ -7,19 +7,23 @@
 <hr />
 
 [![Version][version-badge]][version-url]
-[![Downloads][downloads-badge]][downloads-url]
+[![Node version][node-version-badge]][node-version-url]
 [![MIT License][mit-license-badge]][mit-license-url]
-[![Code of Conduct][coc-badge]][coc-url]
+
+[![Downloads][downloads-badge]][downloads-url]
+[![Total downloads][total-downloads-badge]][downloads-url]
+[![Packagephobia][packagephobia-badge]][packagephobia-url]
+[![Bundlephobia][bundlephobia-badge]][bundlephobia-url]
 
 [![Build Status][travis-badge]][travis-url]
 [![CircleCI][circleci-badge]][circleci-url]
 [![Dependency Status][daviddm-badge]][daviddm-url]
-[![NSP Status][nsp-badge]][nsp-url]
 [![codecov][codecov-badge]][codecov-url]
 [![Coverage Status][coveralls-badge]][coveralls-url]
 
 [![codebeat badge][codebeat-badge]][codebeat-url]
 [![Codacy Badge][codacy-badge]][codacy-url]
+[![Code of Conduct][coc-badge]][coc-url]
 
 > Lightweight and modern templating for SSR in [Node.js][nodejs-url], inspired by [lit-html][lit-html-url].
 
@@ -367,32 +371,39 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [html-style-element-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLStyleElement
 [promise-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[version-badge]: https://img.shields.io/npm/v/lit-ntml.svg?style=flat-square
-[downloads-badge]: https://img.shields.io/npm/dm/lit-ntml.svg?style=flat-square
-[mit-license-badge]: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
-[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
+[version-badge]: https://flat.badgen.net/npm/v/lit-ntml
+[node-version-badge]: https://flat.badgen.net/npm/node/lit-ntml
+[mit-license-badge]: https://flat.badgen.net/npm/license/lit-ntml
 
-[travis-badge]: https://img.shields.io/travis/motss/lit-ntml.svg?style=flat-square
-[circleci-badge]: https://circleci.com/gh/motss/lit-ntml/tree/master.svg?style=svg
-[daviddm-badge]: https://img.shields.io/david/motss/lit-ntml.svg?style=flat-square
-[nsp-badge]: https://nodesecurity.io/orgs/motss/projects/02c9094c-5d6f-4be4-b22b-8bced7a4997c/badge
-[codecov-badge]: https://codecov.io/gh/motss/lit-ntml/branch/master/graph/badge.svg
-[coveralls-badge]: https://coveralls.io/repos/github/motss/lit-ntml/badge.svg?branch=master
+[downloads-badge]: https://flat.badgen.net/npm/dm/lit-ntml
+[total-downloads-badge]: https://flat.badgen.net/npm/dt/lit-ntml?label=total%20downloads
+[packagephobia-badge]: https://flat.badgen.net/packagephobia/install/lit-ntml
+[bundlephobia-badge]: https://flat.badgen.net/bundlephobia/minzip/lit-ntml
+
+[travis-badge]: https://flat.badgen.net/travis/motss/lit-ntml
+[circleci-badge]: https://flat.badgen.net/circleci/github/motss/lit-ntml
+[daviddm-badge]: https://flat.badgen.net/david/dep/motss/lit-ntml
+[codecov-badge]: https://flat.badgen.net/codecov/c/github/motss/lit-ntml?label=codecov
+[coveralls-badge]: https://flat.badgen.net/coveralls/c/github/motss/lit-ntml?label=coveralls
 
 [codebeat-badge]: https://codebeat.co/badges/46b91b60-804d-4909-a647-1784ae283f19
 [codacy-badge]: https://api.codacy.com/project/badge/Grade/bb0c739bc5144a8b80197f3fa3bb2273
+[coc-badge]: https://flat.badgen.net/badge/code%20of/conduct/pink
 
 [version-url]: https://www.npmjs.com/package/lit-ntml
-[downloads-url]: http://www.npmtrends.com/lit-ntml
+[node-version-url]: https://nodejs.org/en/download
 [mit-license-url]: https://github.com/motss/lit-ntml/blob/master/LICENSE
-[coc-url]: https://github.com/motss/lit-ntml/blob/master/CODE_OF_CONDUCT.md
+
+[downloads-url]: http://www.npmtrends.com/lit-ntml
+[packagephobia-url]: https://packagephobia.now.sh/result?p=lit-ntml
+[bundlephobia-url]: https://bundlephobia.com/result?p=lit-ntml@1.2.0
 
 [travis-url]: https://travis-ci.org/motss/lit-ntml
 [circleci-url]: https://circleci.com/gh/motss/lit-ntml/tree/master
 [daviddm-url]: https://david-dm.org/motss/lit-ntml
-[nsp-url]: https://nodesecurity.io/orgs/motss/projects/02c9094c-5d6f-4be4-b22b-8bced7a4997c
 [codecov-url]: https://codecov.io/gh/motss/lit-ntml
 [coveralls-url]: https://coveralls.io/github/motss/lit-ntml?branch=master
 
 [codebeat-url]: https://codebeat.co/projects/github-com-motss-lit-ntml-master
 [codacy-url]: https://www.codacy.com/app/motss/lit-ntml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml&amp;utm_campaign=Badge_Grade
+[coc-url]: https://github.com/motss/lit-ntml/blob/master/CODE_OF_CONDUCT.md
