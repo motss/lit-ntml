@@ -26,11 +26,11 @@
     "index.js",
     "index.mjs"
   ],
-  "main": "./index.js",
+  "main": "./index",
   "scripts": {
-    "build": "npm run build:cjs && npm run build:esm && rm -rf dist/ && echo '> [build] Done!'",
-    "build:cjs": "npm run lint && rm -rf dist/ && tsc -p tsconfig.json && mv dist/index.js dist/index.d.ts . && echo '> [cjs] Done!'",
-    "build:esm": "npm run lint && rm -rf dist/ && tsc -p tsconfig.esm.json && mv dist/index.js ./index.mjs && echo '> [esm] Done!'",
+    "build": "npm run build:cjs && npm run build:esm && rm -rf dist/ && echo \"> [build] Done!\"",
+    "build:cjs": "npm run lint && rm -rf dist/ && tsc -p tsconfig.json && mv dist/index.js dist/index.d.ts . && echo \"> [cjs] Done!\"",
+    "build:esm": "npm run lint && rm -rf dist/ && tsc -p tsconfig.esm.json && mv dist/index.js ./index.mjs && echo \"> [esm] Done!\"",
     "demo": "node demo/index.js",
     "lint": "tslint --project tsconfig.json --config tslint.prod.json --format stylish 'src/**/*.ts*'",
     "lint:debug": "tslint --project tsconfig.json --config tslint.json --format stylish 'src/**/*.ts*'",
