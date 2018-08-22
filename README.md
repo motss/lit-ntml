@@ -27,6 +27,8 @@
 
 > Lightweight and modern templating for SSR in [Node.js][nodejs-url], inspired by [lit-html][lit-html-url].
 
+This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awesome-lit-html-url]. Make sure to check the repo out for awesome things inspired by [lit-html][lit-html-url]. 👍💯
+
 ## Table of contents
 
 - [Table of contents](#table-of-contents)
@@ -360,6 +362,8 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [htmlminifier-url]: https://github.com/kangax/html-minifier
 [htmlminifier-flags-url]: https://github.com/kangax/html-minifier#options-quick-reference
 [pretty-flag-url]: https://github.com/jonschlinkert/pretty#ocd
+[web-padawan-awesome-lit-html-url]:
+ https://github.com/web-padawan/awesome-lit-html
 
 [parse-promiselist-or-list-url]: #parse-promiselist-or-list
 [ntmlopts-url]: #ntmlopts
