@@ -352,6 +352,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 
 [MIT License](https://motss.mit-license.org) © Rong Sen Ng
 
+<!-- References -->
 [nodejs-url]: https://nodejs.org
 [lit-html-url]: https://github.com/PolymerLabs/lit-html
 [npm-url]: https://www.npmjs.com
@@ -369,6 +370,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [ntmlopts-url]: #ntmlopts
 [default-minify-options-url]: #default_minify_options
 
+<!-- MDN -->
 [map-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 [string-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
 [object-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
@@ -377,6 +379,7 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [html-style-element-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLStyleElement
 [promise-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
+<!-- Badges -->
 [version-badge]: https://flat.badgen.net/npm/v/lit-ntml
 [node-version-badge]: https://flat.badgen.net/npm/node/lit-ntml
 [mit-license-badge]: https://flat.badgen.net/npm/license/lit-ntml
@@ -396,13 +399,14 @@ It's clearly that the `style` tag element has been wrapped inside another `html`
 [codacy-badge]: https://api.codacy.com/project/badge/Grade/bb0c739bc5144a8b80197f3fa3bb2273
 [coc-badge]: https://flat.badgen.net/badge/code%20of/conduct/pink
 
+<!-- Links -->
 [version-url]: https://www.npmjs.com/package/lit-ntml
 [node-version-url]: https://nodejs.org/en/download
 [mit-license-url]: https://github.com/motss/lit-ntml/blob/master/LICENSE
 
 [downloads-url]: http://www.npmtrends.com/lit-ntml
 [packagephobia-url]: https://packagephobia.now.sh/result?p=lit-ntml
-[bundlephobia-url]: https://bundlephobia.com/result?p=lit-ntml@1.2.0
+[bundlephobia-url]: https://bundlephobia.com/result?p=lit-ntml
 
 [travis-url]: https://travis-ci.org/motss/lit-ntml
 [circleci-url]: https://circleci.com/gh/motss/lit-ntml/tree/master
