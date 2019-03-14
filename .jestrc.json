@@ -1,21 +1,4 @@
 {
-  "globals": {
-    "ts-jest": {
-      "babelConfig": {
-        "presets": [
-          ["env", {
-            "targets": { "node": "current" },
-            "spec": true,
-            "modules": false,
-            "useBuiltIns": true
-          }]
-        ],
-        "plugins": [
-          ["transform-object-rest-spread", { "useBuiltIns": true }]
-        ]
-      }
-    }
-  },
   "testEnvironment": "node",
   "collectCoverage": true,
   "coverageDirectory": "./coverage",
@@ -29,25 +12,21 @@
   },
   "collectCoverageFrom": [
     "!**/node_modules/**",
-    "!**/src/demo/**/*.{ts|tsx}",
-    "!**/src/test*/**/*.{ts|tsx}",
-    "**/src/**/*.{ts|tsx}"
+    "!**/src/demo/**/*.{js|jsx}",
+    "!**/src/test*/**/*.{js|jsx}",
+    "**/src/**/*.{js|jsx}"
   ],
   "verbose": true,
   "bail": true,
   "roots": [
-    "<rootDir>/src/"
+    "<rootDir>/dist/"
   ],
-  "transform": {
-    "^.+\\.tsx?$": "ts-jest"
-  },
   "testMatch": [
-    "**/src/test*/**/*.spec.(ts|tsx)"
+    "**/dist/test*/**/*.spec.(js|jsx)"
   ],
   "moduleFileExtensions": [
-    "ts",
-    "tsx",
     "js",
+    "jsx",
     "json"
   ]
 }

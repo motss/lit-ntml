@@ -2,13 +2,19 @@ language: node_js
 dist: trusty
 node_js:
   - v8
-  - v9
   - v10
+cache:
+  directories:
+    - node_modules
+before_install:
+  - npm i -g npm@latest
+install:
+  - npm ci --quiet
 before_script:
-  npm install -g coveralls codecov --quiet
+  - npm install -g coveralls codecov --quiet
 script:
   - npm run lint
-  - npm run test
+  - npm t
 after_success:
   - 'cat ./coverage/lcov.info | coveralls'
   - 'cat ./coverage/lcov.info | codecov'
