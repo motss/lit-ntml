@@ -29,324 +29,119 @@
 
 This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awesome-lit-html-url]. Make sure to check the repo out for awesome things inspired by [lit-html][lit-html-url]. 👍💯
 
-## Table of contents
+## Table of contents <!-- omit in toc -->
 
-- [Table of contents](#table-of-contents)
 - [Features](#features)
 - [Pre-requisite](#pre-requisite)
-- [How to use](#how-to-use)
-  - [Install](#install)
-  - [Enable syntax highlighting when writing HTML with template literal](#enable-syntax-highlighting-when-writing-html-with-template-literal)
-    - [Visual Studio Code](#visual-studio-code)
-  - [Code examples](#code-examples)
-    - [ES Modules or TypeScript](#es-modules-or-typescript)
-      - [Await all tasks (Promises, Functions, strings, etc)](#await-all-tasks-promises-functions-strings-etc)
-      - [Minify rendered HTML string](#minify-rendered-html-string)
-      - [Parse PromiseList or List](#parse-promiselist-or-list)
-    - [Node.js](#nodejs)
+- [Enable syntax highlighting when writing HTML with template literal](#enable-syntax-highlighting-when-writing-html-with-template-literal)
+  - [Visual Studio Code](#visual-studio-code)
+- [Install](#install)
+- [Usage](#usage)
+  - [TypeScript or native ES Modules](#typescript-or-native-es-modules)
+    - [html()](#html)
+    - [htmlFragment()](#htmlfragment)
+  - [Node.js](#nodejs)
+    - [html()](#html-1)
+    - [htmlFragment()](#htmlfragment-1)
 - [API Reference](#api-reference)
-  - [DEFAULT_MINIFY_OPTIONS](#default_minify_options)
-  - [NtmlOpts](#ntmlopts)
-  - [ntml([options])](#ntmloptions)
-- [Caveat](#caveat)
-  - [CSS styles outside of &lt;style&gt;](#css-styles-outside-of-ltstylegt)
+  - [html()](#html-2)
+  - [htmlFragment()](#htmlfragment-2)
 - [License](#license)
 
 ## Features
 
 - [x] `await` all tasks including Functions, Promises, and whatnot.
-- [x] `minify: true` to minify rendered HTML string.
-- [x] `parse: 'html'|'fragment'|true|false` to parse content as HTML fragment string (default) or HTML string.
-- [x] `pretty: { ocd: boolean }` to prettify content with `ocd` set to `true` (default) or `false`.
-- [x] Compatible for ES Modules (`import ntml from 'ntml'`) and CommonJS (`const { ntml } = require('ntml');`).
-- [x] Parses `PromiseList` or `List` by default, without explicit joining. See [demo][parse-promiselist-or-list-url].
-- [x] Uses [htmlMinifier][htmlminifier-url] to minify HTML string.
-- [x] Uses [parse5][parse5-url] to parse HTML string by default.
-- [x] Uses [pretty][pretty-url] to prettify HTML string by default.
+- [x] Compatible for ES Modules (`import { html } from 'lit-ntml'`) and CommonJS (`const { html } = require('lit-ntml');`).
+- [x] Parses `PromiseList` or `List` by default, without explicit joining.
 - [x] Support HTML syntax highlighting + autocompletion with [vscode-lit-html][vscode-lit-html-url] in JavaScript's template string.
-- [x] Support native ES Module via `.mjs`
+- [x] Support native ES Module via `.mjs`.
 
 ## Pre-requisite
 
 - [Node.js][nodejs-url] >= 8.9.0
 - [NPM][npm-url] >= 5.5.1 ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
 
-## How to use
+## Enable syntax highlighting when writing HTML with template literal
 
-### Install
+### Visual Studio Code
+
+1. Install [vscode-lit-html][vscode-lit-html-url] extension.
+2. If the extension does not provide that syntax highlighting and autocompletion, try writing your templates in `.jsx` file (or `.tsx` file if you're [TypeScript][typescript-url] user) . That should work.
+
+## Install
 
 ```sh
 # Install via NPM
 $ npm install lit-ntml
 ```
 
-### Enable syntax highlighting when writing HTML with template literal
+## Usage
 
-#### Visual Studio Code
+### TypeScript or native ES Modules
 
-1. Install [vscode-lit-html][vscode-lit-html-url] extension.
-2. If the extension does not provide that syntax highlighting and autocompletion, try writing your templates in `.jsx` file (or `.tsx` file if you're [TypeScript][typescript-url] user) . That should work.
-
-### Code examples
-
-#### ES Modules or TypeScript
-
-##### Await all tasks (Promises, Functions, strings, etc)
+#### html()
 
 ```ts
-/** Import project dependencies */
-import ntml from 'lit-ntml';
+import { html } from 'lit-ntml';
 
-/** Setting up */
-const html = ntml();
-const header = text => () => new Promise(yay => setTimeout(() => yay(`<div class="header">${text}</div>`), 3e3));
-const content = text => async () => `<div class="content">${text}</div>`;
-const someLoremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+const peopleList = ['Cash Black', 'Vict Fisherman'];
+const syncTask = () => `<h1>Hello, World!</h1>`;
+const asyncLiteral = Promise.resolve('<h2>John Doe</h2>');
+const asyncListTask = async () => `<ul>${peopleList.map(n => `<li>${n}</li>`)}</ul>`;
 
-const rendered = await html`
-  <html lang="en">
-    <body>
-      <style>
-        body {
-          padding: 0;
-          margin: 0;
-          font-size: 16px;
-          font-family: 'sans-serif';
-          box-sizing: border-box;
-        }
-
-        .header {
-          background: #0070fb;
-          color: #fff;
-        }
-
-        .content {
-          background: #f5f5f5;
-          color: #000;
-        }
-      </style>
-
-      <main>
-        <div>Hello, world! ${header('Hello, world!')} ${content('lorem ipsum')}</div>
-        <div>${someLoremIpsum}</div>
-      </main>
-    </body>
-  </html>
-`;
-
-console.log('#', rendered); /** <html lang="en>...</html> */
+/** Assuming top-level await is enabled... */
+await html`${syncTask}${asyncLiteral}${asyncListTask}`; /** <!DOCTYPE html><html><head></head><body><h1>Hello, World!</h1><h2>John Doe</h2><ul><li>Cash Black</li><li>Vict Fisherman</li></ul></body></html> */
 ```
 
-##### Minify rendered HTML string
+#### htmlFragment()
 
 ```ts
-/** Import project dependencies */
-import ntml from 'lit-ntml';
+import { htmlFragment } from 'lit-ntml';
 
-/** Setting up */
-const html = ntml({
-  minify: true,
-  // options: { minify: {...} }, // Optional htmlMinifier.Options
-});
+const syncTask = () => `<h1>Hello, World!</h1>`;
+const externalStyleLiteral = `<style>body { margin: 0; padding: 0; box-sizing: border-box; }</style>`;
 
-const minifyAfterRendered = await html`
-  <html lang="en">
-    <body>
-      <style>
-        body {
-          padding: 0;
-          margin: 0;
-          font-size: 16px;
-          font-family: 'sans-serif';
-          box-sizing: border-box;
-        }
-
-        .header {
-          background: #0070fb;
-          color: #fff;
-        }
-
-        .content {
-          background: #f5f5f5;
-          color: #000;
-        }
-      </style>
-
-      <main>
-        <div>Hello, world!</div>
-        <div>This content will be minified!</div>
-      </main>
-    </body>
-  </html>
-`;
-
-console.log('#', minifyAfterRendered); /** <html lang="en"><body><style>...</style><main>...</main></body></html> */
+/** Assuming top-level await is enabled... */
+await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; padding: 0; box-sizing: border-box; }</style><h1>Hello, World!</h1> */
 ```
 
-##### Parse PromiseList or List
+### Node.js
 
-```ts
-/** Import project dependencies */
-import assert from 'assert';
-import ntml from 'lit-ntml';
-
-/** Setting up */
-const html = ntml();
-const nameList = [
-  'John Doe',
-  'Michael CEO',
-  'Cash Black',
-  'Vict Fisherman',
-];
-const expected = `<h1>Hello, World!</h1>
-<ul>
-  <li>John Doe</li>
-  <li>Michael CEO</li>
-  <li>Cash Black</li>
-  <li>Vict Fisherman</li>
-</ul>`;
-
-const listRendered = await html`<h1>Hello, World!</h1>
-<ul>${
-  nameList.map(n => html`<li>${n}</li>`)
-}</ul>`;
-const asyncListRendered = await html`<h1>Hello, World!</h1>
-<ul>${
-  nameList.map(async n => html`<li>${n}</li>`)
-}</ul>`;
-
-assert.strictEqual(listRendered, expected); // OK
-assert.strictEqual(asyncListRendered, expected); // OK
-```
-
-#### Node.js
+#### html()
 
 ```js
-const { ntml } = require('ntml');
+const { html } = require('lit-ntml');
 
-(async () => {
-  const html = ntml();
+const peopleList = ['Cash Black', 'Vict Fisherman'];
+const syncTask = () => `<h1>Hello, World!</h1>`;
+const asyncLiteral = Promise.resolve('<h2>John Doe</h2>');
+const asyncListTask = async () => `<ul>${peopleList.map(n => `<li>${n}</li>`)}</ul>`;
 
-  const rendered = await html`<div>haha</div>`;
+/** Assuming top-level await is enabled... */
+await html`${syncTask}${asyncLiteral}${asyncListTask}`; /** <!DOCTYPE html><html><head></head><body><h1>Hello, World!</h1><h2>John Doe</h2><ul><li>Cash Black</li><li>Vict Fisherman</li></ul></body></html> */
+```
 
-  console.log('#', rendered);
-  /**
-   * <div>haha</div>
-   */
-})();
+#### htmlFragment()
+
+```js
+const { htmlFragment } = require('lit-ntml');
+
+const syncTask = () => `<h1>Hello, World!</h1>`;
+const externalStyleLiteral = `<style>body { margin: 0; padding: 0; box-sizing: border-box; }</style>`;
+
+/** Assuming top-level await is enabled... */
+await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; padding: 0; box-sizing: border-box; }</style><h1>Hello, World!</h1> */
 ```
 
 ## API Reference
 
-### DEFAULT_MINIFY_OPTIONS
+### html()
 
-```js
-{
-  collapseBooleanAttributes: true,
-  collapseWhitespace: true,
-  minifyCSS: true,
-  minifyJS: true,
-  processConditionalComments: true,
-  quoteCharacter: '"',
-  removeComments: true,
-  removeOptionalTags: true,
-  removeRedundantAttributes: true,
-  removeScriptTypeAttributes: true,
-  removeStyleLinkTypeAttributes: true,
-  sortAttributes: true,
-  sortClassName: true,
-  trimCustomFragments: true,
-}
-```
+- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML document string.
 
-### NtmlOpts
+### htmlFragment()
 
-- `minify` <[?boolean][boolean-mdn-url]> Optional minification flag. If true, minify rendered HTML string. Defaults to `false`.
-- `options` <[?Object][object-mdn-url]> Optional settings.
-  - `minify`: <[?Object][object-mdn-url]> Optional [htmlMinifer flags][htmlminifier-flags-url]. Defaults to [default_minify_options][default-minify-options-url].
-  - `parse`: <[?string][string-mdn-url]|[?boolean][boolean-mdn-url]> Optional parser flag. Defaults to `fragment`. Available options:
-    - `html` or `true` Parse content as HTML string.
-    - `fragment` or `false` Parse content as HTML fragment string.
-  - `pretty` <[?Object][object-mdn-url]> Optional [pretty flag][pretty-flag-url]. Defaults to `{ ocd: true }`.
-
-___
-
-### ntml([options])
-
-- `options` <[?NtmlOpts][ntmlopts-url]> Optional configuration for the templating.
-- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML string.
-
-## Caveat
-
-Writing CSS styles outside of [HTMLStyleElement][html-style-element-mdn-url] can lead to unexpected parsing behavior, such as:
-
-### CSS styles outside of &lt;style&gt;
-
-```js
-import ntml from 'lit-ntml';
-
-const html = ntml();
-const style = () => html`
-  body {}
-
-  div {}
-`;
-
-const main = () => html`
-  <style>${style()}</style>
-`;
-
-/**
- * <!DOCTYPE>
- * <html> 
- *   <head>
- *     <style>
- *       <!DOCTYPE html>
- *       <html>
- *         <head>
- *           <style>
- *             body {}
- *
- *             div {}
- *           </style>
- *         </head>
- *       </html>
- *     </style>
- *   </head>
- * </html>
- * 
- */
-
-```
-
-It's clearly that the `style` tag element has been wrapped inside another `html` tag element. This is an unexpected behavior. However, it kind of makes sense as from the above scenario each of the new content is rendered separately with `lit-ntml` and the `lit-ntml` has no knowledge about what will be rendered next and before. To avoid such behavior, do one of the following:
-
-1. Wrap with any valid HTML element tag
-
-    ```js
-    const style = () => html`
-    <style>
-      body {}
-
-      main {}
-    </style>`;
-    ```
-
-1. Make sure `options[parse]` is set to `false` or `fragment`
-
-    ```js
-    const { ntml } = require('lit-ntml');
-    const html = ntml({
-      options: {
-        parse: 'fragment', // or parse: false,
-      },
-    });
-    const style = () => html`
-    body {}
-    main {}
-    `;
-    const main = () => html`<style>${style}</style>`;
-    ```
+- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML document fragment string.
 
 ## License
 
