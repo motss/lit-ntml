@@ -22,10 +22,11 @@
   "license": "MIT",
   "author": "Rong Sen Ng <wes.ngrongsen@gmail.com> (https://github.com/motss)",
   "files": [
-    "dist"
+    "dist/*.d.ts",
+    "dist/*.*js"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index",
+  "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist/ && npm run rollup",
