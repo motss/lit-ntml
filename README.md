@@ -6,6 +6,8 @@
 
 <hr />
 
+[![Follow me][follow-me-badge]][follow-me-url]
+
 [![Version][version-badge]][version-url]
 [![Node version][node-version-badge]][node-version-url]
 [![MIT License][mit-license-badge]][mit-license-url]
@@ -176,7 +178,10 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 [promise-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 <!-- Badges -->
-[version-badge]: https://flat.badgen.net/npm/v/lit-ntml
+[follow-me-badge]: https://flat.badgen.net/twitter/follow/igarshmyb?icon=twitter
+
+
+[version-badge]: https://flat.badgen.net/npm/v/lit-ntml?icon=npm
 [node-version-badge]: https://flat.badgen.net/npm/node/lit-ntml
 [mit-license-badge]: https://flat.badgen.net/npm/license/lit-ntml
 
@@ -185,10 +190,10 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 [packagephobia-badge]: https://flat.badgen.net/packagephobia/install/lit-ntml
 [bundlephobia-badge]: https://flat.badgen.net/bundlephobia/minzip/lit-ntml
 
-[travis-badge]: https://flat.badgen.net/travis/motss/lit-ntml
-[circleci-badge]: https://flat.badgen.net/circleci/github/motss/lit-ntml
+[travis-badge]: https://flat.badgen.net/travis/motss/lit-ntml?icon=travis
+[circleci-badge]: https://flat.badgen.net/circleci/github/motss/lit-ntml?icon=circleci
 [daviddm-badge]: https://flat.badgen.net/david/dep/motss/lit-ntml
-[codecov-badge]: https://flat.badgen.net/codecov/c/github/motss/lit-ntml?label=codecov
+[codecov-badge]: https://flat.badgen.net/codecov/c/github/motss/lit-ntml?label=codecov&icon=codecov
 [coveralls-badge]: https://flat.badgen.net/coveralls/c/github/motss/lit-ntml?label=coveralls
 
 [codebeat-badge]: https://codebeat.co/badges/46b91b60-804d-4909-a647-1784ae283f19
@@ -196,6 +201,8 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 [coc-badge]: https://flat.badgen.net/badge/code%20of/conduct/pink
 
 <!-- Links -->
+[follow-me-url]: https://twitter.com/igarshmyb?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml
+
 [version-url]: https://www.npmjs.com/package/lit-ntml
 [node-version-url]: https://nodejs.org/en/download
 [mit-license-url]: https://github.com/motss/lit-ntml/blob/master/LICENSE

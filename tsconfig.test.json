@@ -5,7 +5,7 @@
   },
   "include": [
     "src/*",
-    "src/test/**/*",
-    "src/demo/**/*"
-  ]
+    "src/test/**/*"
+  ],
+  "exclude": ["src/demo/**/*"]
 }

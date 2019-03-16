@@ -12,7 +12,10 @@ const pluginFn = () => [
     throwError: true,
     configuration: `tslint${isProd ? '.prod' : ''}.json`,
   }),
-  typescript({ tsconfig: `./tsconfig${isProd ? '.prod' : ''}.json` }),
+  typescript({
+    tsconfig: `./tsconfig.json`,
+    exclude: isProd ? ['src/(demo|test)/**/*'] : [],
+   }),
   isProd && terser(),
   isProd && filesize({ showBrotliSize: true }),
 ];
