@@ -96,7 +96,7 @@ await html`${syncTask}${asyncLiteral}${asyncListTask}`; /** <!DOCTYPE html><html
 #### htmlFragment()
 
 ```ts
-import { htmlFragment } from 'lit-ntml';
+import { htmlFragment as html } from 'lit-ntml';
 
 const syncTask = () => `<h1>Hello, World!</h1>`;
 const externalStyleLiteral = `<style>body { margin: 0; padding: 0; box-sizing: border-box; }</style>`;
@@ -126,6 +126,7 @@ await html`${syncTask}${asyncLiteral}${asyncListTask}`; /** <!DOCTYPE html><html
 ```js
 const { htmlFragment } = require('lit-ntml');
 
+const html = htmlFragment;
 const syncTask = () => `<h1>Hello, World!</h1>`;
 const externalStyleLiteral = `<style>body { margin: 0; padding: 0; box-sizing: border-box; }</style>`;
 
