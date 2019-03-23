@@ -26,7 +26,7 @@ jobs:
             - v{{ .Environment.CIRCLE_BUILD_NUM }}-npm-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_JOB }}
             - v{{ .Environment.CIRCLE_BUILD_NUM }}-npm-cache-master-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_JOB }}
       - run:
-          name: Install Latest NPM
+          name: Install Global Dependencies
           command: npm i -g npm@latest coveralls codecov --quiet
       - run:
           name: Install Dependencies
@@ -36,6 +36,7 @@ jobs:
           command: npm test
       - run:
           name: Test Coverage
+          when: on_success
           command: |
             cat ./coverage/lcov.info | coveralls
             cat ./coverage/lcov.info | codecov
