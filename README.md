@@ -17,7 +17,6 @@
 [![Packagephobia][packagephobia-badge]][packagephobia-url]
 [![Bundlephobia][bundlephobia-badge]][bundlephobia-url]
 
-[![Build Status][travis-badge]][travis-url]
 [![CircleCI][circleci-badge]][circleci-url]
 [![Dependency Status][daviddm-badge]][daviddm-url]
 [![codecov][codecov-badge]][codecov-url]
@@ -190,7 +189,6 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 [packagephobia-badge]: https://flat.badgen.net/packagephobia/install/lit-ntml
 [bundlephobia-badge]: https://flat.badgen.net/bundlephobia/minzip/lit-ntml
 
-[travis-badge]: https://flat.badgen.net/travis/motss/lit-ntml?icon=travis
 [circleci-badge]: https://flat.badgen.net/circleci/github/motss/lit-ntml?icon=circleci
 [daviddm-badge]: https://flat.badgen.net/david/dep/motss/lit-ntml
 [codecov-badge]: https://flat.badgen.net/codecov/c/github/motss/lit-ntml?label=codecov&icon=codecov
@@ -211,7 +209,6 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 [packagephobia-url]: https://packagephobia.now.sh/result?p=lit-ntml
 [bundlephobia-url]: https://bundlephobia.com/result?p=lit-ntml
 
-[travis-url]: https://travis-ci.org/motss/lit-ntml
 [circleci-url]: https://circleci.com/gh/motss/lit-ntml/tree/master
 [daviddm-url]: https://david-dm.org/motss/lit-ntml
 [codecov-url]: https://codecov.io/gh/motss/lit-ntml
