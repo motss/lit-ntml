@@ -46,17 +46,17 @@
     "@messageflow/tslint-config": "^1.0.0",
     "@types/html-minifier": "^3.5.1",
     "@types/jest": "^24.0.11",
-    "@types/node": "^11.11.3",
+    "@types/node": "^11.11.6",
     "@types/parse5": "^5.0.0",
     "jest": "^24.5.0",
-    "rollup": "^1.6.0",
+    "rollup": "^1.7.0",
     "rollup-plugin-filesize": "^6.0.1",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-tslint": "^0.2.2",
     "rollup-plugin-typescript2": "^0.20.1",
     "tslint": "^5.14.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.4000"
   },
   "engines": {
     "node": ">= 8.9.0",
