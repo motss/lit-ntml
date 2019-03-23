@@ -9,6 +9,15 @@ const peopleList = [
 ];
 
 describe('html', () => {
+  it(`throws when error happens`, async () => {
+    try {
+      const errorContent = async () => { throw new Error('error'); };
+      await html`${errorContent}`;
+    } catch (e) {
+      expect(e).toStrictEqual(new Error('error'));
+    }
+  });
+
   it(`renders`, async () => {
     const d = await html`${helloWorld}`;
 
