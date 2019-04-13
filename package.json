@@ -22,9 +22,9 @@
   "license": "MIT",
   "author": "Rong Sen Ng <wes.ngrongsen@gmail.com> (https://github.com/motss)",
   "files": [
+    "dist/*.*js.map",
     "dist/*.*js",
-    "dist/*.d.ts",
-    "dist/*.js.map"
+    "dist/*.d.ts"
   ],
   "main": "dist/index",
   "module": "dist/index.mjs",
