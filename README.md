@@ -44,6 +44,7 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
   - [Node.js](#nodejs)
     - [html()](#html-1)
     - [htmlFragment()](#htmlfragment-1)
+    - [SSR with Express (Node.js)](#ssr-with-express-nodejs)
 - [API Reference](#api-reference)
   - [html()](#html-2)
   - [htmlFragment()](#htmlfragment-2)
@@ -134,6 +135,15 @@ const externalStyleLiteral = `<style>body { margin: 0; padding: 0; box-sizing: b
 /** Assuming top-level await is enabled... */
 await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; padding: 0; box-sizing: border-box; }</style><h1>Hello, World!</h1> */
 ```
+
+#### SSR with Express (Node.js)
+
+_👇 Simple demo on how to built an `express` server with `lit-ntml` to SSR content._
+
+<!-- View Source Button -->
+<a href="https://glitch.com/edit/#!/cubic-girdle" target="_blank" rel="noopener noreferrer">
+  <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fview-source%402x.png?1513093958802" alt="view source" height="33">
+</a>
 
 ## API Reference
 

@@ -10,6 +10,8 @@
     "noUnusedParameters": true,
     "resolveJsonModule": false,
     "strict": true,
+    "sourceMap": true,
+    "inlineSources": true,
 
     "lib": [
       "dom",

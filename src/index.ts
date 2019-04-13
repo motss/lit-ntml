@@ -17,7 +17,7 @@ import { parse, parseFragment, serialize } from 'parse5';
 //   trimCustomFragments: true,
 // };
 
-async function process(strings: TemplateStringsArray, ...exps: any[]): Promise<string> {
+async function processLiterals(strings: TemplateStringsArray, ...exps: any[]): Promise<string> {
   const listTask = exps.map(async (n) => {
     const tasks = (Array.isArray(n) ? n : [n])
       .map(async o => 'function' === typeof(o) ? o() : o);
@@ -40,7 +40,7 @@ async function parsePartial(
   ...exps: any[]
 ) {
   try {
-    const content = await process(strings, ...exps);
+    const content = await processLiterals(strings, ...exps);
     return serialize(fn(content));
   } catch (e) {
     throw e;

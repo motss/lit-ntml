@@ -33,7 +33,7 @@ jobs:
           command: npm ci --quiet
       - run:
           name: Test
-          command: npm test
+          command: npm t
       - run:
           name: Test Coverage
           when: on_success
