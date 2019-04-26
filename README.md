@@ -45,6 +45,7 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
     - [html()](#html-1)
     - [htmlFragment()](#htmlfragment-1)
     - [SSR with Express (Node.js)](#ssr-with-express-nodejs)
+- [deno](#deno)
 - [API Reference](#api-reference)
   - [html()](#html-2)
   - [htmlFragment()](#htmlfragment-2)
@@ -145,6 +146,10 @@ _👇 Simple demo on how to built an `express` server with `lit-ntml` to SSR con
   <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fview-source%402x.png?1513093958802" alt="view source" height="33">
 </a>
 
+## deno
+
+👉 Check out the [deno][] module at [deno_mod/lit_ntml][].
+
 ## API Reference
 
 ### html()
@@ -172,6 +177,8 @@ _👇 Simple demo on how to built an `express` server with `lit-ntml` to SSR con
 [pretty-flag-url]: https://github.com/jonschlinkert/pretty#ocd
 [web-padawan-awesome-lit-html-url]:
  https://github.com/web-padawan/awesome-lit-html
+[deno]: https://github.com/denoland/deno
+[deno_mod/lit_ntml]: https://github.com/motss/deno_mod/tree/master/lit_ntml
 
 [parse-promiselist-or-list-url]: #parse-promiselist-or-list
 [ntmlopts-url]: #ntmlopts
@@ -226,4 +233,4 @@ _👇 Simple demo on how to built an `express` server with `lit-ntml` to SSR con
 
 [codebeat-url]: https://codebeat.co/projects/github-com-motss-lit-ntml-master
 [codacy-url]: https://www.codacy.com/app/motss/lit-ntml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml&amp;utm_campaign=Badge_Grade
-[coc-url]: https://github.com/motss/lit-ntml/blob/master/CODE_OF_CONDUCT.md
+[coc-url]: https://github.com/motss/lit-ntml/blob/master/code-of-conduct.md

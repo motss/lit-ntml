@@ -22,22 +22,24 @@
   "license": "MIT",
   "author": "Rong Sen Ng <wes.ngrongsen@gmail.com> (https://github.com/motss)",
   "files": [
-    "dist/*.*js.map",
-    "dist/*.*js",
-    "dist/*.d.ts"
+    "dist/*.d.ts.map",
+    "dist/*.d.ts",
+    "dist/*.js.map",
+    "dist/*.js"
   ],
   "main": "dist/index",
   "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist/ && npm run rollup",
-    "build:test": "rm -rf dist/ && tsc -p ./tsconfig.test.json",
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && npm run rollup",
+    "build:test": "npm run clean && tsc -p ./tsconfig.test.json",
     "lint": "tslint --project tsconfig.json --config tslint.prod.json --format stylish",
     "lint:debug": "tslint --project tsconfig.json --config tslint.json --format stylish",
     "prepublishOnly": "npm run lint && npm run build",
     "rollup": "rollup -c ./rollup.config.js",
     "test": "npm run lint && npm run build:test && jest --config ./.jestrc.json",
-    "ts": "rm -rf dist/ && tsc",
+    "ts": "npm run clean && tsc",
     "watch": "npm run ts -- --watch"
   },
   "dependencies": {
@@ -55,7 +57,7 @@
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-tslint": "^0.2.2",
-    "rollup-plugin-typescript2": "^0.20.1",
+    "rollup-plugin-typescript2": "^0.21.0",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
   },
