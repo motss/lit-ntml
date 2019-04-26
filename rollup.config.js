@@ -25,11 +25,13 @@ const multiBuild = [
     file: 'dist/index.mjs',
     format: 'esm',
     sourcemap: true,
+    exports: 'named',
   },
   {
     file: 'dist/index.js',
     format: 'cjs',
     sourcemap: true,
+    exports: 'named',
   },
 ].map(n => ({ input, output: n, plugins: pluginFn() }));
 
