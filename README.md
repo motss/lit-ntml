@@ -47,7 +47,7 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
     - [SSR with Express (Node.js)](#ssr-with-express-nodejs)
   - [Browser](#browser)
     - [ES Modules](#es-modules)
-    - [IIFE](#iife)
+    - [UMD](#umd)
 - [deno](#deno)
 - [API Reference](#api-reference)
   - [html()](#html-2)
@@ -161,13 +161,13 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 </html>
 ```
 
-#### IIFE
+#### UMD
 
 ```html
 <!doctype html>
 <html>
   <head>
-    <script src="https://unpkg.com/lit-ntml@latest/dist/lit-ntml.iife.min.js"></script>
+    <script src="https://unpkg.com/lit-ntml@latest/dist/lit-ntml.umd.min.js"></script>
     <script>
       var { html } = window.LitNtml;
 
