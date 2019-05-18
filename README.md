@@ -45,6 +45,9 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
     - [html()](#html-1)
     - [htmlFragment()](#htmlfragment-1)
     - [SSR with Express (Node.js)](#ssr-with-express-nodejs)
+  - [Browser](#browser)
+    - [ES Modules](#es-modules)
+    - [IIFE](#iife)
 - [deno](#deno)
 - [API Reference](#api-reference)
   - [html()](#html-2)
@@ -139,12 +142,40 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 
 #### SSR with Express (Node.js)
 
-_👇 Simple demo on how to built an `express` server with `lit-ntml` to SSR content._
+[![Edit SSR with Express and LitNtml](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ssr-with-express-and-litntml-4tbv9?fontsize=14)
 
-<!-- View Source Button -->
-<a href="https://glitch.com/edit/#!/cubic-girdle" target="_blank" rel="noopener noreferrer">
-  <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fview-source%402x.png?1513093958802" alt="view source" height="33">
-</a>
+### Browser
+
+#### ES Modules
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <script type="module">
+      import { html } from 'https://unpkg.com/lit-ntml@latest/dist/lit-ntml.min.js';
+
+      // --snip
+    </script>
+  </head>
+</html>
+```
+
+#### IIFE
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <script src="https://unpkg.com/lit-ntml@latest/dist/lit-ntml.iife.min.js"></script>
+    <script>
+      var { html } = window.LitNtml;
+
+      // --snip
+    </script>
+  </head>
+</html>
+```
 
 ## deno
 
