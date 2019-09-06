@@ -1,6 +1,6 @@
 {
   "name": "lit-ntml",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Inspired by lit-html but for Node.js",
   "keywords": [
     "html",
