@@ -44,11 +44,6 @@ defaults: &defaults
           cat ./coverage/lcov.info | codecov
 
 jobs:
-  node-v8:
-    <<: *defaults
-    docker:
-      - image: circleci/node:8
-
   node-v10:
     <<: *defaults
     docker:
@@ -59,6 +54,11 @@ jobs:
     docker:
       - image: circleci/node:12
 
+  node-v13:
+    <<: *defaults
+    docker:
+      - image: circleci/node:13
+
 workflows:
   version: 2
   multi-build-n-test:
@@ -66,3 +66,4 @@ workflows:
       - node-v8
       - node-v10
       - node-v12
+      - node-v13
