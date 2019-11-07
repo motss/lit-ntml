@@ -63,7 +63,6 @@ workflows:
   version: 2
   multi-build-n-test:
     jobs:
-      - node-v8
       - node-v10
       - node-v12
       - node-v13
