@@ -1,7 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "importHelpers": true,
+    "module": "commonjs"
   },
   "include": [
     "src/*",

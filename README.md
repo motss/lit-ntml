@@ -64,8 +64,8 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
 
 ## Pre-requisite
 
-- [Node.js][nodejs-url] >= 8.9.0
-- [NPM][npm-url] >= 5.5.1 ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
+- [Node.js][nodejs-url] >= 10.18.1
+- [NPM][npm-url] >= 6.13.4 ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
 
 ## Enable syntax highlighting when writing HTML with template literal
 

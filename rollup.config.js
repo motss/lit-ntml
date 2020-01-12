@@ -9,8 +9,8 @@ import commonjs from 'rollup-plugin-commonjs';
 
 const isProd = !process.env.ROLLUP_WATCH;
 const input = ['src/index.ts'];
-const pluginFn = (format, minify, browser) => {
 
+const pluginFn = (format, minify, browser) => {
   return [
     browser && nodeResolve(),
     browser && commonjs(),
@@ -74,7 +74,7 @@ const multiBuild = [
     },
     experimentalOptimizeChunks: true,
     plugins: pluginFn(n.format, o, n.browser),
-    treeshake: { moduleSifeEffects: false },
+    treeshake: { moduleSideEffects: false },
     ...('umd' === n.format ? { context: 'window' } : {}),
   }));
 

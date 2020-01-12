@@ -1,4 +1,8 @@
-import { parse, parseFragment, serialize } from 'parse5';
+import {
+  parse,
+  parseFragment,
+  serialize,
+} from 'nodemod/dist/lib/parse5.js';
 
 // export const DEFAULT_MINIFY_OPTIONS: htmlMinifier.Options = {
 //   collapseBooleanAttributes: true,
