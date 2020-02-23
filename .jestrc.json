@@ -12,8 +12,9 @@
   },
   "collectCoverageFrom": [
     "!**/node_modules/**",
-    "!**/src/demo/**/*.(js|jsx)",
-    "!**/src/test*/**/*.(js|jsx)",
+    "!<rootDir>/src/demo/**/*.(js|jsx)",
+    "!<rootDir>/src/test*/**/*.(js|jsx)",
+    "!<rootDir>/dist/lit-ntml.js",
     "<rootDir>/dist/**/*.(js|jsx)"
   ],
   "verbose": true,
