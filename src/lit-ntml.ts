@@ -2,7 +2,7 @@ import {
   parse,
   parseFragment,
   serialize,
-} from 'parse5';
+} from 'nodemod/dist/lib/parse5.js';
 import { parsePartial } from './parse-literals.js';
 
 // export const DEFAULT_MINIFY_OPTIONS: htmlMinifier.Options = {

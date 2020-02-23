@@ -8,7 +8,6 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
 const isProd = !process.env.ROLLUP_WATCH;
-const input = ['src/index.ts'];
 
 const pluginFn = (format, minify, browser) => {
   return [
@@ -42,16 +41,19 @@ const pluginFn = (format, minify, browser) => {
 
 const multiBuild = [
   {
+    input: ['src/index.ts'],
     file: 'dist/index.mjs',
     format: 'esm',
     exports: 'named',
   },
   {
+    input: ['src/index.ts'],
     file: 'dist/index.js',
     format: 'cjs',
     exports: 'named',
   },
   {
+    input: ['src/lit-ntml.ts'],
     file: 'dist/lit-ntml.umd.js',
     format: 'umd',
     name: 'LitNtml',
@@ -59,15 +61,18 @@ const multiBuild = [
     browser: true,
   },
   {
+    input: ['src/lit-ntml.ts'],
     file: 'dist/lit-ntml.js',
     format: 'esm',
     browser: true,
   },
 ].reduce((p, n) => {
+  const { input, ...rest } = n;
+
   const opts = [true, false].map(o => ({
     input,
     output: {
-      ...n,
+      ...rest,
       file: o ? n.file.replace(/(.+)(\.m?js)$/, '$1.min$2') : n.file,
       sourcemap: true,
       sourcemapExcludeSources: true,
@@ -75,7 +80,15 @@ const multiBuild = [
     experimentalOptimizeChunks: true,
     plugins: pluginFn(n.format, o, n.browser),
     treeshake: { moduleSideEffects: false },
-    ...('umd' === n.format ? { context: 'window' } : {}),
+    ...(
+      'umd' === n.format ?
+      { context: 'window' } :
+      {
+        external: [
+          'nodemod/dist/lib/parse5.js',
+        ],
+      }
+    ),
   }));
 
   return (p.push(...opts), p);

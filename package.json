@@ -44,6 +44,7 @@
     "watch": "npm run ts -- --watch"
   },
   "dependencies": {
+    "nodemod": "^2.4.0",
     "parse5": "^5.1.1",
     "tslib": "^1.11.0"
   },
