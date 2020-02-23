@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "importHelpers": true,
-    "module": "commonjs"
-  },
-  "exclude": ["src/demo/**/*", "src/test/**/*"]
-}
