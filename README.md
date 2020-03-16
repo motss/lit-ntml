@@ -128,7 +128,7 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 
 ```ts
 // const { htmlFragmentSync as html } = require('lit-ntml'); // CommonJS import style
-import { htmlFragmentSync as html } from ('lit-ntml';
+import { htmlFragmentSync as html } from 'lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
 const syncTask = () => `<h1>Hello, World!</h1>`;
