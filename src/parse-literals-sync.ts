@@ -3,15 +3,15 @@ import type {
   parseFragment,
   serialize,
 } from 'parse5';
-import { processLiterals } from './process-literals.js';
+import { processLiteralsSync } from './process-literals-sync.js';
 
-export function parseLiterals(serializeFn: typeof serialize) {
-  return async (
+export function parseLiteralsSync(serializeFn: typeof serialize) {
+  return (
     fn: typeof parse | typeof parseFragment,
     strings: TemplateStringsArray,
     ...exps: any[]
   ) => {
-    const content = await processLiterals(strings, ...exps);
+    const content = processLiteralsSync(strings, ...exps);
     return serializeFn(fn(content));
   };
 }

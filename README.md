@@ -38,20 +38,20 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
   - [Visual Studio Code](#visual-studio-code)
 - [Install](#install)
 - [Usage](#usage)
-  - [TypeScript or native ES Modules](#typescript-or-native-es-modules)
-    - [html()](#html)
-    - [htmlFragment()](#htmlfragment)
-  - [Node.js](#nodejs)
-    - [html()](#html-1)
-    - [htmlFragment()](#htmlfragment-1)
-    - [SSR with Express (Node.js)](#ssr-with-express-nodejs)
+  - [html()](#html)
+  - [htmlSync()](#htmlsync)
+  - [htmlFragment()](#htmlfragment)
+  - [htmlFragmentSync()](#htmlfragmentsync)
+  - [SSR with Express (Node.js)](#ssr-with-express-nodejs)
   - [Browser](#browser)
     - [ES Modules](#es-modules)
     - [UMD](#umd)
-- [deno](#deno)
 - [API Reference](#api-reference)
-  - [html()](#html-2)
-  - [htmlFragment()](#htmlfragment-2)
+  - [html()](#html-1)
+  - [htmlSync()](#htmlsync-1)
+  - [htmlFragment()](#htmlfragment-1)
+  - [htmlFragmentSync()](#htmlfragmentsync-1)
+- [deno](#deno)
 - [License](#license)
 
 ## Features
@@ -83,11 +83,10 @@ $ npm install lit-ntml
 
 ## Usage
 
-### TypeScript or native ES Modules
-
-#### html()
+### html()
 
 ```ts
+// const { html } = require('lit-ntml'); // CommonJS import style
 import { html } from 'lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
@@ -99,9 +98,23 @@ const asyncListTask = async () => `<ul>${peopleList.map(n => `<li>${n}</li>`)}</
 await html`${syncTask}${asyncLiteral}${asyncListTask}`; /** <!DOCTYPE html><html><head></head><body><h1>Hello, World!</h1><h2>John Doe</h2><ul><li>Cash Black</li><li>Vict Fisherman</li></ul></body></html> */
 ```
 
-#### htmlFragment()
+### htmlSync()
 
 ```ts
+// const { htmlSync } = require('lit-ntml'); // CommonJS import style
+import { htmlSync as html } from 'lit-ntml';
+
+const peopleList = ['Cash Black', 'Vict Fisherman'];
+const syncTask = () => `<h1>Hello, World!</h1>`;
+
+html`${syncTask}${peopleList}`;
+/** <!DOCTYPE html><html><head></head><body><h1>Hello, World!</h1>Cash BlackVictFisherman[object Promise]</body></html> */
+```
+
+### htmlFragment()
+
+```ts
+// const { htmlFragment as html } = require('lit-ntml'); // CommonJS import style
 import { htmlFragment as html } from 'lit-ntml';
 
 const syncTask = () => `<h1>Hello, World!</h1>`;
@@ -111,36 +124,21 @@ const externalStyleLiteral = `<style>body { margin: 0; padding: 0; box-sizing: b
 await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; padding: 0; box-sizing: border-box; }</style><h1>Hello, World!</h1> */
 ```
 
-### Node.js
+### htmlFragmentSync()
 
-#### html()
-
-```js
-const { html } = require('lit-ntml');
+```ts
+// const { htmlFragmentSync as html } = require('lit-ntml'); // CommonJS import style
+import { htmlFragmentSync as html } from ('lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
 const syncTask = () => `<h1>Hello, World!</h1>`;
-const asyncLiteral = Promise.resolve('<h2>John Doe</h2>');
-const asyncListTask = async () => `<ul>${peopleList.map(n => `<li>${n}</li>`)}</ul>`;
+const asyncTask = Promise.resolve(1);
 
-/** Assuming top-level await is enabled... */
-await html`${syncTask}${asyncLiteral}${asyncListTask}`; /** <!DOCTYPE html><html><head></head><body><h1>Hello, World!</h1><h2>John Doe</h2><ul><li>Cash Black</li><li>Vict Fisherman</li></ul></body></html> */
+html`${syncTask}${peopleList}${asyncTask}`;
+/** <h1>Hello, World!</h1>Cash BlackVictFisherman[object Promise] */
 ```
 
-#### htmlFragment()
-
-```js
-const { htmlFragment } = require('lit-ntml');
-
-const html = htmlFragment;
-const syncTask = () => `<h1>Hello, World!</h1>`;
-const externalStyleLiteral = `<style>body { margin: 0; padding: 0; box-sizing: border-box; }</style>`;
-
-/** Assuming top-level await is enabled... */
-await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; padding: 0; box-sizing: border-box; }</style><h1>Hello, World!</h1> */
-```
-
-#### SSR with Express (Node.js)
+### SSR with Express (Node.js)
 
 [![Edit SSR with Express and LitNtml](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ssr-with-express-and-litntml-4tbv9?fontsize=14)
 
@@ -177,19 +175,27 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 </html>
 ```
 
-## deno
-
-👉 Check out the [deno][] module at [deno_mod/lit_ntml][].
-
 ## API Reference
 
 ### html()
 
 - returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML document string.
 
+### htmlSync()
+
+This method works the same as `html()` except that this is the synchronous version.
+
 ### htmlFragment()
 
 - returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML document fragment string.
+
+### htmlFragmentSync()
+
+This method works the same as `htmlFragment()` except that this is the synchronous version.
+
+## deno
+
+👉 Check out the [deno] module at [deno_mod/lit_ntml].
 
 ## License
 
