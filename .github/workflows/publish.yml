@@ -56,6 +56,7 @@ jobs:
         with:
           node-version: ${{ matrix.target }}
           registry-url: 'https://npm.pkg.github.com'
+          scope: '@motss'
 
       - name: Publish to GPR (RC)
         if: success() && contains(github.ref, '-rc') == true
