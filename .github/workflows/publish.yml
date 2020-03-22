@@ -55,7 +55,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.target }}
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: 'https://npm.pkg.github.com/'
           scope: '@motss'
 
       - name: Publish to GPR (RC)
