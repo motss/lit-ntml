@@ -51,26 +51,27 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Setup node@${{ matrix.target }}
-        uses: actions/setup-node@master
-        with:
-          node-version: ${{ matrix.target }}
-          registry-url: https://npm.pkg.github.com/
-          scope: '@motss'
+      # See https://github.com/actions/setup-node/issues/73.
+      # - name: Setup node@${{ matrix.target }}
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: ${{ matrix.target }}
+      #     registry-url: 'https://npm.pkg.github.com/'
+      #     scope: '@motss'
 
-      - name: Publish to GPR (RC)
-        if: success() && contains(github.ref, '-rc') == true
-        run: |
-          npm config list
-          npm publish . --tag=next
-        env:
-          NODE_AUTH_TOKEN: ${{github.token}}
+      # - name: Publish to GPR (RC)
+      #   if: success() && contains(github.ref, '-rc') == true
+      #   run: |
+      #     npm config list
+      #     npm publish . --tag=next
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{github.token}}
 
-      - name: Publish to GPR
-        if: success() && contains(github.ref, '-rc') == false
-        run: |
-          npm config list
-          npm publish .
-        env:
-          NODE_AUTH_TOKEN: ${{github.token}}
+      # - name: Publish to GPR
+      #   if: success() && contains(github.ref, '-rc') == false
+      #   run: |
+      #     npm config list
+      #     npm publish .
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{github.token}}
 
