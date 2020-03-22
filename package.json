@@ -52,7 +52,7 @@
     "@reallyland/tsconfig": "^2.0.0",
     "@reallyland/tslint-config": "^1.1.1",
     "@types/jest": "^24.9.1",
-    "@types/node": "^13.9.1",
+    "@types/node": "^13.9.2",
     "@types/parse5": "^5.0.2",
     "jest": "^24.9.0",
     "rollup": "^1.32.1",
