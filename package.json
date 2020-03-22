@@ -21,15 +21,15 @@
   },
   "license": "MIT",
   "author": "Rong Sen Ng <wes.ngrongsen@gmail.com> (https://github.com/motss)",
+  "main": "dist/index",
+  "module": "dist/index.mjs",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist/*.*js.map",
     "dist/*.*js",
     "dist/*.d.ts.map",
     "dist/*.d.ts"
   ],
-  "main": "dist/index",
-  "module": "dist/index.mjs",
-  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "npm run clean && npm run rollup",
     "build:test": "npm run clean && tsc -p ./tsconfig.test.json",
@@ -43,6 +43,11 @@
     "ts": "npm run clean && tsc",
     "watch": "npm run ts -- --watch"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && tsc --noEmit"
+    }
+  },
   "dependencies": {
     "nodemod": "^2.4.1",
     "parse5": "^5.1.1",
@@ -54,6 +59,7 @@
     "@types/jest": "^24.9.1",
     "@types/node": "^13.9.2",
     "@types/parse5": "^5.0.2",
+    "husky": "^4.2.3",
     "jest": "^24.9.0",
     "rollup": "^2.1.0",
     "rollup-plugin-commonjs": "^10.1.0",
