@@ -67,7 +67,7 @@ const multiBuild = [
     browser: true,
   },
 ].reduce((p, n) => {
-  const { input, ...rest } = n;
+  const { browser, input, ...rest } = n;
 
   const opts = [true, false].map(o => ({
     input,
@@ -77,8 +77,7 @@ const multiBuild = [
       sourcemap: true,
       sourcemapExcludeSources: true,
     },
-    experimentalOptimizeChunks: true,
-    plugins: pluginFn(n.format, o, n.browser),
+    plugins: pluginFn(n.format, o, browser),
     treeshake: { moduleSideEffects: false },
     ...(
       'umd' === n.format ?
