@@ -6,6 +6,8 @@
 
 <hr />
 
+<a href="https://www.buymeacoffee.com/RLmMhgXFb" target="_blank" rel="noopener noreferrer"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 20px !important;width: auto !important;" ></a>
+[![tippin.me][tippin-me-badge]][tippin-me-url]
 [![Follow me][follow-me-badge]][follow-me-url]
 
 [![Version][version-badge]][version-url]
@@ -17,10 +19,9 @@
 [![Packagephobia][packagephobia-badge]][packagephobia-url]
 [![Bundlephobia][bundlephobia-badge]][bundlephobia-url]
 
-[![CircleCI][circleci-badge]][circleci-url]
+[![ci][ga-badge]][ga-url]
 [![Dependency Status][daviddm-badge]][daviddm-url]
 [![codecov][codecov-badge]][codecov-url]
-[![Coverage Status][coveralls-badge]][coveralls-url]
 
 [![codebeat badge][codebeat-badge]][codebeat-url]
 [![Codacy Badge][codacy-badge]][codacy-url]
@@ -231,8 +232,8 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [promise-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 <!-- Badges -->
+[tippin-me-badge]: https://badgen.net/badge/%E2%9A%A1%EF%B8%8Ftippin.me/@igarshmyb/F0918E
 [follow-me-badge]: https://flat.badgen.net/twitter/follow/igarshmyb?icon=twitter
-
 
 [version-badge]: https://flat.badgen.net/npm/v/lit-ntml?icon=npm
 [node-version-badge]: https://flat.badgen.net/npm/node/lit-ntml
@@ -243,16 +244,16 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [packagephobia-badge]: https://flat.badgen.net/packagephobia/install/lit-ntml
 [bundlephobia-badge]: https://flat.badgen.net/bundlephobia/minzip/lit-ntml
 
-[circleci-badge]: https://flat.badgen.net/circleci/github/motss/lit-ntml?icon=circleci
+[ga-badge]: https://github.com/motss/lit-ntml/workflows/ci/badge.svg?branch=master
 [daviddm-badge]: https://flat.badgen.net/david/dep/motss/lit-ntml
 [codecov-badge]: https://flat.badgen.net/codecov/c/github/motss/lit-ntml?label=codecov&icon=codecov
-[coveralls-badge]: https://flat.badgen.net/coveralls/c/github/motss/lit-ntml?label=coveralls
 
 [codebeat-badge]: https://codebeat.co/badges/46b91b60-804d-4909-a647-1784ae283f19
 [codacy-badge]: https://api.codacy.com/project/badge/Grade/bb0c739bc5144a8b80197f3fa3bb2273
 [coc-badge]: https://flat.badgen.net/badge/code%20of/conduct/pink
 
 <!-- Links -->
+[tippin-me-url]: https://tippin.me/@igarshmyb
 [follow-me-url]: https://twitter.com/igarshmyb?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml
 
 [version-url]: https://www.npmjs.com/package/lit-ntml
@@ -263,10 +264,9 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [packagephobia-url]: https://packagephobia.now.sh/result?p=lit-ntml
 [bundlephobia-url]: https://bundlephobia.com/result?p=lit-ntml
 
-[circleci-url]: https://circleci.com/gh/motss/lit-ntml/tree/master
+[ga-url]: https://github.com/motss/lit-ntml/actions?query=workflow%3Aci
 [daviddm-url]: https://david-dm.org/motss/lit-ntml
 [codecov-url]: https://codecov.io/gh/motss/lit-ntml
-[coveralls-url]: https://coveralls.io/github/motss/lit-ntml?branch=master
 
 [codebeat-url]: https://codebeat.co/projects/github-com-motss-lit-ntml-master
 [codacy-url]: https://www.codacy.com/app/motss/lit-ntml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml&amp;utm_campaign=Badge_Grade
