@@ -2,7 +2,8 @@ import {
   parse,
   parseFragment,
   serialize,
-} from 'nodemod/dist/lib/parse5.js';
+  // @ts-ignore
+} from 'https://cdn.jsdelivr.net/npm/nodemod@latest/dist/lib/parse5.min.js';
 import { parseLiteralsSync } from './parse-literals-sync.js';
 import { parseLiterals } from './parse-literals.js';
 
