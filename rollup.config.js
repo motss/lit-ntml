@@ -52,14 +52,14 @@ const multiBuild = [
     format: 'cjs',
     exports: 'named',
   },
-  {
-    input: ['src/lit-ntml.ts'],
-    file: 'dist/lit-ntml.umd.js',
-    format: 'umd',
-    name: 'LitNtml',
-    exports: 'named',
-    browser: true,
-  },
+  // {
+  //   input: ['src/lit-ntml.ts'],
+  //   file: 'dist/lit-ntml.umd.js',
+  //   format: 'umd',
+  //   name: 'LitNtml',
+  //   exports: 'named',
+  //   browser: true,
+  // },
   {
     input: ['src/lit-ntml.ts'],
     file: 'dist/lit-ntml.js',

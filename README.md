@@ -44,9 +44,7 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
   - [htmlFragment()](#htmlfragment)
   - [htmlFragmentSync()](#htmlfragmentsync)
   - [SSR with Express (Node.js)](#ssr-with-express-nodejs)
-  - [Browser](#browser)
-    - [ES Modules](#es-modules)
-    - [UMD](#umd)
+  - [Browser support](#browser-support)
 - [API Reference](#api-reference)
   - [html()](#html-1)
   - [htmlSync()](#htmlsync-1)
@@ -143,32 +141,16 @@ html`${syncTask}${peopleList}${asyncTask}`;
 
 [![Edit SSR with Express and LitNtml](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ssr-with-express-and-litntml-4tbv9?fontsize=14)
 
-### Browser
+### Browser support
 
-#### ES Modules
+Only modern browsers with native ES Modules support requires no polyfills and transpilation needed.
 
 ```html
 <!doctype html>
 <html>
   <head>
     <script type="module">
-      import { html } from 'https://unpkg.com/lit-ntml@latest/dist/lit-ntml.min.js?module';
-
-      // --snip
-    </script>
-  </head>
-</html>
-```
-
-#### UMD
-
-```html
-<!doctype html>
-<html>
-  <head>
-    <script src="https://unpkg.com/lit-ntml@latest/dist/lit-ntml.umd.min.js"></script>
-    <script>
-      var { html } = window.LitNtml;
+      import { html } from 'https://cdn.jsdelivr.net/npm/lit-ntml@latest/dist/lit-ntml.min.js';
 
       // --snip
     </script>
