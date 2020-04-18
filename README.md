@@ -152,7 +152,7 @@ html`${syncTask}${peopleList}${asyncTask}`;
 <html>
   <head>
     <script type="module">
-      import { html } from 'https://unpkg.com/lit-ntml@latest/dist/lit-ntml.min.js';
+      import { html } from 'https://unpkg.com/lit-ntml@latest/dist/lit-ntml.min.js?module';
 
       // --snip
     </script>
