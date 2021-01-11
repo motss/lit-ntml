@@ -12,6 +12,6 @@ export function parseLiteralsSync(serializeFn: typeof serialize) {
     ...exps: any[]
   ) => {
     const content = processLiteralsSync(strings, ...exps);
-    return serializeFn(fn(content));
+    return serializeFn((fn as typeof parse)(content));
   };
 }
