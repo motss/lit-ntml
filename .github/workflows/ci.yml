@@ -19,8 +19,8 @@ jobs:
     timeout-minutes: 120
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-18.04, windows-2019]
-        target: [12.x, 13.x]
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        target: [12.x, 14.x]
 
     steps:
       - name: Checkout
