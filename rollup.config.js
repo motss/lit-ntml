@@ -2,7 +2,6 @@
 
 import { terser } from 'rollup-plugin-terser';
 import filesize from 'rollup-plugin-filesize';
-import tslint from 'rollup-plugin-tslint';
 import typescript from 'rollup-plugin-typescript2';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
@@ -13,10 +12,6 @@ const pluginFn = (format, minify, browser) => {
   return [
     browser && nodeResolve(),
     browser && commonjs(),
-    isProd && tslint({
-      throwError: true,
-      configuration: `tslint${isProd ? '.prod' : ''}.json`,
-    }),
     typescript({
       tsconfig: './tsconfig.json',
       exclude: isProd ? ['src/(demo|test)/**/*'] : [],

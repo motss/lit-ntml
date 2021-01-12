@@ -9,8 +9,8 @@ export function parseLiterals(serializeFn: typeof serialize) {
   return async (
     fn: typeof parse | typeof parseFragment,
     strings: TemplateStringsArray,
-    ...exps: any[]
-  ) => {
+    ...exps: unknown[]
+  ): Promise<string> => {
     const content = await processLiterals(strings, ...exps);
 
     return serializeFn((fn as typeof parse)(content));

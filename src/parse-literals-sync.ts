@@ -9,8 +9,8 @@ export function parseLiteralsSync(serializeFn: typeof serialize) {
   return (
     fn: typeof parse | typeof parseFragment,
     strings: TemplateStringsArray,
-    ...exps: any[]
-  ) => {
+    ...exps: unknown[]
+  ): string => {
     const content = processLiteralsSync(strings, ...exps);
     return serializeFn((fn as typeof parse)(content));
   };

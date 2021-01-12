@@ -1,6 +1,6 @@
 export function processLiteralsSync(
   strings: TemplateStringsArray,
-  ...exps: any[]
+  ...exps: unknown[]
 ): string {
   const done = exps.map((n) => {
     return (Array.isArray(n) ? n : [n]).map(o => 'function' === typeof(o) ? o() : o);

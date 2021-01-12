@@ -1,6 +1,6 @@
 export async function processLiterals(
   strings: TemplateStringsArray,
-  ...exps: any[]
+  ...exps: unknown[]
 ): Promise<string> {
   const listTask = exps.map(async (n) => {
     const tasks = (Array.isArray(n) ? n : [n])
