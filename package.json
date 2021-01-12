@@ -21,9 +21,12 @@
   },
   "license": "MIT",
   "author": "Rong Sen Ng <wes.ngrongsen@gmail.com> (https://github.com/motss)",
-  "main": "dist/index",
-  "module": "dist/index.mjs",
-  "typings": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.mjs"
+  },
+  "main": "./dist/index",
+  "module": "./dist/index.mjs",
+  "typings": "./dist/index.d.ts",
   "files": [
     "dist/*.*js.map",
     "dist/*.*js",
@@ -31,21 +34,22 @@
     "dist/*.d.ts"
   ],
   "scripts": {
-    "build": "npm run clean && npm run rollup",
-    "build:test": "npm run clean && tsc -p ./tsconfig.test.json",
+    "build": "npm run rollup",
+    "build:test": "tsc -p ./tsconfig.test.json",
+    "check": "package-check",
     "clean": "shx rm -rf dist/",
     "jest": "jest --config ./.jestrc.json",
     "lint": "tslint --project tsconfig.json --config tslint.prod.json --format stylish",
     "lint:debug": "tslint --project tsconfig.json --config tslint.json --format stylish",
     "prepublishOnly": "npm run lint && npm run build",
     "rollup": "rollup -c ./rollup.config.js",
-    "test": "npm run lint && npm run build:test && npm run jest",
+    "test": "npm run check && npm run lint && npm run clean && npm run build:test && npm run jest",
     "ts": "npm run clean && tsc",
     "watch": "npm run ts -- --watch"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && tsc --noEmit"
+      "pre-commit": "npm run check && npm run lint && tsc --noEmit"
     }
   },
   "dependencies": {
@@ -55,6 +59,7 @@
   "devDependencies": {
     "@reallyland/tsconfig": "^3.0.2",
     "@reallyland/tslint-config": "^1.1.1",
+    "@skypack/package-check": "^0.2.2",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.11.8",
     "@types/parse5": "^6.0.0",
