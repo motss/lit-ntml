@@ -12,10 +12,11 @@
   },
   "collectCoverageFrom": [
     "!**/node_modules/**",
-    "!<rootDir>/src/demo/**/*.(js|jsx)",
-    "!<rootDir>/src/test*/**/*.(js|jsx)",
-    "!<rootDir>/dist/lit-ntml.js",
-    "<rootDir>/dist/**/*.(js|jsx)"
+    "<rootDir>/dist/index.js",
+    "<rootDir>/dist/parse-literals-sync.js",
+    "<rootDir>/dist/parse-literals.js",
+    "<rootDir>/dist/process-literals-sync.js",
+    "<rootDir>/dist/process-literals.js"
   ],
   "verbose": true,
   "bail": true,
@@ -23,7 +24,7 @@
     "<rootDir>/dist/"
   ],
   "testMatch": [
-    "<rootDir>/dist/test*/**/*.spec.(js|jsx)"
+    "<rootDir>/dist/test*/**/*.spec.js"
   ],
   "moduleFileExtensions": [
     "js",
