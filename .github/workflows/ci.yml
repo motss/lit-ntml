@@ -14,6 +14,7 @@ on:
 
 jobs:
   build:
+    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, 'doc:')"
     name: ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
@@ -26,39 +27,55 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Git log
+        shell: bash
+        run: |
+          if [ -n "$(git log --format=%B -n 1 | grep -iE '^[0-9]+[.]{1,}[0-9]+[.]{1,}[0-9]+')" ]; then
+            echo "CI_SKIP=true" >> $GITHUB_ENV
+          fi
+
       - name: Setup node@${{ matrix.target }}
+        if: env.CI_SKIP == 'false'
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.target }}
 
       - name: List versions
+        shell: bash
+        if: env.CI_SKIP == 'false'
+        continue-on-error: true
         run: |
           node -v && npm -v && which npm
 
       - name: Install dependencies
+        if: env.CI_SKIP == 'false'
         run: |
           npm ci --quiet
 
       - name: Lint
+        if: env.CI_SKIP == 'false'
         run: |
           npm run lint
 
       - name: Build
+        if: env.CI_SKIP == 'false'
         run: |
           npm run build:test
 
       - name: Check build
         shell: bash
+        if: env.CI_SKIP == 'false'
         run: |
           pwd && ls -la
 
       - name: Test
+        if: env.CI_SKIP == 'false'
         run: |
           npm run jest
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v1
-        if: success()
+        if: env.CI_SKIP == 'false' && success()
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info
