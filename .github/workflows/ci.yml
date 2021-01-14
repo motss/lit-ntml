@@ -35,47 +35,47 @@ jobs:
           fi
 
       - name: Setup node@${{ matrix.target }}
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP != 'true'
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.target }}
 
       - name: List versions
         shell: bash
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP != 'true'
         continue-on-error: true
         run: |
           node -v && npm -v && which npm
 
       - name: Install dependencies
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP != 'true'
         run: |
           npm ci --quiet
 
       - name: Lint
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP != 'true'
         run: |
           npm run lint
 
       - name: Build
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP != 'true'
         run: |
           npm run build:test
 
       - name: Check build
         shell: bash
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP != 'true'
         run: |
           pwd && ls -la
 
       - name: Test
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP != 'true'
         run: |
           npm run jest
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v1
-        if: env.CI_SKIP == 'false' && success()
+        if: env.CI_SKIP != 'true' && success()
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info
