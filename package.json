@@ -26,7 +26,11 @@
     "url": "https://github.com/motss"
   },
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "default": "./dist/index.mjs"
+    },
     "./dist/*": "./dist/*"
   },
   "main": "./dist/index",
