@@ -1,0 +1,15 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": false,
+      "dynamicImport": false
+    },
+    "target": "es2019",
+    "externalHelpers": false
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}

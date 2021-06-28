@@ -3,7 +3,7 @@ import type {
   parseFragment,
   serialize,
 } from 'parse5';
-import { processLiteralsSync } from './process-literals-sync.js';
+import { processLiteralsSync } from './process-literals-sync';
 
 export function parseLiteralsSync(serializeFn: typeof serialize) {
   return (
