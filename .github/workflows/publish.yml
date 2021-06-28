@@ -7,6 +7,10 @@ on:
     tags:
       - '*'
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build:
     name: ${{ matrix.os }} ${{ matrix.target }}
@@ -15,7 +19,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        target: [14.x]
+        target: [16.x]
 
     steps:
       - name: Checkout

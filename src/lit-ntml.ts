@@ -2,9 +2,7 @@ import {
   parse,
   parseFragment,
   serialize,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-} from 'https://cdn.jsdelivr.net/npm/nodemod@latest/dist/lib/parse5.min.js';
+} from 'nodemod/dist/lib/parse5';
 import { parseLiteralsSync } from './parse-literals-sync.js';
 import { parseLiterals } from './parse-literals.js';
 
@@ -29,12 +27,12 @@ const parser = parseLiterals(serialize);
 const parserSync = parseLiteralsSync(serialize);
 
 export const html = async (s: TemplateStringsArray, ...e: unknown[]): Promise<string> =>
-  parser(c => parse(`<!doctype html>${c}`), s, ...e);
+  parser((c: string) => parse(`<!doctype html>${c}`), s, ...e);
 export const htmlFragment = async (s: TemplateStringsArray, ...e: unknown[]): Promise<string> =>
   parser(parseFragment, s, ...e);
 
 export const htmlSync = (s: TemplateStringsArray, ...e: unknown[]): string =>
-  parserSync(c => parse(`<!doctype html>${c}`), s, ...e);
+  parserSync((c: string) => parse(`<!doctype html>${c}`), s, ...e);
 export const htmlFragmentSync = (s: TemplateStringsArray, ...e: unknown[]): string =>
   parserSync(parseFragment, s, ...e);
 

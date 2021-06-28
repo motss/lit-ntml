@@ -8,6 +8,12 @@
     "plugin:promise/recommended",
     "plugin:regexp/recommended"
   ],
+  "ignorePatterns": "**/*.mjs",
+  "overrides": [
+    {
+      "files": ["src/**/*.ts"]
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"

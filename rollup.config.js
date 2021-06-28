@@ -3,15 +3,19 @@
 import { terser } from 'rollup-plugin-terser';
 import filesize from 'rollup-plugin-filesize';
 import typescript from 'rollup-plugin-typescript2';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import { rollupImportMapPlugin } from 'rollup-plugin-import-map';
 
 const isProd = !process.env.ROLLUP_WATCH;
 
-const pluginFn = (format, minify, browser) => {
+const pluginFn = (format, minify, deno) => {
   return [
-    browser && nodeResolve(),
-    browser && commonjs(),
+    deno && rollupImportMapPlugin([
+      {
+        imports: {
+          'parse5': 'https://cdn.jsdelivr.net/npm/nodemod@2.8.4/dist/lib/parse5.min.js',
+        }
+      }
+    ]),
     typescript({
       tsconfig: './tsconfig.json',
       exclude: isProd ? ['src/(demo|test)/**/*'] : [],
@@ -47,22 +51,20 @@ const multiBuild = [
     format: 'cjs',
     exports: 'named',
   },
-  // {
-  //   input: ['src/lit-ntml.ts'],
-  //   file: 'dist/lit-ntml.umd.js',
-  //   format: 'umd',
-  //   name: 'LitNtml',
-  //   exports: 'named',
-  //   browser: true,
-  // },
   {
     input: ['src/lit-ntml.ts'],
     file: 'dist/lit-ntml.js',
     format: 'esm',
     browser: true,
   },
+  {
+    input: ['src/index.ts'],
+    file: 'dist/mod.js',
+    format: 'esm',
+    deno: true,
+  },
 ].reduce((p, n) => {
-  const { browser, input, ...rest } = n;
+  const { browser, deno, input, ...rest } = n;
 
   const opts = [true, false].map(o => ({
     input,
@@ -72,17 +74,14 @@ const multiBuild = [
       sourcemap: true,
       sourcemapExcludeSources: true,
     },
-    plugins: pluginFn(n.format, o, browser),
+    plugins: pluginFn(n.format, o, deno),
     treeshake: { moduleSideEffects: false },
-    ...(
-      'umd' === n.format ?
-      { context: 'window' } :
-      {
-        external: [
-          'nodemod/dist/lib/parse5.js',
-        ],
-      }
-    ),
+    ...(browser && {
+      external: [
+        'nodemod/dist/lib/parse5',
+      ],
+    }),
+    ...('umd' === n.format && { content: 'window '}),
   }));
 
   return (p.push(...opts), p);
