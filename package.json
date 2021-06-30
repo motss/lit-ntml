@@ -47,13 +47,13 @@
     "check": "package-check",
     "clean": "shx rm -rf .*cache *.log coverage/ dist/ logs/",
     "postinstall": "npm dedupe",
-    "lint": "eslint",
+    "lint": "eslint src/**/*.ts",
     "lint:build": "npm run lint -- --config .build.eslintrc.json",
     "prepublishOnly": "npm run check && npm run lint:build && npm run build",
     "rollup": "rollup -c ./rollup.config.js",
     "test": "c8 --reporter=lcov --exclude=src/tests uvu -r @swc/register src/tests",
     "ts": "tsc",
-    "prepare": "npm x -- husky install",
+    "prepare": "npm x -- husky@latest install",
     "watch": "tsc --watch"
   },
   "dependencies": {
@@ -73,6 +73,7 @@
     "eslint": "^7.17.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-regexp": "^0.12.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "rollup": "^2.29.0",
     "rollup-plugin-filesize": "^9.0.2",
     "rollup-plugin-import-map": "^2.2.2",

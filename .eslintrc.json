@@ -9,17 +9,13 @@
     "plugin:regexp/recommended"
   ],
   "ignorePatterns": "**/*.mjs",
-  "overrides": [
-    {
-      "files": ["src/**/*.ts"]
-    }
-  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "simple-import-sort"
   ],
   "rules": {
     "no-async-promise-executor": "off",
@@ -46,6 +42,8 @@
         "prefer": "type-imports",
         "disallowTypeAnnotations": false
       }
-    ]
+    ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   }
 }
