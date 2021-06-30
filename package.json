@@ -74,6 +74,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-regexp": "^0.12.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^6.0.0",
     "rollup": "^2.29.0",
     "rollup-plugin-filesize": "^9.0.2",
     "rollup-plugin-import-map": "^2.2.2",
