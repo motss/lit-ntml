@@ -62,7 +62,7 @@
     ]
   },
   "dependencies": {
-    "nodemod": "^2.8.4",
+    "@reallyland/esm": "^0.0.1",
     "parse5": "^6.0.1",
     "tslib": "^2.0.2"
   },

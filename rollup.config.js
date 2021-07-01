@@ -12,13 +12,16 @@ const pluginFn = (format, minify, deno) => {
     deno && rollupImportMapPlugin([
       {
         imports: {
-          'parse5': 'https://cdn.jsdelivr.net/npm/nodemod@2.8.4/dist/lib/parse5.min.js',
+          parse5: 'https://cdn.jsdelivr.net/npm/nodemod@2.8.4/dist/lib/parse5.min.js',
         }
       }
     ]),
     typescript({
       tsconfig: './tsconfig.json',
-      exclude: isProd ? ['src/(demo|test)/**/*'] : [],
+      tsconfigOverride: {
+        include: ['src/*'],
+        exclude: ['src/demo/**/*', 'src/test*/**/*']
+      },
       ...('umd' === format ? { tsconfigOverride: { compilerOptions: { target: 'es5' } } } : {}),
     }),
     isProd && minify && terser({
@@ -40,7 +43,7 @@ const pluginFn = (format, minify, deno) => {
 
 const multiBuild = [
   {
-    input: ['src/index.ts'],
+    input: ['src/lit-ntml.ts'],
     file: 'dist/index.mjs',
     format: 'esm',
     exports: 'named',
@@ -78,7 +81,7 @@ const multiBuild = [
     treeshake: { moduleSideEffects: false },
     ...(browser && {
       external: [
-        'nodemod/dist/lib/parse5',
+        '@reallyland/esm/dist/parse5',
       ],
     }),
     ...('umd' === n.format && { content: 'window '}),

@@ -2,10 +2,10 @@ import {
   parse,
   parseFragment,
   serialize,
-} from 'nodemod/dist/lib/parse5';
+} from '@reallyland/esm/dist/parse5';
 
-import { parseLiterals } from './parse-literals.js';
-import { parseLiteralsSync } from './parse-literals-sync.js';
+import { parseLiterals } from './parse-literals';
+import { parseLiteralsSync } from './parse-literals-sync';
 
 // export const DEFAULT_MINIFY_OPTIONS: htmlMinifier.Options = {
 //   collapseBooleanAttributes: true,

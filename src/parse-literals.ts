@@ -3,6 +3,7 @@ import type {
   parseFragment,
   serialize,
 } from 'parse5';
+
 import { processLiterals } from './process-literals';
 
 export function parseLiterals(serializeFn: typeof serialize) {
