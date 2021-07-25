@@ -25,16 +25,16 @@
     "email": "wes.ngrongsen@gmail.com",
     "url": "https://github.com/motss"
   },
+  "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "default": "./dist/index.mjs"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./dist/*": "./dist/*"
   },
-  "main": "./dist/index",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "files": [
     "dist/*.*js.map",
@@ -43,17 +43,16 @@
     "dist/*.d.ts"
   ],
   "scripts": {
-    "build": "npm run clean && npm run rollup",
+    "build": "npm run clean && npm run ts",
     "check": "package-check",
     "clean": "shx rm -rf .*cache *.log coverage/ dist/ logs/",
     "postinstall": "npm dedupe",
     "lint": "eslint src/**/*.ts",
     "lint:build": "npm run lint -- --config .build.eslintrc.json",
     "prepublishOnly": "npm run check && npm run lint:build && npm run build",
-    "rollup": "rollup -c ./rollup.config.js",
     "test": "c8 --reporter=lcov --exclude=src/tests uvu -r @swc/register src/tests",
     "ts": "tsc",
-    "prepare": "npm x -- husky@latest install",
+    "prepare": "npm x -y -- husky@latest install",
     "watch": "tsc --watch"
   },
   "commitlint": {
@@ -80,18 +79,13 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-regexp": "^0.12.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "rollup": "^2.29.0",
-    "rollup-plugin-filesize": "^9.0.2",
-    "rollup-plugin-import-map": "^2.2.2",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
     "shx": "^0.3.2",
     "typescript": "^4.1.3",
     "uvu": "^0.5.1"
   },
   "engines": {
-    "node": ">= 10.18.1",
-    "npm": ">= 6.13.4"
+    "node": ">= 14.17.3",
+    "npm": ">= 6.14.13"
   },
   "publishConfig": {
     "access": "public"
