@@ -86,7 +86,6 @@ $ npm install lit-ntml
 ### html()
 
 ```ts
-// const { html } = require('lit-ntml'); // CommonJS import style
 import { html } from 'lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
@@ -101,7 +100,6 @@ await html`${syncTask}${asyncLiteral}${asyncListTask}`; /** <!DOCTYPE html><html
 ### htmlSync()
 
 ```ts
-// const { htmlSync } = require('lit-ntml'); // CommonJS import style
 import { htmlSync as html } from 'lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
@@ -114,7 +112,6 @@ html`${syncTask}${peopleList}`;
 ### htmlFragment()
 
 ```ts
-// const { htmlFragment as html } = require('lit-ntml'); // CommonJS import style
 import { htmlFragment as html } from 'lit-ntml';
 
 const syncTask = () => `<h1>Hello, World!</h1>`;
@@ -127,7 +124,6 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 ### htmlFragmentSync()
 
 ```ts
-// const { htmlFragmentSync as html } = require('lit-ntml'); // CommonJS import style
 import { htmlFragmentSync as html } from 'lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
@@ -151,7 +147,7 @@ Only modern browsers with native [ES Modules] support requires no polyfills and 
 <html>
   <head>
     <script type="module">
-      import { html } from 'https://cdn.jsdelivr.net/npm/lit-ntml@latest/dist/lit-ntml.min.js';
+      import { html } from 'https://cdn.skypack.dev/lit-ntml@latest';
 
       // --snip
     </script>
