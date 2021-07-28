@@ -63,8 +63,9 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
 
 ## Pre-requisite
 
-- [Node.js][nodejs-url] >= 10.18.1
-- [NPM][npm-url] >= 6.13.4 ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
+- [Node.js][nodejs-url] >= 14.17.3
+- [NPM][npm-url] >= 6.14.13 ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
+- [ES Modules]
 
 ## Enable syntax highlighting when writing HTML with template literal
 
@@ -85,7 +86,6 @@ $ npm install lit-ntml
 ### html()
 
 ```ts
-// const { html } = require('lit-ntml'); // CommonJS import style
 import { html } from 'lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
@@ -100,7 +100,6 @@ await html`${syncTask}${asyncLiteral}${asyncListTask}`; /** <!DOCTYPE html><html
 ### htmlSync()
 
 ```ts
-// const { htmlSync } = require('lit-ntml'); // CommonJS import style
 import { htmlSync as html } from 'lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
@@ -113,7 +112,6 @@ html`${syncTask}${peopleList}`;
 ### htmlFragment()
 
 ```ts
-// const { htmlFragment as html } = require('lit-ntml'); // CommonJS import style
 import { htmlFragment as html } from 'lit-ntml';
 
 const syncTask = () => `<h1>Hello, World!</h1>`;
@@ -126,7 +124,6 @@ await html`${externalStyleLiteral}${syncTask}`; /** <style>body { margin: 0; pad
 ### htmlFragmentSync()
 
 ```ts
-// const { htmlFragmentSync as html } = require('lit-ntml'); // CommonJS import style
 import { htmlFragmentSync as html } from 'lit-ntml';
 
 const peopleList = ['Cash Black', 'Vict Fisherman'];
@@ -143,14 +140,14 @@ html`${syncTask}${peopleList}${asyncTask}`;
 
 ### Browser support
 
-Only modern browsers with native ES Modules support requires no polyfills and transpilation needed.
+Only modern browsers with native [ES Modules] support requires no polyfills and transpilation needed.
 
 ```html
 <!doctype html>
 <html>
   <head>
     <script type="module">
-      import { html } from 'https://cdn.jsdelivr.net/npm/lit-ntml@latest/dist/lit-ntml.min.js';
+      import { html } from 'https://cdn.skypack.dev/lit-ntml@latest';
 
       // --snip
     </script>
@@ -198,7 +195,8 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [web-padawan-awesome-lit-html-url]:
  https://github.com/web-padawan/awesome-lit-html
 [deno]: https://github.com/denoland/deno
-[deno_mod/lit_ntml]: https://github.com/motss/deno_mod/tree/master/lit_ntml
+[deno_mod/lit_ntml]: https://github.com/motss/deno_mod/tree/master/lit_ntml\
+[ES Modules]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 
 [parse-promiselist-or-list-url]: #parse-promiselist-or-list
 [ntmlopts-url]: #ntmlopts
