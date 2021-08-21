@@ -15,6 +15,7 @@
   },
   "plugins": [
     "@typescript-eslint",
+    "regexp",
     "simple-import-sort"
   ],
   "rules": {
