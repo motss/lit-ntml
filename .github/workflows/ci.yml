@@ -27,7 +27,8 @@ jobs:
     timeout-minutes: 120
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        # os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [windows-latest]
         target: [16.x]
 
     steps:
@@ -70,6 +71,7 @@ jobs:
       - name: Install dependencies
         if: env.CI_SKIP == 'false'
         run: |
+          if [ "$CI" != 'true' ]; then echo 'a'; else echo 'b'; fi
           npm ci --quiet
 
       - name: Lint
