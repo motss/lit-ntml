@@ -58,7 +58,7 @@
     "watch": "tsc --watch"
   },
   "simple-git-hooks": {
-    "pre-commit": "npm run check && tsc --noEmit && nano-staged",
+    "pre-commit": "npm run check && nano-staged && tsc --noEmit",
     "commit-msg": "npm run lint-commit"
   },
   "commitlint": {
