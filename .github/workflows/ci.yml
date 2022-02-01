@@ -16,6 +16,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  CI_SKIP: false
+
 jobs:
   build:
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, 'doc:')"
@@ -25,7 +28,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        target: [14.x, 16.x]
+        target: [16.x]
 
     steps:
       - name: Checkout
@@ -39,41 +42,49 @@ jobs:
           fi
 
       - name: Setup node@${{ matrix.target }}
-        if: env.CI_SKIP != 'true'
+        if: env.CI_SKIP == 'false'
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.target }}
 
       - name: Install latest npm
-        if: env.CI_SKIP != 'true'
+        if: env.CI_SKIP == 'false'
         run: |
           npm i -g npm@latest
 
       - name: List versions
-        shell: bash
-        if: env.CI_SKIP != 'true'
+        if: env.CI_SKIP == 'false'
         continue-on-error: true
         run: |
           node -v && npm -v && which npm && pwd && ls -la
 
+      - name: Cache dependencies
+        id: npm-cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ matrix.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ matrix.os }}-npm-
+
       - name: Install dependencies
-        if: env.CI_SKIP != 'true'
+        if: env.CI_SKIP == 'false'
         run: |
           npm ci --quiet
 
       - name: Lint
-        if: env.CI_SKIP != 'true'
+        if: env.CI_SKIP == 'false'
         run: |
-          npm run lint
+          npm run lint:build
 
       - name: Test
-        if: env.CI_SKIP != 'true'
+        if: env.CI_SKIP == 'false'
         run: |
           npm t
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v1
-        if: env.CI_SKIP != 'true' && success()
+        if: env.CI_SKIP == 'false' && success()
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info
