@@ -46,7 +46,7 @@
     "build": "npm run clean && npm run ts",
     "check": "package-check",
     "clean": "rm -rf .*cache *.log coverage/ dist/ logs/",
-    "postinstall": "if [[ \"$CI\" != 'true' ]] && [[ \"$INIT_CWD\" != *'node_modules/lit-ntml' ]] && [[ \"$INIT_CWD\" == *'lit-ntml' ]]; then simple-git-hooks && npm dedupe; fi",
+    "postinstall": "bash ./postinstall.bash",
     "lint": "eslint src --ext .js,.ts",
     "lint-commit": "npm x -y -- commitlint --edit",
     "lint:build": "npm run lint -- --config .build.eslintrc.json",

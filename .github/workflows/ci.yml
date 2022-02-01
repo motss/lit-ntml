@@ -69,7 +69,6 @@ jobs:
 
       - name: Install dependencies
         if: env.CI_SKIP == 'false'
-        shell: bash
         run: |
           npm ci --quiet
 
