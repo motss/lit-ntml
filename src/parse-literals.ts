@@ -1,6 +1,5 @@
 import type {
   parse,
-  parseFragment,
   serialize,
 } from 'parse5';
 
@@ -8,7 +7,7 @@ import { processLiterals } from './process-literals';
 
 export function parseLiterals(serializeFn: typeof serialize) {
   return async (
-    fn: typeof parse | typeof parseFragment,
+    fn: typeof parse,
     strings: TemplateStringsArray,
     ...exps: unknown[]
   ): Promise<string> => {

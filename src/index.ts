@@ -28,7 +28,7 @@ const parser = parseLiterals(serialize);
 const parserSync = parseLiteralsSync(serialize);
 
 export const html = async (s: TemplateStringsArray, ...e: unknown[]): Promise<string> =>
-  parser((c: string) => parse(`<!doctype html>${c}`), s, ...e);
+  parser((c) => parse(`<!doctype html>${c}`), s, ...e);
 export const htmlFragment = async (s: TemplateStringsArray, ...e: unknown[]): Promise<string> =>
   parser(parseFragment, s, ...e);
 
