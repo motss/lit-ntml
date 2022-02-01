@@ -71,7 +71,6 @@ jobs:
       - name: Install dependencies
         if: env.CI_SKIP == 'false'
         run: |
-          if [ "$CI" != 'true' ]; then echo 'a'; else echo 'b'; fi
           npm ci --quiet
 
       - name: Lint
