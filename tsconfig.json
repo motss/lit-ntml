@@ -1,5 +1,5 @@
 {
-  "extends": "@reallyland/tsconfig/browser",
+  "extends": "@reallyland/tsconfig/browser/tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
