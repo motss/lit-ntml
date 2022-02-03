@@ -40,7 +40,8 @@
     "dist/*.*js.map",
     "dist/*.*js",
     "dist/*.d.ts.map",
-    "dist/*.d.ts"
+    "dist/*.d.ts",
+    "postinstall.mjs"
   ],
   "scripts": {
     "build": "npm run clean && npm run ts",
