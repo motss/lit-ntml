@@ -8,7 +8,10 @@
     "plugin:promise/recommended",
     "plugin:regexp/recommended"
   ],
-  "ignorePatterns": "**/*.mjs",
+  "ignorePatterns": [
+    "**/*.mjs",
+    "vite.config.ts"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
