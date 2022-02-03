@@ -27,8 +27,7 @@ jobs:
     timeout-minutes: 120
     strategy:
       matrix:
-        # os: [macos-latest, ubuntu-latest, windows-latest]
-        os: [windows-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
         target: [16.x]
 
     steps:
