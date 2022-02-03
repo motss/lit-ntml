@@ -46,20 +46,19 @@
     "build": "npm run clean && npm run ts",
     "check": "package-check",
     "clean": "rm -rf .*cache *.log coverage/ dist/ logs/",
-    "postinstall": "bash ./postinstall.bash",
+    "postinstall": "npm x -y -- zx ./postinstall.mjs",
     "lint": "eslint src --ext .js,.ts",
-    "lint-commit": "npm x -y -- commitlint --edit",
+    "lint:commit": "npm x -y -- commitlint --edit",
     "lint:build": "npm run lint -- --config .build.eslintrc.json",
-    "nano-staged": "nano-staged",
-    "pre-commit": "npm run check && tsc --noEmit && nano-staged",
+    "pre-commit": "npm run check && nano-staged && tsc --noEmit",
     "prepublishOnly": "npm run check && npm run lint:build && npm run build",
     "test": "c8 --reporter=lcov --exclude=src/tests uvu -r @swc/register src/tests",
     "ts": "tsc",
     "watch": "tsc --watch"
   },
   "simple-git-hooks": {
-    "pre-commit": "npm run check && nano-staged && tsc --noEmit",
-    "commit-msg": "npm run lint-commit"
+    "commit-msg": "npm run lint:commit",
+    "pre-commit": "npm run pre-commit"
   },
   "commitlint": {
     "extends": [

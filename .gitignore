@@ -15,12 +15,3 @@
 coverage*/
 dist*/
 node_modules/
-
-# .js files
-*.d.ts*
-*.js
-*.jsx
-*.mjs
-
-# Do not ignore
-!rollup.config.js
