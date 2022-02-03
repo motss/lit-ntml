@@ -8,14 +8,16 @@
     "plugin:promise/recommended",
     "plugin:regexp/recommended"
   ],
-  "ignorePatterns": "**/*.mjs",
+  "ignorePatterns": [
+    "**/*.mjs",
+    "vite.config.ts"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "plugins": [
     "@typescript-eslint",
-    "regexp",
     "simple-import-sort"
   ],
   "rules": {
@@ -36,6 +38,13 @@
         "imports": "always-multiline",
         "exports": "always-multiline",
         "functions": "never"
+      }
+    ],
+    "comma-spacing": "off",
+    "@typescript-eslint/comma-spacing": [
+      "error", {
+        "before": false,
+        "after": true
       }
     ],
     "@typescript-eslint/consistent-type-imports": [

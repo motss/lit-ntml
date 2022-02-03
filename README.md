@@ -20,11 +20,8 @@
 [![Bundlephobia][bundlephobia-badge]][bundlephobia-url]
 
 [![ci][ga-badge]][ga-url]
-[![Dependency Status][daviddm-badge]][daviddm-url]
 [![codecov][codecov-badge]][codecov-url]
 
-[![codebeat badge][codebeat-badge]][codebeat-url]
-[![Codacy Badge][codacy-badge]][codacy-url]
 [![Code of Conduct][coc-badge]][coc-url]
 
 > Lightweight and modern templating for SSR in [Node.js][nodejs-url], inspired by [lit-html][lit-html-url].
@@ -224,12 +221,9 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [packagephobia-badge]: https://flat.badgen.net/packagephobia/install/lit-ntml
 [bundlephobia-badge]: https://flat.badgen.net/bundlephobia/minzip/lit-ntml
 
-[ga-badge]: https://github.com/motss/lit-ntml/workflows/ci/badge.svg?branch=master
-[daviddm-badge]: https://flat.badgen.net/david/dep/motss/lit-ntml
+[ga-badge]: https://github.com/motss/lit-ntml/actions/workflows/ci.yml/badge.svg?branch=main
 [codecov-badge]: https://flat.badgen.net/codecov/c/github/motss/lit-ntml?label=codecov&icon=codecov
 
-[codebeat-badge]: https://codebeat.co/badges/46b91b60-804d-4909-a647-1784ae283f19
-[codacy-badge]: https://api.codacy.com/project/badge/Grade/bb0c739bc5144a8b80197f3fa3bb2273
 [coc-badge]: https://flat.badgen.net/badge/code%20of/conduct/pink
 
 <!-- Links -->
@@ -244,10 +238,7 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [packagephobia-url]: https://packagephobia.now.sh/result?p=lit-ntml
 [bundlephobia-url]: https://bundlephobia.com/result?p=lit-ntml
 
-[ga-url]: https://github.com/motss/lit-ntml/actions?query=workflow%3Aci
-[daviddm-url]: https://david-dm.org/motss/lit-ntml
+[ga-url]: https://github.com/motss/lit-ntml/actions/workflows/ci.yml
 [codecov-url]: https://codecov.io/gh/motss/lit-ntml
 
-[codebeat-url]: https://codebeat.co/projects/github-com-motss-lit-ntml-master
-[codacy-url]: https://www.codacy.com/app/motss/lit-ntml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml&amp;utm_campaign=Badge_Grade
 [coc-url]: https://github.com/motss/lit-ntml/blob/master/code-of-conduct.md

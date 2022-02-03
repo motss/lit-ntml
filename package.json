@@ -46,13 +46,13 @@
   "scripts": {
     "build": "npm run clean && npm run ts",
     "check": "package-check",
-    "clean": "rm -rf .*cache *.log coverage/ dist/ logs/",
+    "clean": "rm -rf .*cache *.log .swc/ coverage/ dist/ logs/",
     "postinstall": "npm x -y --prefer-online -- zx@latest ./postinstall.mjs",
     "lint": "eslint src --ext .js,.ts",
     "lint:commit": "npm x -y --prefer-online -- commitlint@latest --edit",
     "lint:build": "npm run lint -- --config .build.eslintrc.json",
-    "pre-commit": "npm run check && nano-staged && tsc --noEmit",
-    "prepublishOnly": "npm run check && npm run lint:build && npm run build",
+    "pre-commit": "package-check && nano-staged && tsc --noEmit",
+    "prepublishOnly": "package-check && npm run lint:build && npm run build",
     "test": "c8 --reporter=lcov --exclude=src/tests uvu -r @swc/register src/tests",
     "ts": "tsc",
     "watch": "tsc --watch"

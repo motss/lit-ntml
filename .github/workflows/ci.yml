@@ -50,23 +50,25 @@ jobs:
         if: env.CI_SKIP == 'false'
         run: |
           npm i -g npm@latest
+          which npm
           echo "NPM_VERSION=$(npm -v)" >> $GITHUB_ENV
+          echo "NODE_VERSION=$(node -v)" >> $GITHUB_ENV
           echo "NPM_CACHE_DIR=$(npm config get cache)" >> $GITHUB_ENV
 
       - name: List versions
         if: env.CI_SKIP == 'false'
         continue-on-error: true
         run: |
-          node -v && which npm && pwd && ls -la
+          pwd && ls -la
 
       - name: Cache dependencies
         id: npm-cache
         uses: actions/cache@v2
         with:
           path: ${{ env.NPM_CACHE_DIR }}
-          key: ${{ matrix.os }}-node-${{ matrix.target }}-npm-${{ env.NPM_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ matrix.os }}-node-${{ matrix.target }}-npm-${{ env.NPM_VERSION }}-
+            ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}-
 
       - name: Install dependencies
         if: env.CI_SKIP == 'false'
