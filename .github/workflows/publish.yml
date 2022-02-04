@@ -11,6 +11,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 jobs:
   build:
     name: ${{ matrix.os }} ${{ matrix.target }}
@@ -44,16 +47,12 @@ jobs:
         run: |
           npm config list
           npm publish . --tag=next
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to npm
         if: contains(github.ref, '-') == false
         run: |
           npm config list
           npm publish .
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # See https://github.com/actions/setup-node/issues/73.
       # - name: Setup node@${{ matrix.target }}
@@ -68,13 +67,9 @@ jobs:
       #   run: |
       #     npm config list
       #     npm publish . --tag=next
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{github.token}}
 
       # - name: Publish to GPR
       #   if: success() && contains(github.ref, '-') == false
       #   run: |
       #     npm config list
       #     npm publish .
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{github.token}}
