@@ -44,8 +44,7 @@
     "postinstall.mjs"
   ],
   "scripts": {
-    "build": "npm run clean && npm run ts",
-    "check": "package-check",
+    "build": "npm run clean && tsc",
     "clean": "rm -rf .*cache *.log .swc/ coverage/ dist/ logs/",
     "postinstall": "npm x -y --prefer-online -- zx@latest ./postinstall.mjs",
     "lint": "eslint src --ext .js,.ts",
@@ -54,8 +53,7 @@
     "pre-commit": "package-check && nano-staged && tsc --noEmit",
     "prepublishOnly": "package-check && npm run lint:build && npm run build",
     "test": "uvu -r @swc/register src/tests",
-    "test:coverage": "c8 --reporter=lcov --exclude=src/tests npm run test",
-    "ts": "tsc",
+    "test:coverage": "c8 --reporter=lcov --exclude=src/tests npm t",
     "watch": "tsc --watch"
   },
   "simple-git-hooks": {
