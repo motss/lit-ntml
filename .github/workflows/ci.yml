@@ -41,9 +41,9 @@ jobs:
         run: |
           echo $GITHUB_ENV;
           echo $GITHUB_ENV.github.event.head_commit.message;
-          env
-          echo ${{ github.event.head_commit.message }}
-          echo ${{ toJson(github.event) }}
+          env;
+          echo ${{ github.event.head_commit.message }};
+          echo ${{ toJson(github.event) }};
 
           # if [ -n "$(git log --format=%B -n 1 | grep -iE '^[0-9]+[.]{1,}[0-9]+[.]{1,}[0-9]+')" ]; then
           #   echo "CI_SKIP=true" >> $GITHUB_ENV
