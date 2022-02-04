@@ -47,7 +47,7 @@
     "build": "npm run clean && npm run ts",
     "check": "package-check",
     "clean": "rm -rf .*cache *.log .swc/ coverage/ dist/ logs/",
-    "postinstall": "node postinstall.mjs",
+    "postinstall": "npm x -y --prefer-online -- zx@latest ./postinstall.mjs",
     "lint": "eslint src --ext .js,.ts",
     "lint:build": "npm run lint -- --config .build.eslintrc.json",
     "lint:commit": "npm x -y -- commitlint@latest --edit",
