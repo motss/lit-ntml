@@ -18,6 +18,7 @@ defaults:
 
 env:
   CI_SKIP: false
+  GITHUB_COMMIT_MESSAGE: ''
   NODE_VERSION: v0.0.0
   NPM_CACHE_DIR: ~/.npm
   NPM_VERSION: 0.0.0
@@ -39,9 +40,7 @@ jobs:
     steps:
       - name: CI skip check
         run: |
-          echo $GITHUB_ENV.GITHUB_COMMIT_MESSAGE;
-
-          if [ -n "$($GITHUB_ENV.GITHUB_COMMIT_MESSAGE | grep -iE '^[0-9]+[.]{1,}[0-9]+[.]{1,}[0-9]+')" ]; then
+          if [[ -n "$(echo $GITHUB_ENV.GITHUB_COMMIT_MESSAGE | grep -iE '^[0-9]+[.]{1,}[0-9]+[.]{1,}[0-9]+')" ]]; then
             echo "CI_SKIP=true" >> $GITHUB_ENV
           fi
 
