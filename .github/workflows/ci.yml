@@ -38,8 +38,6 @@ jobs:
         # os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
-      - name:
-
       - name: CI skip check
         run: |
           echo $GITHUB_ENV;
