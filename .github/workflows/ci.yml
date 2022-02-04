@@ -41,6 +41,7 @@ jobs:
       - name: CI skip check
         run: |
           if [[ -n "$(echo $GITHUB_COMMIT_MESSAGE | grep -iE '^[0-9]+[.]{1,}[0-9]+[.]{1,}[0-9]+')" ]]; then
+            echo "SKIP CI"
             echo "CI_SKIP=true" >> $GITHUB_ENV
           fi
 
