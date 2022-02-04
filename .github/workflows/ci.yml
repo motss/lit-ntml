@@ -33,9 +33,9 @@ jobs:
     timeout-minutes: 120
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        # os: [ubuntu-latest]
         target: [16.x]
-        # os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
       - name: CI skip check
