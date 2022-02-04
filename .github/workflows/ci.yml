@@ -62,6 +62,7 @@ jobs:
           pwd && ls -la
 
       - name: Cache dependencies
+        if: env.CI_SKIP == 'false'
         id: npm-cache
         uses: actions/cache@v2
         with:
