@@ -33,6 +33,9 @@ jobs:
         os: [ubuntu-latest]
         target: [16.x]
         # os: [macos-latest, ubuntu-latest, windows-latest]
+    env:
+      GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+      GITHUB_EVENT: ${{ toJson(github.event) }}
 
     steps:
       - name:
@@ -42,8 +45,6 @@ jobs:
           echo $GITHUB_ENV;
           echo $GITHUB_ENV.github.event.head_commit.message;
           env;
-          echo ${{ github.event.head_commit.message }};
-          echo ${{ toJson(github.event) }};
 
           # if [ -n "$(git log --format=%B -n 1 | grep -iE '^[0-9]+[.]{1,}[0-9]+[.]{1,}[0-9]+')" ]; then
           #   echo "CI_SKIP=true" >> $GITHUB_ENV
