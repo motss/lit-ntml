@@ -5,9 +5,7 @@ const {
   INIT_CWD = '',
 } = process.env;
 
-if (
-  CI !== 'true'
-) {
+if (CI !== 'true') {
   const {
     name: moduleName,
   } = JSON.parse(await fs.readFile('./package.json', { encoding: 'utf-8' }));
