@@ -25,6 +25,9 @@ env:
 jobs:
   build:
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'doc:')"
+    env:
+      GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+      GITHUB_EVENT: ${{ toJson(github.event) }}
     name: ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
@@ -33,9 +36,6 @@ jobs:
         os: [ubuntu-latest]
         target: [16.x]
         # os: [macos-latest, ubuntu-latest, windows-latest]
-    env:
-      GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      GITHUB_EVENT: ${{ toJson(github.event) }}
 
     steps:
       - name:
