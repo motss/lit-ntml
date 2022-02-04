@@ -82,13 +82,18 @@ jobs:
           npm run lint:build
 
       - name: Test
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP == 'false' && !contains(matrix.os, 'ubuntu')
         run: |
           npm t
 
+      - name: Test with coverage
+        if: env.CI_SKIP == 'false' && contains(matrix.os, 'ubuntu')
+        run: |
+          npm run test:coverage
+
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v1
-        if: env.CI_SKIP == 'false' && success()
+        if: env.CI_SKIP == 'false' && contains(matrix.os, 'ubuntu') && success()
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info

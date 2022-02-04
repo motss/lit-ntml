@@ -53,7 +53,8 @@
     "lint:commit": "npm x -y -- commitlint@latest --edit",
     "pre-commit": "package-check && nano-staged && tsc --noEmit",
     "prepublishOnly": "package-check && npm run lint:build && npm run build",
-    "test": "c8 --reporter=lcov --exclude=src/tests uvu -r @swc/register src/tests",
+    "test": "uvu -r @swc/register src/tests",
+    "test:coverage": "c8 --reporter=lcov --exclude=src/tests npm run test",
     "ts": "tsc",
     "watch": "tsc --watch"
   },
