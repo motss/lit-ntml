@@ -19,6 +19,7 @@ defaults:
 env:
   CI_SKIP: false
   GITHUB_COMMIT_MESSAGE: ''
+  IS_UBUNTU: false
   NODE_VERSION: v0.0.0
   NPM_CACHE_DIR: ~/.npm
   NPM_VERSION: 0.0.0
@@ -63,6 +64,7 @@ jobs:
         if: env.CI_SKIP == 'false'
         run: |
           pwd && ls -la
+          echo "IS_UBUNTU=${{ contains(matrix.os, 'ubuntu') }}" >> $GITHUB_ENV
           echo "NODE_VERSION=$(node -v)" >> $GITHUB_ENV
           echo "NPM_CACHE_DIR=$(npm config get cache)" >> $GITHUB_ENV
           echo "NPM_VERSION=$(npm -v)" >> $GITHUB_ENV
@@ -93,17 +95,17 @@ jobs:
           npm run lint:build
 
       - name: Test
-        if: env.CI_SKIP == 'false' && !contains(matrix.os, 'ubuntu')
+        if: env.CI_SKIP == 'false' && env.IS_UBUNTU == 'false'
         run: |
           npm t
 
       - name: Test with coverage
-        if: env.CI_SKIP == 'false' && contains(matrix.os, 'ubuntu')
+        if: env.CI_SKIP == 'false' && env.IS_UBUNTU != 'false'
         run: |
           npm run test:coverage
 
       - name: Upload coverage to codecov
-        if: env.CI_SKIP == 'false' && contains(matrix.os, 'ubuntu') && success()
+        if: env.CI_SKIP == 'false' && env.IS_UBUNTU != 'false' && success()
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
