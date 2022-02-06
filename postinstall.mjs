@@ -1,9 +1,14 @@
 #!/usr/bin/env zx
 
 const {
-  CI = false,
+  CI = 'false',
   INIT_CWD = '',
 } = process.env;
+
+console.debug({
+  CI,
+  INIT_CWD,
+});
 
 if (CI !== 'true') {
   const {
