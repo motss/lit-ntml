@@ -41,7 +41,8 @@
     "dist/*.*js",
     "dist/*.d.ts.map",
     "dist/*.d.ts",
-    "postinstall.mjs"
+    "postinstall.*",
+    "!**/*test*/**/*.*"
   ],
   "scripts": {
     "build": "npm run clean && tsc",
