@@ -5,11 +5,6 @@ const {
   INIT_CWD = '',
 } = process.env;
 
-console.debug({
-  CI,
-  INIT_CWD,
-});
-
 if (CI !== 'true') {
   const {
     name: moduleName,
@@ -19,7 +14,14 @@ if (CI !== 'true') {
     !INIT_CWD.endsWith(`node_modules/${moduleName}`) &&
     INIT_CWD.endsWith(moduleName)
   ) {
+    /**
+     * NOTE: To skip running `simple-git-hooks` in CI environment.
+     * But `npm x -y -- simple-git-hooks@latest` does not work as expected so splitting it into
+     * a 2-step process: install without saving as dependency then execute it.
+     */
+    await $`npm i --no-save simple-git-hooks`
     await $`simple-git-hooks`;
+
     await $`npm dedupe`;
   }
 }
