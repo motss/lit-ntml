@@ -84,7 +84,7 @@ jobs:
         if: env.CI_SKIP == 'false'
         run: |
           bash ./list-npx-cache.bash
-          npm ci --quiet
+          npm ci
           bash ./list-npx-cache.bash
 
       - name: Lint
