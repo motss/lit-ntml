@@ -18,10 +18,17 @@ defaults:
 
 env:
   CI_SKIP: false
+  GITHUB_COMMIT_MESSAGE: ''
+  IS_UBUNTU: false
+  NODE_VERSION: v0.0.0
+  NPM_CACHE_DIR: ~/.npm
+  NPM_VERSION: 0.0.0
 
 jobs:
   build:
-    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, 'doc:')"
+    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'doc:')"
+    env:
+      GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
     name: ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
@@ -31,45 +38,56 @@ jobs:
         target: [16.x]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Git log
+      - name: CI skip check
         run: |
-          if [ -n "$(git log --format=%B -n 1 | grep -iE '^[0-9]+[.]{1,}[0-9]+[.]{1,}[0-9]+')" ]; then
+          if [[ -n "$(echo $GITHUB_COMMIT_MESSAGE | grep -iE '^[0-9]+[.]{1,}[0-9]+[.]{1,}[0-9]+')" ]]; then
+            echo "[INFO] SKIP CI"
             echo "CI_SKIP=true" >> $GITHUB_ENV
           fi
 
+      - name: Checkout
+        if: env.CI_SKIP == 'false'
+        uses: actions/checkout@v2
+
       - name: Setup node@${{ matrix.target }}
         if: env.CI_SKIP == 'false'
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.target }}
 
-      - name: Install latest npm
-        if: env.CI_SKIP == 'false'
-        run: |
-          npm i -g npm@latest
+      # - name: Install latest npm
+      #   if: env.CI_SKIP == 'false'
+      #   run: |
+      #     npm i -g npm@latest
 
       - name: List versions
         if: env.CI_SKIP == 'false'
-        continue-on-error: true
         run: |
-          node -v && npm -v && which npm && pwd && ls -la
+          pwd && ls -la
+          echo "IS_UBUNTU=${{ contains(matrix.os, 'ubuntu') }}" >> $GITHUB_ENV
+          echo "NODE_VERSION=$(node -v)" >> $GITHUB_ENV
+          echo "NPM_CACHE_DIR=$(npm config get cache)" >> $GITHUB_ENV
+          echo "NPM_VERSION=$(npm -v)" >> $GITHUB_ENV
 
       - name: Cache dependencies
+        if: env.CI_SKIP == 'false'
         id: npm-cache
         uses: actions/cache@v2
         with:
-          path: ~/.npm
-          key: ${{ matrix.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          # See this glob workaround at https://github.com/actions/toolkit/issues/713.
+          path: |
+            ${{ env.NPM_CACHE_DIR }}/*
+            !${{ env.NPM_CACHE_DIR }}/_npx
+          key: ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ matrix.os }}-npm-
+            ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}
 
       - name: Install dependencies
         if: env.CI_SKIP == 'false'
         run: |
-          npm ci --quiet
+          bash ./list-npx-cache.bash
+          npm ci
+          bash ./list-npx-cache.bash
 
       - name: Lint
         if: env.CI_SKIP == 'false'
@@ -77,13 +95,18 @@ jobs:
           npm run lint:build
 
       - name: Test
-        if: env.CI_SKIP == 'false'
+        if: env.CI_SKIP == 'false' && env.IS_UBUNTU == 'false'
         run: |
           npm t
 
+      - name: Test with coverage
+        if: env.CI_SKIP == 'false' && env.IS_UBUNTU != 'false'
+        run: |
+          npm run test:coverage
+
       - name: Upload coverage to codecov
+        if: env.CI_SKIP == 'false' && env.IS_UBUNTU != 'false' && success()
         uses: codecov/codecov-action@v1
-        if: env.CI_SKIP == 'false' && success()
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info

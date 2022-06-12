@@ -40,13 +40,15 @@
     "dist/*.*js.map",
     "dist/*.*js",
     "dist/*.d.ts.map",
-    "dist/*.d.ts"
+    "dist/*.d.ts",
+    "postinstall.*",
+    "!**/*test*/**/*.*"
   ],
   "scripts": {
-    "build": "npm run clean && npm run ts",
+    "build": "npm run clean && tsc",
     "check": "package-check",
-    "clean": "rm -rf .*cache *.log coverage/ dist/ logs/",
-    "postinstall": "npm x -y -- zx ./postinstall.mjs",
+    "clean": "rm -rf .*cache *.log .swc/ coverage/ dist/ logs/",
+    "postinstall": "sh postinstall.sh",
     "lint": "eslint src --ext .js,.ts",
     "lint:build": "npm run lint -- --config .build.eslintrc.json",
     "lint:commit": "npm x -y -- commitlint --edit",
