@@ -65,26 +65,23 @@
       "@commitlint/config-conventional"
     ]
   },
-  "dependencies": {
-    "parse5": "^6.0.1",
-    "tslib": "^2.0.2"
-  },
   "devDependencies": {
-    "@commitlint/config-conventional": "^16.0.0",
+    "@commitlint/config-conventional": "^17.0.2",
     "@reallyland/tsconfig": "^4.0.1",
     "@skypack/package-check": "^0.2.2",
-    "@types/node": "^17.0.14",
+    "@types/node": "^17.0.42",
     "@types/parse5": "^6.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.10.2",
-    "@typescript-eslint/parser": "^5.10.2",
-    "eslint": "^8.8.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "c8": "^7.11.3",
+    "eslint": "^8.17.0",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-regexp": "^1.5.1",
+    "eslint-plugin-regexp": "^1.7.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "nano-staged": "^0.5.0",
-    "simple-git-hooks": "^2.7.0",
-    "typescript": "^4.5.5",
-    "vitest": "^0.2.6"
+    "nano-staged": "^0.8.0",
+    "simple-git-hooks": "^2.8.0",
+    "typescript": "^4.7.3",
+    "vitest": "^0.14.2"
   },
   "engines": {
     "node": ">= 16.x",
@@ -95,5 +92,9 @@
   },
   "nano-staged": {
     "*.ts": "npm run lint:build -- --fix"
+  },
+  "dependencies": {
+    "parse5": "^7.0.0",
+    "tslib": "^2.4.0"
   }
 }
