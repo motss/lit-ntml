@@ -67,6 +67,10 @@
       "@commitlint/config-conventional"
     ]
   },
+  "dependencies": {
+    "parse5": "^7.0.0",
+    "tslib": "^2.4.0"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@reallyland/tsconfig": "^4.0.1",
@@ -94,9 +98,5 @@
   },
   "nano-staged": {
     "*.ts": "npm run lint:build -- --fix"
-  },
-  "dependencies": {
-    "parse5": "^7.0.0",
-    "tslib": "^2.4.0"
   }
 }
