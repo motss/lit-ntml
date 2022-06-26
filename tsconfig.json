@@ -1,5 +1,5 @@
 {
-  "extends": "./node_modules/@reallyland/tools/browser/lit/tsconfig.json",
+  "extends": "./node_modules/@reallyland/tools/browser/tsconfig.json",
   "compilerOptions": {
     "declarationDir": "dist",
     "outDir": "dist",
