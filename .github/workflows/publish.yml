@@ -13,6 +13,9 @@ defaults:
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NODE_VERSION: v0.0.0
+  NPM_CACHE_DIR: ~/.npm
+  NPM_VERSION: 0.0.0
 
 jobs:
   build:
@@ -28,30 +31,48 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup node@${{ matrix.target }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.target }}
-          registry-url: 'https://registry.npmjs.org'
+      # - name: Setup node@${{ matrix.target }}
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: ${{ matrix.target }}
+      #     registry-url: 'https://registry.npmjs.org'
 
       - name: List versions
         run: |
-          node -v && npm -v && which npm
+          echo "NODE_VERSION=$(node -v)" >> $GITHUB_ENV
+          echo "NPM_CACHE_DIR=$(npm config get cache)" >> $GITHUB_ENV
+          echo "NPM_VERSION=$(npm -v)" >> $GITHUB_ENV
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
+
+          pwd
+          ls -la
+          which npm
+          npm config ls -l
+
+      - name: Cache dependencies
+        id: npm-cache
+        uses: actions/cache@v2
+        with:
+          # See this glob workaround at https://github.com/actions/toolkit/issues/713.
+          path: |
+            ${{ env.NPM_CACHE_DIR }}/*
+            !${{ env.NPM_CACHE_DIR }}/_npx
+          key: ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}
 
       - name: Install dependencies
         run: |
           npm ci
 
       - name: Publish to npm (Prerelease)
-        if: contains(github.ref, '-') == true
+        if: contains(github.ref, '-rc') == true || contains(github.ref, '-') == true
         run: |
-          npm config list
           npm publish . --tag=next
 
       - name: Publish to npm
-        if: contains(github.ref, '-') == false
+        if: contains(github.ref, '-rc') == false && contains(github.ref, '-') == false
         run: |
-          npm config list
           npm publish .
 
       # See https://github.com/actions/setup-node/issues/73.
@@ -68,7 +89,7 @@ jobs:
       #     npm config list
       #     npm publish . --tag=next
 
-      # - name: Publish to GPR
+      # - name: Publish to GPR (Prerelease)
       #   if: success() && contains(github.ref, '-') == false
       #   run: |
       #     npm config list

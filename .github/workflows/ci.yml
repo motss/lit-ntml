@@ -78,8 +78,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          # sh $(npm root)/@reallyland/tools/list-npx-cache.sh
-          sh ./list-npx-cache.sh
+          sh $(npm root)/@reallyland/tools/list-npx-cache.sh
 
       - name: Lint
         run: |
