@@ -74,5 +74,11 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "nano-staged": {
+    "*.ts": [
+      "npm run lint:build -- -f 1",
+      "git add"
+    ]
   }
 }
