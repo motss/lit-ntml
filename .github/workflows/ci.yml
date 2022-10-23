@@ -142,12 +142,12 @@ jobs:
       - name: Test
         if: env.IS_UBUNTU == 'false'
         run: |
-          npm t -- --watch=false --coverage=false
+          npm t -- --no-coverage --no-watch
 
       - name: Test with coverage
         if: env.IS_UBUNTU != 'false'
         run: |
-          npm t -- --watch=false
+          npm t -- --color --no-watch
 
       - name: Upload coverage to codecov
         if: env.IS_UBUNTU != 'false' && success()
@@ -204,4 +204,4 @@ jobs:
 
       - name: Benchmark
         run: |
-          npm run bench -- --watch=false
+          npm run bench -- --no-watch
