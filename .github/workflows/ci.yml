@@ -12,6 +12,10 @@ on:
     tags-ignore:
       - '*'
 
+concurrency:
+      group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+      cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
@@ -23,20 +27,18 @@ env:
   NPM_VERSION: 0.0.0
 
 jobs:
-  setup:
+  lint:
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'docs:') && !contains(github.event.head_commit.message, 'chore(release)')"
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
-      cancel-in-progress: true
     env:
       IS_UBUNTU: ${{ contains(matrix.os, 'ubuntu') }}
-    name: setup - ${{ matrix.os }} ${{ matrix.target }}
+    name: lint - ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
       matrix:
         os: [ubuntu-latest]
         target: [16.x]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -79,40 +81,64 @@ jobs:
           npm ci
           sh $(npm root)/@reallyland/tools/list-npx-cache.sh
 
-  lint:
-    needs: [setup]
-    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'docs:') && !contains(github.event.head_commit.message, 'chore(release)')"
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
-      cancel-in-progress: true
-    name: lint - ${{ matrix.os }} ${{ matrix.target }}
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 120
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        target: [16.x]
-    steps:
       - name: Lint
         run: |
           npm run lint:build
 
   test:
-    needs: [lint]
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'docs:') && !contains(github.event.head_commit.message, 'chore(release)')"
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
-      cancel-in-progress: true
-    name: test - ${{ matrix.os }} ${{ matrix.target }}
-    runs-on: ${{ matrix.os }}
     env:
       IS_UBUNTU: ${{ contains(matrix.os, 'ubuntu') }}
+    name: test - ${{ matrix.os }} ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
       matrix:
         os: [ubuntu-latest]
         target: [16.x]
+
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # - name: Setup node@${{ matrix.target }}
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: ${{ matrix.target }}
+
+      # - name: Install latest npm
+      #   run: |
+      #     npm i -g npm@latest
+
+      - name: List versions
+        run: |
+          echo "NODE_VERSION=$(node -v)" >> $GITHUB_ENV
+          echo "NPM_CACHE_DIR=$(npm config get cache)" >> $GITHUB_ENV
+          echo "NPM_VERSION=$(npm -v)" >> $GITHUB_ENV
+
+          echo "${{ github.workflow }}-${{ github.ref || github.run_id }}"
+          pwd
+          ls -la
+          which npm
+          # npm x -y -- envinfo@latest
+
+      - name: Cache dependencies
+        id: npm-cache
+        uses: actions/cache@v2
+        with:
+          # See this glob workaround at https://github.com/actions/toolkit/issues/713.
+          path: |
+            ${{ env.NPM_CACHE_DIR }}/*
+            !${{ env.NPM_CACHE_DIR }}/_npx
+          key: ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          sh $(npm root)/@reallyland/tools/list-npx-cache.sh
+
       - name: Test
         if: env.IS_UBUNTU == 'false'
         run: |
@@ -132,11 +158,9 @@ jobs:
           flags: unit_tests
 
   bench:
-    needs: [lint]
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'docs:') && !contains(github.event.head_commit.message, 'chore(release)')"
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
-      cancel-in-progress: true
+    env:
+      IS_UBUNTU: ${{ contains(matrix.os, 'ubuntu') }}
     name: bench - ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
@@ -144,9 +168,40 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         target: [16.x]
+
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: List versions
+        run: |
+          echo "NODE_VERSION=$(node -v)" >> $GITHUB_ENV
+          echo "NPM_CACHE_DIR=$(npm config get cache)" >> $GITHUB_ENV
+          echo "NPM_VERSION=$(npm -v)" >> $GITHUB_ENV
+
+          echo "${{ github.workflow }}-${{ github.ref || github.run_id }}"
+          pwd
+          ls -la
+          which npm
+          # npm x -y -- envinfo@latest
+
+      - name: Cache dependencies
+        id: npm-cache
+        uses: actions/cache@v2
+        with:
+          # See this glob workaround at https://github.com/actions/toolkit/issues/713.
+          path: |
+            ${{ env.NPM_CACHE_DIR }}/*
+            !${{ env.NPM_CACHE_DIR }}/_npx
+          key: ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ matrix.os }}-node-${{ env.NODE_VERSION }}-npm-${{ env.NPM_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          sh $(npm root)/@reallyland/tools/list-npx-cache.sh
+
       - name: Benchmark
         run: |
           npm run bench -- --watch=false
-        env:
-          CI: false
