@@ -87,21 +87,3 @@ jobs:
       - name: Benchmark
         run: |
           npm run bench -- --watch=false
-
-      - name: Test
-        if: env.IS_UBUNTU == 'false'
-        run: |
-          npm t -- --watch=false --coverage=false
-
-      - name: Test with coverage
-        if: env.IS_UBUNTU != 'false'
-        run: |
-          npm t -- --watch=false
-
-      - name: Upload coverage to codecov
-        if: env.IS_UBUNTU != 'false' && success()
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
-          flags: unit_tests
