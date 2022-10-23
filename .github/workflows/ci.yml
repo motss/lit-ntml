@@ -30,7 +30,7 @@ jobs:
       cancel-in-progress: true
     env:
       IS_UBUNTU: ${{ contains(matrix.os, 'ubuntu') }}
-    name: ${{ matrix.os }} ${{ matrix.target }}
+    name: setup - ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     strategy:
@@ -85,8 +85,13 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
       cancel-in-progress: true
+    name: lint - ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        target: [16.x]
     steps:
       - name: Lint
         run: |
@@ -98,10 +103,15 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
       cancel-in-progress: true
+    name: test - ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     env:
       IS_UBUNTU: ${{ contains(matrix.os, 'ubuntu') }}
     timeout-minutes: 120
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        target: [16.x]
     steps:
       - name: Test
         if: env.IS_UBUNTU == 'false'
@@ -127,8 +137,13 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
       cancel-in-progress: true
+    name: bench - ${{ matrix.os }} ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        target: [16.x]
     steps:
       - name: Benchmark
         run: |
