@@ -85,6 +85,7 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
       cancel-in-progress: true
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     steps:
       - name: Lint
@@ -97,6 +98,9 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
       cancel-in-progress: true
+    runs-on: ${{ matrix.os }}
+    env:
+      IS_UBUNTU: ${{ contains(matrix.os, 'ubuntu') }}
     timeout-minutes: 120
     steps:
       - name: Test
@@ -123,8 +127,11 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
       cancel-in-progress: true
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 120
     steps:
       - name: Benchmark
         run: |
           npm run bench -- --watch=false
+        env:
+          CI: false
