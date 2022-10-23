@@ -37,6 +37,7 @@ export const htmlSync = (s: TemplateStringsArray, ...e: unknown[]): string =>
 export const htmlFragmentSync = (s: TemplateStringsArray, ...e: unknown[]): string =>
   parserSync(parseFragment, s, ...e);
 
+// eslint-disable-next-line import/no-anonymous-default-export, import/no-default-export
 export default {
   html,
   htmlFragment,

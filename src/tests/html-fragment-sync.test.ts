@@ -40,12 +40,12 @@ it(`renders with async tasks`, () => {
   expect(d).toBe(`<section>[object Promise]<h2>[object Promise]</h2></section>`);
 });
 
-it(`renders with a mixture of sync + async tasks`, async () => {
+it(`renders with a mixture of sync + async tasks`, () => {
   const asyncTask = () => helloWorld;
-  const syncLiteral = await 'John Doe';
+  const syncLiteral = Promise.resolve('John Doe');
   const d = html`<section>${asyncTask}<h2>${syncLiteral}</h2></section>`;
 
-  expect(d).toBe(`<section><h1>Hello, World!</h1><h2>John Doe</h2></section>`);
+  expect(d).toBe(`<section><h1>Hello, World!</h1><h2>[object Promise]</h2></section>`);
 });
 
 it(`renders a list of sync tasks`, () => {
