@@ -43,7 +43,7 @@ it(`renders with async tasks`, async () => {
 
 it(`renders with a mixture of sync + async tasks`, async () => {
   const asyncTask = async () => helloWorld;
-  const syncLiteral = await 'John Doe';
+  const syncLiteral = Promise.resolve('John Doe');
   const d = await html`<section>${asyncTask}<h2>${syncLiteral}</h2></section>`;
 
   expect(d).toBe(`<section><h1>Hello, World!</h1><h2>John Doe</h2></section>`);
