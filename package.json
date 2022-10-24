@@ -19,16 +19,7 @@
     "type": "git",
     "url": "git@github.com:motss/lit-ntml.git"
   },
-  "funding": [
-    {
-      "type": "buymeacoffee",
-      "url": "https://www.buymeacoffee.com/RLmMhgXFb"
-    },
-    {
-      "type": "github",
-      "url": "https://github.com/sponsors/motss"
-    }
-  ],
+  "funding": "https://github.com/motss/lit-ntml?sponsor=1",
   "license": "MIT",
   "author": {
     "name": "Rong Sen Ng",

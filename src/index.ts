@@ -4,8 +4,8 @@ import {
   serialize,
 } from 'parse5';
 
-import { parseLiterals } from './parse-literals';
-import { parseLiteralsSync } from './parse-literals-sync';
+import { parseLiterals } from './parse-literals.js';
+import { parseLiteralsSync } from './parse-literals-sync.js';
 
 // export const DEFAULT_MINIFY_OPTIONS: htmlMinifier.Options = {
 //   collapseBooleanAttributes: true,

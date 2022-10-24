@@ -3,7 +3,7 @@ import type {
   serialize,
 } from 'parse5';
 
-import { processLiterals } from './process-literals';
+import { processLiterals } from './process-literals.js';
 
 export function parseLiterals(serializeFn: typeof serialize) {
   return async (
