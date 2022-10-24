@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
+## [3.0.1-rc.4](https://github.com/motss/lit-ntml/compare/v3.0.1-rc.3...v3.0.1-rc.4) (2022-10-24)
+
+
+### chore
+
+* always upload .vscode folder ([0241b23](https://github.com/motss/lit-ntml/commit/0241b2381405a6d14a00c8bc7ee90dbc00676a17))
+
+
+
 ## [3.0.1-rc.3](https://github.com/motss/lit-ntml/compare/v3.0.1-rc.2...v3.0.1-rc.3) (2022-10-24)
 
 
@@ -493,8 +502,3 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 # [2.9.0](https://github.com/motss/lit-ntml/compare/v2.8.0...v2.9.0) (2019-09-06)
-
-
-
-
-# [2.8.0](https://github.com/motss/lit-ntml/compare/v2.7.0...v2.8.0) (2019-06-27)
