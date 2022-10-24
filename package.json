@@ -43,6 +43,7 @@
     "dist/*.*js",
     "dist/*.d.ts.map",
     "dist/*.d.ts",
+    "!**/*bench*/**/*.*",
     "!**/*test*/**/*.*"
   ],
   "scripts": {
