@@ -64,7 +64,7 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@reallyland/tools": "^0.1.0",
+    "@reallyland/tools": "^0.1.1",
     "@vitest/coverage-c8": "^0.24.3",
     "vitest": "^0.24.3"
   },
