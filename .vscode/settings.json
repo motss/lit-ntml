@@ -1,0 +1,5 @@
+{
+  "files.insertFinalNewline": false,
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
