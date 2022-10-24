@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
+# [4.0.0](https://github.com/motss/lit-ntml/compare/v3.0.1-rc.4...v4.0.0) (2022-10-24)
+
+
+### chore
+
+* update dependencies ([b086ad5](https://github.com/motss/lit-ntml/commit/b086ad54a94d1abf8620208bdde5d9e76adccec5))
+
+
+
 ## [3.0.1-rc.4](https://github.com/motss/lit-ntml/compare/v3.0.1-rc.3...v3.0.1-rc.4) (2022-10-24)
 
 
