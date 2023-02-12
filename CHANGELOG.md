@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
+## [4.0.1](https://github.com/motss/lit-ntml/compare/v4.0.1-rc.0...v4.0.1) (2023-02-12)
+
+
+
+
 ## [4.0.1-rc.0](https://github.com/motss/lit-ntml/compare/v4.0.0...v4.0.1-rc.0) (2023-02-12)
 
 
@@ -494,16 +499,3 @@ All notable changes to this project will be documented in this file. See [standa
 ### chore
 
 * Upgrade dependencies ([7cc603d](https://github.com/motss/lit-ntml/commit/7cc603dd7e750febfce06cc814b31dce3de2716c))
-
-
-
-# [2.11.0](https://github.com/motss/lit-ntml/compare/v2.10.0...v2.11.0) (2020-01-12)
-
-
-### chore
-
-* Use ESM-ify parse5 and minor update to use node@10 ([1f88bd8](https://github.com/motss/lit-ntml/commit/1f88bd85ef11cf1b6238a479bd44e96e2a6a6133))
-
-### test
-
-* Revert to use parse5 due to CJS ([c6faa88](https://github.com/motss/lit-ntml/commit/c6faa882169546b24803279d16469fedc67fb12a))

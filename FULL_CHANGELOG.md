@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
+## [4.0.1](https://github.com/motss/lit-ntml/compare/v4.0.1-rc.0...v4.0.1) (2023-02-12)
+
+
+
+
 ## [4.0.1-rc.0](https://github.com/motss/lit-ntml/compare/v4.0.0...v4.0.1-rc.0) (2023-02-12)
 
 
