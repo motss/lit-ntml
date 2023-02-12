@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
+## [4.0.1-rc.0](https://github.com/motss/lit-ntml/compare/v4.0.0...v4.0.1-rc.0) (2023-02-12)
+
+
+### build
+
+* ignore bench* folder when publishing ([4cf38a3](https://github.com/motss/lit-ntml/commit/4cf38a3c4920256c423d298eba9084847733b045))
+
+### fix
+
+* fix #68 by removing unnecessary fields before publishing (#69) ([c39ffda](https://github.com/motss/lit-ntml/commit/c39ffda35783cc3a27f7db370bf2eed31aa87ea6)), closes [#68](https://github.com/motss/lit-ntml/issues/68) [#69](https://github.com/motss/lit-ntml/issues/69)
+
+
+
 # [4.0.0](https://github.com/motss/lit-ntml/compare/v3.0.1-rc.4...v4.0.0) (2022-10-24)
 
 

@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
+## [4.0.1-rc.0](https://github.com/motss/lit-ntml/compare/v4.0.0...v4.0.1-rc.0) (2023-02-12)
+
+
+### build
+
+* ignore bench* folder when publishing ([4cf38a3](https://github.com/motss/lit-ntml/commit/4cf38a3c4920256c423d298eba9084847733b045))
+
+### fix
+
+* fix #68 by removing unnecessary fields before publishing (#69) ([c39ffda](https://github.com/motss/lit-ntml/commit/c39ffda35783cc3a27f7db370bf2eed31aa87ea6)), closes [#68](https://github.com/motss/lit-ntml/issues/68) [#69](https://github.com/motss/lit-ntml/issues/69)
+
+
+
 # [4.0.0](https://github.com/motss/lit-ntml/compare/v3.0.1-rc.4...v4.0.0) (2022-10-24)
 
 
@@ -494,16 +507,3 @@ All notable changes to this project will be documented in this file. See [standa
 ### test
 
 * Revert to use parse5 due to CJS ([c6faa88](https://github.com/motss/lit-ntml/commit/c6faa882169546b24803279d16469fedc67fb12a))
-
-
-
-# [2.10.0](https://github.com/motss/lit-ntml/compare/v2.9.0...v2.10.0) (2019-11-07)
-
-
-### chore
-
-* Upgrade deps ([ed54fa8](https://github.com/motss/lit-ntml/commit/ed54fa8ea56b82bc13db0e48b60e0691cb3aba02))
-
-### test
-
-* Drop node@8 and add node@13 ([9618aca](https://github.com/motss/lit-ntml/commit/9618acade07fe0a836a553cd1373a84c0b2c4dc8))
