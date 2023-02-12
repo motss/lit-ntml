@@ -62,6 +62,11 @@
     "parse5": "^7.1.2",
     "tslib": "^2.5.0"
   },
+  "devDependencies": {
+    "@reallyland/tools": "^0.3.1",
+    "@vitest/coverage-c8": "^0.28.4",
+    "vitest": "^0.28.4"
+  },
   "engines": {
     "node": ">= 16.x",
     "npm": ">= 8.x"
@@ -74,10 +79,5 @@
       "npm run lint:build -- -f 1",
       "git add"
     ]
-  },
-  "devDependencies": {
-    "@reallyland/tools": "^0.3.1",
-    "@vitest/coverage-c8": "^0.28.4",
-    "vitest": "^0.28.4"
   }
 }
