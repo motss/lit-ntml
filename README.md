@@ -7,7 +7,6 @@
 <hr />
 
 <a href="https://www.buymeacoffee.com/RLmMhgXFb" target="_blank" rel="noopener noreferrer"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 20px !important;width: auto !important;" ></a>
-[![tippin.me][tippin-me-badge]][tippin-me-url]
 [![Follow me][follow-me-badge]][follow-me-url]
 
 [![Version][version-badge]][version-url]
@@ -60,8 +59,8 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
 
 ## Pre-requisite
 
-- [Node.js][nodejs-url] >= 14.17.3
-- [NPM][npm-url] >= 6.14.13 ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
+- [Node.js][nodejs-url] >= 16.x
+- [NPM][npm-url] >= 8.x ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
 - [ES Modules]
 
 ## Enable syntax highlighting when writing HTML with template literal
@@ -192,7 +191,7 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [web-padawan-awesome-lit-html-url]:
  https://github.com/web-padawan/awesome-lit-html
 [deno]: https://github.com/denoland/deno
-[deno_mod/lit_ntml]: https://github.com/motss/deno_mod/tree/master/lit_ntml\
+[deno_mod/lit_ntml]: https://github.com/motss/deno_mod/tree/master/lit_ntml
 [ES Modules]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 
 [parse-promiselist-or-list-url]: #parse-promiselist-or-list
@@ -209,7 +208,6 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [promise-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 <!-- Badges -->
-[tippin-me-badge]: https://badgen.net/badge/%E2%9A%A1%EF%B8%8Ftippin.me/@igarshmyb/F0918E
 [follow-me-badge]: https://flat.badgen.net/twitter/follow/igarshmyb?icon=twitter
 
 [version-badge]: https://flat.badgen.net/npm/v/lit-ntml?icon=npm
@@ -227,7 +225,6 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 [coc-badge]: https://flat.badgen.net/badge/code%20of/conduct/pink
 
 <!-- Links -->
-[tippin-me-url]: https://tippin.me/@igarshmyb
 [follow-me-url]: https://twitter.com/igarshmyb?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml
 
 [version-url]: https://www.npmjs.com/package/lit-ntml

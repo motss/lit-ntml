@@ -55,19 +55,12 @@
     "lint-commit": "sh $(npm root)/@reallyland/tools/lint-commit.sh",
     "lint:build": "sh $(npm root)/@reallyland/tools/lint-build.sh -c $(npm root)/@reallyland/tools/browser/.build.eslintrc.json",
     "pre-commit": "sh $(npm root)/@reallyland/tools/pre-commit.sh",
-    "prepublishOnly": "npm run lint:build && npm run build",
     "test": "vitest --coverage",
-    "ts": "tsc",
     "version": "sh $(npm root)/@reallyland/tools/generate-changelogs.sh && git add *CHANGELOG.md"
   },
   "dependencies": {
-    "parse5": "^7.1.1",
-    "tslib": "^2.4.0"
-  },
-  "devDependencies": {
-    "@reallyland/tools": "^0.1.1",
-    "@vitest/coverage-c8": "^0.24.3",
-    "vitest": "^0.24.3"
+    "parse5": "^7.1.2",
+    "tslib": "^2.5.0"
   },
   "engines": {
     "node": ">= 16.x",
@@ -81,5 +74,10 @@
       "npm run lint:build -- -f 1",
       "git add"
     ]
+  },
+  "devDependencies": {
+    "@reallyland/tools": "^0.3.1",
+    "@vitest/coverage-c8": "^0.28.4",
+    "vitest": "^0.28.4"
   }
 }

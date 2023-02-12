@@ -1,16 +1,11 @@
 name: ci
 
 on:
-  push:
-    branches:
-      - '*'
-    tags-ignore:
-      - '*'
   pull_request:
     branches:
-      - '*'
-    tags-ignore:
-      - '*'
+      - '**'
+    paths-ignore:
+      - '**/*.md'
 
 concurrency:
       group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -37,7 +32,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        target: [16.x]
+        target: [18.x]
 
     steps:
       - name: Checkout
@@ -69,6 +64,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          npm pkg delete scripts.postinstall
           npm ci
           sh $(npm root)/@reallyland/tools/list-npx-cache.sh
 
@@ -86,7 +82,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        target: [16.x]
+        target: [18.x]
 
     steps:
       - name: Checkout
@@ -123,6 +119,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          npm pkg delete scripts.postinstall
           npm ci
           sh $(npm root)/@reallyland/tools/list-npx-cache.sh
 
@@ -154,7 +151,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        target: [16.x]
+        target: [18.x]
 
     steps:
       - name: Checkout
@@ -186,6 +183,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          npm pkg delete scripts.postinstall
           npm ci
           sh $(npm root)/@reallyland/tools/list-npx-cache.sh
 
