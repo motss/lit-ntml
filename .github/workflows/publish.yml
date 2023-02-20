@@ -2,14 +2,15 @@ name: publish
 
 on:
   push:
-    tags:
-      - 'v**'
+    branches:
+      - main
 
 defaults:
   run:
     shell: bash
 
 env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   NODE_VERSION: v0.0.0
   NPM_CACHE_DIR: ~/.npm
@@ -76,32 +77,11 @@ jobs:
         run: |
           npm pkg delete devDependencies nano-staged scripts
 
-      - name: Publish to npm (Prerelease)
-        if: contains(github.ref, '-rc') == true || contains(github.ref, '-') == true
-        run: |
-          npm publish . --tag=next
-
-      - name: Publish to npm
-        if: contains(github.ref, '-rc') == false && contains(github.ref, '-') == false
-        run: |
-          npm publish .
-
-      # See https://github.com/actions/setup-node/issues/73.
-      # - name: Setup node@${{ matrix.target }}
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ matrix.target }}
-      #     registry-url: 'https://npm.pkg.github.com/'
-      #     scope: '@motss'
-
-      # - name: Publish to GPR (Prerelease)
-      #   if: success() && contains(github.ref, '-') == true
-      #   run: |
-      #     npm config list
-      #     npm publish . --tag=next
-
-      # - name: Publish to GPR (Prerelease)
-      #   if: success() && contains(github.ref, '-') == false
-      #   run: |
-      #     npm config list
-      #     npm publish .
+      - name: Create release pull request or publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          commit: 'chore: release package'
+          publish: npm x -y -- changeset publish
+          title: 'chore: release package'
+          version: npm x -y -- changeset version

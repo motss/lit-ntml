@@ -15,6 +15,9 @@
     "templating"
   ],
   "homepage": "https://github.com/motss/lit-ntml",
+  "bugs": {
+    "url": "https://github.com/motss/lit-ntml/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:motss/lit-ntml.git"
@@ -22,7 +25,7 @@
   "funding": "https://github.com/motss/lit-ntml?sponsor=1",
   "license": "MIT",
   "author": {
-    "name": "Rong Sen Ng",
+    "name": "Rong Sen Ng (motss)",
     "email": "wes.ngrongsen@gmail.com",
     "url": "https://github.com/motss"
   },
@@ -63,7 +66,7 @@
     "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@reallyland/tools": "^0.3.3",
+    "@reallyland/tools": "^0.3.4",
     "@vitest/coverage-c8": "^0.28.5",
     "vitest": "^0.28.5"
   },
@@ -73,5 +76,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "readme": "https://github.com/motss/lit-ntml/blob/main/README.md"
 }
