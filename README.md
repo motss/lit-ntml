@@ -6,19 +6,18 @@
 
 <hr />
 
-<a href="https://www.buymeacoffee.com/RLmMhgXFb" target="_blank" rel="noopener noreferrer"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 20px !important;width: auto !important;" ></a>
+[![Buy me a coffee][buy-me-a-coffee-badge]][buy-me-a-coffee-url]
 [![Follow me][follow-me-badge]][follow-me-url]
 
-[![Version][version-badge]][version-url]
-[![Node version][node-version-badge]][node-version-url]
+[![npm-latest][npm-latest-badge]][npm-latest-url]
 [![MIT License][mit-license-badge]][mit-license-url]
 
 [![Downloads][downloads-badge]][downloads-url]
 [![Total downloads][total-downloads-badge]][downloads-url]
-[![Packagephobia][packagephobia-badge]][packagephobia-url]
-[![Bundlephobia][bundlephobia-badge]][bundlephobia-url]
 
-[![ci][ga-badge]][ga-url]
+[![Dependencies][dependencies-badge]][dependencies-url]
+[![ci][ga-ci-badge]][ga-ci-url]
+[![publish][ga-publish-badge]][ga-publish-url]
 [![codecov][codecov-badge]][codecov-url]
 
 [![Code of Conduct][coc-badge]][coc-url]
@@ -51,16 +50,15 @@ This module also gets featured in [web-padawan/awesome-lit-html][web-padawan-awe
 
 ## Features
 
-- [x] `await` all tasks including Functions, Promises, and whatnot.
-- [x] Compatible for ES Modules (`import { html } from 'lit-ntml'`) and CommonJS (`const { html } = require('lit-ntml');`).
-- [x] Parses `PromiseList` or `List` by default, without explicit joining.
-- [x] Support HTML syntax highlighting + autocompletion with [vscode-lit-html][vscode-lit-html-url] in JavaScript's template string.
-- [x] Support native ES Module via `.mjs`.
+| Support | Feature |
+| --- | --- |
+| ✅ | `await` all tasks including Functions, Promises, and whatnot. |
+| ✅ | Parse `PromiseList` or `List` by default, without explicit joining. |
+| ✅ | Support HTML syntax highlighting + autocompletion with [vscode-lit-html][vscode-lit-html-url] in JavaScript's template string. |
 
 ## Pre-requisite
 
 - [Node.js][nodejs-url] >= 16.x
-- [NPM][npm-url] >= 8.x ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
 - [ES Modules]
 
 ## Enable syntax highlighting when writing HTML with template literal
@@ -143,7 +141,7 @@ Only modern browsers with native [ES Modules] support requires no polyfills and 
 <html>
   <head>
     <script type="module">
-      import { html } from 'https://cdn.skypack.dev/lit-ntml@latest';
+      import { html } from 'https://esm.sh/lit-ntml@latest';
 
       // --snip
     </script>
@@ -155,19 +153,19 @@ Only modern browsers with native [ES Modules] support requires no polyfills and 
 
 ### html()
 
-- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML document string.
+- returns: <[Promise][promise-mdn-url]<[string][string-mdn-url]>> Promise which resolves with rendered HTML document string.
 
 ### htmlSync()
 
-This method works the same as `html()` except that this is the synchronous version.
+This method works the same as [html()] except that this is the synchronous version.
 
 ### htmlFragment()
 
-- returns: <[Promise][promise-mdn-url]&lt;[string][string-mdn-url]&gt;> Promise which resolves with rendered HTML document fragment string.
+- returns: <[Promise][promise-mdn-url]<[string][string-mdn-url]>> Promise which resolves with rendered HTML document fragment string.
 
 ### htmlFragmentSync()
 
-This method works the same as `htmlFragment()` except that this is the synchronous version.
+This method works the same as [htmlFragment()] except that this is the synchronous version.
 
 ## deno
 
@@ -177,65 +175,58 @@ This method works the same as `htmlFragment()` except that this is the synchrono
 
 [MIT License](https://motss.mit-license.org) © Rong Sen Ng
 
-<!-- References -->
-[nodejs-url]: https://nodejs.org
-[lit-html-url]: https://github.com/PolymerLabs/lit-html
-[npm-url]: https://www.npmjs.com
-[parse5-url]: https://www.npmjs.com/package/parse5
-[pretty-url]: https://www.npmjs.com/package/pretty
-[vscode-lit-html-url]: https://github.com/mjbvz/vscode-lit-html
-[typescript-url]: https://github.com/Microsoft/TypeScript
-[htmlminifier-url]: https://github.com/kangax/html-minifier
-[htmlminifier-flags-url]: https://github.com/kangax/html-minifier#options-quick-reference
-[pretty-flag-url]: https://github.com/jonschlinkert/pretty#ocd
-[web-padawan-awesome-lit-html-url]:
- https://github.com/web-padawan/awesome-lit-html
-[deno]: https://github.com/denoland/deno
-[deno_mod/lit_ntml]: https://github.com/motss/deno_mod/tree/master/lit_ntml
-[ES Modules]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 
-[parse-promiselist-or-list-url]: #parse-promiselist-or-list
-[ntmlopts-url]: #ntmlopts
-[default-minify-options-url]: #default_minify_options
+
+<!-- References -->
+[deno_mod/lit_ntml]: https://github.com/motss/deno_mod/tree/master/lit_ntml
+[deno]: https://github.com/denoland/deno
+[ES Modules]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+[html()]: #html-1
+[htmlFragment()]: #htmlfragment-1
+[lit-html-url]: https://github.com/PolymerLabs/lit-html
+[nodejs-url]: https://nodejs.org
+[typescript-url]: https://github.com/Microsoft/TypeScript
+[vscode-lit-html-url]: https://github.com/mjbvz/vscode-lit-html
+[web-padawan-awesome-lit-html-url]: https://github.com/web-padawan/awesome-lit-html
 
 <!-- MDN -->
-[map-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
-[string-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
-[object-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
-[number-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
 [boolean-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 [html-style-element-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLStyleElement
+[map-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+[number-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+[object-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 [promise-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[string-mdn-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
 
 <!-- Badges -->
-[follow-me-badge]: https://flat.badgen.net/twitter/follow/igarshmyb?icon=twitter
+[buy-me-a-coffee-badge]: https://img.shields.io/badge/buy%20me%20a-coffee-ff813f?logo=buymeacoffee&style=flat-square
+[follow-me-badge]: https://img.shields.io/badge/follow-@igarshmyb-1d9bf0?logo=twitter&style=flat-square
 
-[version-badge]: https://flat.badgen.net/npm/v/lit-ntml?icon=npm
-[node-version-badge]: https://flat.badgen.net/npm/node/lit-ntml
-[mit-license-badge]: https://flat.badgen.net/npm/license/lit-ntml
+[npm-latest-badge]: https://img.shields.io/npm/v/lit-ntml?color=blue&logo=npm&style=flat-square
+[mit-license-badge]: https://img.shields.io/npm/l/lit-ntml?color=blue&style=flat-square
 
-[downloads-badge]: https://flat.badgen.net/npm/dm/lit-ntml
-[total-downloads-badge]: https://flat.badgen.net/npm/dt/lit-ntml?label=total%20downloads
-[packagephobia-badge]: https://flat.badgen.net/packagephobia/install/lit-ntml
-[bundlephobia-badge]: https://flat.badgen.net/bundlephobia/minzip/lit-ntml
+[downloads-badge]: https://img.shields.io/npm/dm/lit-ntml?style=flat-square
+[total-downloads-badge]: https://img.shields.io/npm/dt/lit-ntml?label=total%20downloads&style=flat-square
 
-[ga-badge]: https://github.com/motss/lit-ntml/actions/workflows/ci.yml/badge.svg?branch=main
-[codecov-badge]: https://flat.badgen.net/codecov/c/github/motss/lit-ntml?label=codecov&icon=codecov
+[dependencies-badge]: https://img.shields.io/librariesio/release/npm/lit-ntml/latest?style=flat-square
+[ga-ci-badge]: https://img.shields.io/github/actions/workflow/status/motss/lit-ntml/ci.yml?branch=main&label=ci&logo=githubactions&logoColor=white&style=flat-square
+[ga-publish-badge]: https://img.shields.io/github/actions/workflow/status/motss/lit-ntml/publish.yml?branch=main&label=publish&logo=githubactions&logoColor=white&style=flat-square
+[codecov-badge]: https://img.shields.io/codecov/c/github/motss/lit-ntml/main?label=codecov&logo=codecov&style=flat-square
 
-[coc-badge]: https://flat.badgen.net/badge/code%20of/conduct/pink
+[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ed55bb?style=flat-square
 
 <!-- Links -->
+[buy-me-a-coffee-url]: https://www.buymeacoffee.com/RLmMhgXFb
 [follow-me-url]: https://twitter.com/igarshmyb?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=motss/lit-ntml
 
-[version-url]: https://www.npmjs.com/package/lit-ntml
-[node-version-url]: https://nodejs.org/en/download
-[mit-license-url]: https://github.com/motss/lit-ntml/blob/master/LICENSE
+[npm-latest-url]: https://www.npmjs.com/package/lit-ntml/v/latest
+[mit-license-url]: https://github.com/motss/lit-ntml/blob/main/LICENSE
 
 [downloads-url]: http://www.npmtrends.com/lit-ntml
-[packagephobia-url]: https://packagephobia.now.sh/result?p=lit-ntml
-[bundlephobia-url]: https://bundlephobia.com/result?p=lit-ntml
 
-[ga-url]: https://github.com/motss/lit-ntml/actions/workflows/ci.yml
-[codecov-url]: https://codecov.io/gh/motss/lit-ntml
+[dependencies-url]: https://libraries.io/npm/lit-ntml
+[ga-ci-url]: https://github.com/motss/lit-ntml/actions/workflows/ci.yml?query=branch%3Amain
+[ga-publish-url]: https://github.com/motss/lit-ntml/actions/workflows/publish.yml?query=branch%3Amain
+[codecov-url]: https://app.codecov.io/gh/motss/lit-ntml/tree/main
 
-[coc-url]: https://github.com/motss/lit-ntml/blob/master/code-of-conduct.md
+[coc-url]: https://github.com/motss/lit-ntml/blob/main/code-of-conduct.md
