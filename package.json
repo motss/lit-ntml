@@ -63,9 +63,9 @@
     "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@reallyland/tools": "^0.3.1",
-    "@vitest/coverage-c8": "^0.28.4",
-    "vitest": "^0.28.4"
+    "@reallyland/tools": "^0.3.3",
+    "@vitest/coverage-c8": "^0.28.5",
+    "vitest": "^0.28.5"
   },
   "engines": {
     "node": ">= 16.x",
@@ -73,11 +73,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "nano-staged": {
-    "*.ts": [
-      "npm run lint:build -- -f 1",
-      "git add"
-    ]
   }
 }
