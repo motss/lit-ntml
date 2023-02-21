@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.2
+
+### Patch Changes
+
+- [#74](https://github.com/motss/lit-ntml/pull/74) [`63472f4`](https://github.com/motss/lit-ntml/commit/63472f4538322bbab0fda9b03e5b832aa719d9a8) Thanks [@motss](https://github.com/motss)! - chore: standardize test params for tests and benchmarks
+
+- [#71](https://github.com/motss/lit-ntml/pull/71) [`4ea239a`](https://github.com/motss/lit-ntml/commit/4ea239ae9c9991f8e70430506f79d03b287f52af) Thanks [@motss](https://github.com/motss)! - feat: integrate changeset
+
 ## 4.0.2-rc.0
 
 ### Patch Changes
