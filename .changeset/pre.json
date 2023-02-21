@@ -4,5 +4,8 @@
   "initialVersions": {
     "lit-ntml": "4.0.1"
   },
-  "changesets": []
+  "changesets": [
+    "tasty-pears-sit",
+    "thin-donuts-confess"
+  ]
 }
